@@ -1,0 +1,35 @@
+# file: bossjones.common/vars/bootstrap.yml
+---
+openssh_packages:
+  - openssh-server
+
+general_prereqs:
+  - libssl-dev
+  - libreadline-dev
+  - wget
+  - curl
+  - gcc
+  - make
+  - linux-headers-$(uname -r)
+  - ca-certificates
+  - bash
+  - lsof
+  - strace
+  - nmap
+  - htop
+  - vim
+
+python_prereqs:
+  - python-setuptools
+  - perl
+  - software-properties-common
+  - python
+  - python-pip
+  - python-dev
+
+helpful_prereqs:
+  - nmap
+  - screen
+  - whois
+  - bzr
+  - unzip

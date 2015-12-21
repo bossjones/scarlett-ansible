@@ -1,0 +1,13 @@
+---
+- hosts: all
+  tasks:
+    - name: ensure ntpd is at the latest version
+      apt: pkg={{ item }} state=latest
+      with_items:
+      - ntp
+      - ntpdate
+      notify:
+      - restart ntpd
+  handlers:
+    - name: restart ntpd
+      service: name=ntpd state=restarted

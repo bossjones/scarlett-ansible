@@ -1,0 +1,53 @@
+# file: bossjones.common/tasks/bootstrap.yml
+---
+
+- name: Read the bootstrap variables
+  include_vars: "bootstrap.yml"
+
+  tasks:
+  - name: Make sure the general_prereqs packages are installed (Debian)
+    apt:
+      name: "{{item}}"
+      state: latest
+    with_items: general_prereqs
+    register: output
+    changed_when: "'0 upgraded, 0 newly installed, 0 to remove' not in output.stdout and 'not upgraded' not in output.stdout"
+    sudo: yes
+
+  - name: Make sure the openssh_packages packages are installed (Debian)
+    apt:
+      name: "{{item}}"
+      state: latest
+    with_items: openssh_packages
+    register: output
+    changed_when: "'0 upgraded, 0 newly installed, 0 to remove' not in output.stdout and 'not upgraded' not in output.stdout"
+    sudo: yes
+
+  - name: Make sure the general_prereqs packages are installed (Debian)
+    apt:
+      name: "{{item}}"
+      state: latest
+    with_items: general_prereqs
+    register: output
+    changed_when: "'0 upgraded, 0 newly installed, 0 to remove' not in output.stdout and 'not upgraded' not in output.stdout"
+    sudo: yes
+
+  - name: Make sure the python_prereqs packages are installed (Debian)
+    apt:
+      name: "{{item}}"
+      state: latest
+    with_items: python_prereqs
+    register: output
+    changed_when: "'0 upgraded, 0 newly installed, 0 to remove' not in output.stdout and 'not upgraded' not in output.stdout"
+    sudo: yes
+
+  - name: Add git-core repo PPA
+    apt_repository: repo='ppa:git-core/ppa' state=present
+    update_cache: yes
+    sudo: yes
+
+  - name: Install git packages via apt
+    apt: pkg={{ item }} state=latest
+    with_items:
+    - git
+    sudo: yes

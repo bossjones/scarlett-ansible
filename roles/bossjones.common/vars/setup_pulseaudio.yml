@@ -1,0 +1,34 @@
+# file: bossjones.common/vars/pulseaudio.yml
+---
+sound_libs:
+- faac
+- faad
+- flex
+
+pulse_prereqs:
+  - libpulse-dev
+  - libpulse-mainloop-glib0
+  - libpulse-mainloop-glib0-dbg
+  - libpulse0
+  - libpulse0-dbg
+  - libsox-fmt-pulse
+  - libusb-1.0
+  - paman
+  - paprefs
+  - pavucontrol
+  - pavumeter
+  - pulseaudio
+  - pulseaudio-dbg
+  - pulseaudio-esound-compat
+  - pulseaudio-esound-compat-dbg
+  - pulseaudio-module-bluetooth
+  - pulseaudio-module-gconf
+  - pulseaudio-module-jack
+  - pulseaudio-module-lirc
+  - pulseaudio-module-lirc-dbg
+  - pulseaudio-module-x11
+  - pulseaudio-module-zeroconf
+  - pulseaudio-module-zeroconf-dbg
+  - pulseaudio-utils
+  - pavucontrol
+  - avahi-daemon

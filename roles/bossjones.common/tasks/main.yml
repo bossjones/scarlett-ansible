@@ -1,9 +1,15 @@
+# file: bossjones.common/tasks/main.yml
 ---
 
 - name: Update apt
   apt: update_cache=yes
   sudo: yes
 
-- name: Install vim
-  apt: pkg=vim state=present
-  sudo: yes
+- name: setup motd
+  copy: src=etc/motd
+        dest=/etc/motd
+        owner=root
+        group=root
+        mode=0644
+  tags:
+  - motd

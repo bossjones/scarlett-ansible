@@ -1,0 +1,3 @@
+- hosts: all
+  tasks:
+    - include: 'roles/bossjones.common/tasks/main.yml'

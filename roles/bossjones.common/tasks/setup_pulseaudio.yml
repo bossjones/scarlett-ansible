@@ -1,0 +1,50 @@
+# file: bossjones.common/tasks/setup_pulseaudio.yml
+---
+
+- name: Read the setup_pulseaudio variables
+  include_vars: "setup_pulseaudio.yml"
+
+  tasks:
+  - name: Make sure the setup_pulseaudio packages are installed (Debian)
+    apt:
+      name: "{{item}}"
+      state: latest
+    with_items: setup_pulseaudio
+    register: output
+    changed_when: "'0 upgraded, 0 newly installed, 0 to remove' not in output.stdout and 'not upgraded' not in output.stdout"
+    sudo: yes
+    tags:
+    - pulse
+
+  - name: configure pulseaudio
+    copy: src=etc/pulse/{{ item }}
+          dest=/etc/pulse/{{ item }}
+          owner=root
+          group=root
+          mode=0644
+          backup=yes
+    with_items:
+    - client.conf
+    - daemon.conf
+    - default.pa
+    - system.pa
+    tags:
+    - pulse
+    notify: restart pulseaudio
+
+  # - name: ensure apache is running (and enable it at boot)
+  #   service: name=pulseaudio state=started enabled=yes
+  #   handlers:
+  #   - name: restart apache
+  #     service: name=pulseaudio state=restarted
+
+  - name: add pi to pulse group
+    command: adduser pi pulse-access
+    sudo: yes
+
+  - name: adduser pi dialout
+    command: adduser pi dialout
+
+  - name: adduser pi tty
+    command: adduser pi tty
+
