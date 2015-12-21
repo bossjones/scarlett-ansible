@@ -12,7 +12,7 @@
   - name: Make sure the gstreamer_prereqs packages are installed (Debian)
     apt:
       name: "{{item}}"
-      state: latest
+      state: present
     with_items: gstreamer_prereqs
     register: output
     changed_when: "'0 upgraded, 0 newly installed, 0 to remove' not in output.stdout and 'not upgraded' not in output.stdout"
