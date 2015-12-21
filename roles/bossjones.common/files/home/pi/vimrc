@@ -1,0 +1,449 @@
+"syntax on
+" Enable Syntax highlighting
+filetype on " without this vim emits a zero exit status, later, because of :ft off
+filetype off
+
+
+set nocompatible  " be iMproved
+
+call plug#begin()
+
+" My Bundles
+Plug 'bling/vim-airline'
+Plug 'craigemery/vim-autotag'
+"Plugin 'Lokaltog/vim-easymotion'
+Plug 'mileszs/ack.vim'
+Plug 'kien/ctrlp.vim'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'skwp/greplace.vim'
+Plug 't9md/vim-chef'
+Plug 'austintaylor/vim-indentobject'
+Plug 'vim-scripts/kwbdi.vim'
+Plug 'tmhedberg/matchit'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'tpope/vim-pastie'
+Plug 'tpope/vim-rake'
+Plug 'altercation/vim-colors-solarized'
+Plug 'tpope/vim-surround'
+Plug 'rizzatti/funcoo.vim'
+Plug 'rizzatti/dash.vim'
+Plug 'nvie/vim-flake8'
+Plug 'scrooloose/syntastic'
+Plug 'rosstimson/bats.vim'
+Plug 'majutsushi/tagbar'
+Plug 'leafgarland/typescript-vim'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-repeat'
+Plug 'jtratner/vim-flavored-markdown'
+Plug 'nathanaelkane/vim-indent-guides'
+"Plug 'christoomey/vim-tmux-navigator'
+Plug 'tpope/vim-vividchalk'
+Plug 'w0ng/vim-hybrid'
+Plug 'elzr/vim-json'
+Plug 'git@github.com:SirVer/ultisnips.git'
+Plug 'Shougo/unite.vim'
+"Plug 'alpaca-tc/vim-unite-watson.vim'
+Plug 'ngmy/vim-rubocop'
+"Plug 'Valloric/YouCompleteMe', { 'do': './install.sh' }
+Plug 'Valloric/MatchTagAlways'
+"Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer' }
+
+" Languages
+Plug 'ekalinin/Dockerfile.vim'
+Plug 'elzr/vim-json'
+Plug 'fatih/vim-go'
+Plug 'joshtronic/php.vim'
+Plug 'jelera/vim-javascript-syntax'
+Plug 'othree/html5.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'tpope/vim-markdown'
+Plug 'kchmck/vim-coffee-script'
+Plug 'tpope/vim-rails'
+Plug 'vim-ruby/vim-ruby'
+Plug 'slim-template/vim-slim'
+
+" Colors
+Plug 'nanotech/jellybeans.vim'
+Plug 'Pychimp/vim-luna'
+Plug 'baskerville/bubblegum'
+Plug 'whatyouhide/vim-gotham'
+
+call plug#end()
+filetype plugin indent on
+syntax enable
+
+" Various sets to make stuff better
+set autoindent
+set autoread
+set backspace=2        "indent,eol,start
+set backupcopy=yes
+"set t_vb=
+set clipboard=unnamed
+set cmdheight=2
+set cursorline
+set directory-=.
+set encoding=utf-8
+set expandtab
+set formatoptions=qrn1
+set ignorecase
+set incsearch
+set laststatus=2
+set list
+set listchars=tab:▸\ ,trail:▫
+set hidden
+set number
+set ruler
+set scrolloff=3
+set shiftwidth=2
+set showcmd
+set smartindent
+set smartcase
+set softtabstop=2
+set splitright
+set switchbuf=useopen
+set synmaxcol=400
+set tabstop=8
+set t_Co=256
+set tags=./tags;/
+set visualbell
+set wildmenu
+set wildignore+=.hg/,.git/,.svn/
+set wildignore+=*.aux,*.out,*.toc
+set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg
+set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest
+set wildignore+=*.spl
+set wildignore+=*.sw?
+set wildignore+=*.DS_Store
+set wildignore+=*.luac
+set wildignore+=migrations
+set wildignore+=*.pyc
+set wildignore+=*.orig
+set wildignore+=*/classes/*,*/tmp*
+set wildignore=+log/**,node_modules/**,target/**,tmp/**,*.rbc
+set wildmenu
+set wildmode=longest,list,full
+
+" I don't know what these do but I should find out
+set noswapfile
+"set nobackup
+set undofile
+set undodir=~/tmp/vim/undo
+
+" Same here I don't know what these do but I need to figure it out
+set showmatch
+set incsearch
+set hlsearch
+set foldlevelstart=0
+
+" Better Completion
+set omnifunc=syntaxcomplete#Complete
+set complete=.,w,b,u,t
+set completeopt+=longest,menuone,preview
+
+" mouse=a will prevent you from copying using the mouse in iterm
+" You can still copy if you hold option while selecting
+set mouse=a
+" if exists('$TMUX') "Support resizing in TMUX
+"   set ttymouse=xterm2
+" endif
+
+let mapleader = ','
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+noremap <leader>l :Align
+nnoremap <leader>a :Ack
+nnoremap <leader>b :CtrlPBuffer<CR>
+nnoremap <leader>d :NERDTreeToggle<CR>
+nnoremap <leader>f :NERDTreeFind<CR>
+nnoremap <leader>t :CtrlP<CR>
+nnoremap <leader>T :CtrlPClearCache<CR>:CtrlP<CR>
+nnoremap <leader>] :TagbarToggle<CR>
+nnoremap <leader><space> :call whitespace#strip_trailing()<CR>
+nnoremap <leader>g :GitGutterToggle<CR>
+nnoremap <leader>c <Plug>Kwbd
+nnoremap <Leader>= :%!jq -M '.'<CR>
+noremap <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
+
+" plugin settings
+let g:ctrlp_match_window = 'order:ttb,max:20'
+let g:NERDSpaceDelims=1
+let g:gitgutter_enabled = 0
+let g:syntastic_ruby_checkers = ['mri', 'rubocop']
+let g:vimrubocop_rubocop_cmd = 'bundle exec rubocop '
+let g:ycm_path_to_python_interpreter = '/usr/bin/python'
+let g:ycm_use_ultisnips_completer = 1
+
+" Malcolm added:
+" vim-go {{{
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+" }}}
+" vim-json {{{
+let g:vim_json_syntax_conceal = 0
+" }}}
+
+" YouCompleteMe {{{
+let g:ycm_autoclose_preview_window_after_completion = 1
+" }}}
+
+" autocmd BufWritePost *.py call Flake8()
+
+" Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
+if executable('ag')
+  let g:ackprg = 'ag --nogroup --column'
+
+  " Use Ag over Grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
+
+" fdoc is yaml
+autocmd BufRead,BufNewFile *.fdoc set filetype=yaml
+
+" vim-flavored-markdown config
+augroup markdown
+  au!
+  au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
+augroup END
+
+" extra rails.vim help
+autocmd User Rails silent! Rnavcommand decorator      app/decorators            -glob=**/* -suffix=_decorator.rb
+autocmd User Rails silent! Rnavcommand observer       app/observers             -glob=**/* -suffix=_observer.rb
+autocmd User Rails silent! Rnavcommand feature        features                  -glob=**/* -suffix=.feature
+autocmd User Rails silent! Rnavcommand job            app/jobs                  -glob=**/* -suffix=_job.rb
+autocmd User Rails silent! Rnavcommand mediator       app/mediators             -glob=**/* -suffix=_mediator.rb
+autocmd User Rails silent! Rnavcommand stepdefinition features/step_definitions -glob=**/* -suffix=_steps.rb
+" automatically rebalance windows on vim resize
+autocmd VimResized * :wincmd =
+
+" Autocommands {{{
+" Only do this part when compiled with support for autocommands
+if has("autocmd")
+  augroup common
+    au!
+
+    " Jump to last cursor position unless it's invalid or in an event handler
+    au BufWinEnter *
+      \ if line("'\"") > 0 && line("'\"") <= line("$") |
+      \   exe "normal g`\"" |
+      \ endif
+
+    " Cursor Highlight in Insert mode is annoying
+    au WinLeave,InsertEnter * set nocursorline
+    au WinEnter,InsertLeave * set cursorline
+  augroup END
+
+  augroup git
+    au!
+
+    au BufNewFile,BufRead *gitconfig* setfiletype gitconfig
+
+  augroup vimrcEx
+    au!
+
+    " Save the buffer when focus is lost
+    au FocusLost * :wa
+
+    " Auto-source the .vimrc file when it is saved
+    au BufWritePost *vimrc* source $MYVIMRC
+
+    " Syntax of these languages is fussy over tabs Vs spaces
+    au FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
+    au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+    au FileType ruby setlocal ts=2 sts=2 sw=2 expandtab
+    au FileType python setlocal ts=4 sts=4 sw=4 expandtab
+
+    " Customisations based on personal preferences
+    au FileType css setlocal ts=2 sts=2 sw=2 expandtab
+
+    au BufNewFile,BufRead *.zsh* setfiletype zsh
+  augroup END
+
+  augroup html
+    au!
+
+    au FileType html setlocal ts=2 sts=2 sw=2 expandtab
+
+    au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    au FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+    au BufNewFile,BufRead *.ejs setfiletype html
+  augroup END
+
+  augroup clojure
+    au!
+
+    au Filetype clojure RainbowParenthesesActivate
+    au FileType clojure RainbowParenthesesLoadRound
+    au FileType clojure RainbowParenthesesLoadSquare
+    au FileType clojure RainbowParenthesesLoadBraces
+  augroup END
+
+  augroup java
+    au!
+
+    au FileType java setlocal foldmethod=marker
+    au FileType java setlocal foldmarker={,}
+    au BufWritePre *.java call StripTrailing()
+  augroup END
+
+  augroup scala
+    au!
+
+    au BufWritePre *.scala call StripTrailing()
+  augroup END
+
+  augroup json
+    au!
+
+    au BufNewFile,BufRead .tern-project setfiletype json
+    au BufNewFile,BufRead .jshintrc setfiletype json
+    au BufNewFile,BufRead .jscsrc setfiletype json
+  augroup end
+
+  augroup javascript
+      au!
+
+      au BufNewFile,BufRead *.njs setfiletype javascript
+
+      au FileType javascript setlocal foldmethod=marker
+      au FileType javascript setlocal foldmarker={,}
+      au FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
+
+      " Tern Bindings
+      au FileType javascript inoremap <C-t> <esc>:TernType<cr>a
+      au FileType javascript nnoremap <C-t> :TernType<cr>
+
+      au FileType javascript noremap <C-d> <esc>:TernDef<cr>
+      au FileType javascript noremap <C-d> :TernDef<cr>
+
+      " Mocha runner bindings
+      au FileType javascript inoremap <C-t> <esc>:TernType<cr>a
+      au FileType javascript nnoremap <C-t> :TernType<cr>
+      au FileType javascript noremap <C-d> <esc>:TernDef<cr>
+      au FileType javascript noremap <C-d> :TernDef<cr>
+
+      au FileType javascript map <leader>rt :call mocha#RunCurrentSpecFile()<CR>
+      au FileType javascript map <leader>rs :call mocha#RunNearestSpec()<CR>
+      au FileType javascript map <leader>rl :call mocha#RunLastSpec()<CR>
+      au FileType javascript map <leader>ra :call mocha#RunAllSpecs()<CR>
+
+      au BufWritePre *.js,*.njs call StripTrailing()
+  augroup END
+
+  augroup coffee
+    au!
+
+    au BufWritePre *.coffee call StripTrailing()
+  augroup END
+
+  augroup css
+    au!
+
+    au BufNewFile,BufRead *.styl setfiletype stylus
+    au BufNewFile,BufRead *.roo setfiletype stylus
+
+    au FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    au Filetype css,sass,scss,less,stylus setlocal foldmethod=marker
+    au Filetype css,sass,scss,less,stylus setlocal foldmarker={,}
+    au Filetype css,sass,scss,less,stylus setlocal omnifunc=csscomplete#CompleteCSS
+    au Filetype css,sass,scss,less,stylus setlocal iskeyword+=-
+  augroup END
+
+  augroup groovy
+    au!
+    au BufNewFile,BufRead *.gradle set ft=groovy
+  augroup END
+
+  augroup go
+    au!
+    au FileType go setlocal ts=4 sts=4 sw=4
+
+    au BufWritePre *.go :silent GoImports
+    au BufWritePre *.go call StripTrailing()
+
+    au FileType go map <leader>t :GoTest<CR>
+  augroup END
+
+  augroup ruby
+    au!
+
+    au FileType ruby setlocal omnifunc=rubycomplete#Complete
+
+    au BufNewFile,BufRead Rakefile,Guardfile,Vagrantfile set ft=ruby
+    au BufWritePre *.rb call StripTrailing()
+
+    " xmpfilter mappings for poorman's insta-repl
+    "nmap <silent> <leader>ra mzggVG!xmpfilter -a<cr>'z
+    "imap <silent> <leader>ra <ESC><leader>ra
+
+    " add # => marker
+    "vmap <silent> <leader>rm !xmpfilter -m<cr>
+    "nmap <silent> <leader>rm V<leader>rm
+    "imap <silent> <leader>rm <ESC><leader>rma
+
+    " remove # => marker
+    "vmap <silent> <leader>rd ms:call RemoveRubyEval()<CR>
+    "nmap <silent> <leader>rd V<leader>rd
+    "imap <silent> <leader>rd <ESC><leader>rda
+
+    au FileType ruby map <leader>rt :call RunCurrentSpecFile()<CR>
+    au FileType ruby map <leader>rs :call RunNearestSpec()<CR>
+    au FileType ruby map <leader>rl :call RunLastSpec()<CR>
+    au FileType ruby map <leader>ra :call RunAllSpecs()<CR>
+
+    " Quick, vertical 'goto file' (gf) to compliment <c-w>f (horizontal split)
+    au FileType ruby nnoremap <leader>f <plug>RailsVSplitFind
+  augroup END
+
+  augroup eruby
+    au FileType eruby let g:surround_{char2nr('-')} = "<% \r %>"
+    au FileType eruby let g:surround_{char2nr('=')} = "<%= \r %>"
+  augroup END
+
+  augroup php
+    au!
+
+    au BufWritePre *.php call StripTrailing()
+  augroup END
+
+  augroup python
+    au!
+
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+  augroup END
+endif
+
+" Fix Cursor in TMUX
+if exists('$TMUX')
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
+
+"set nocursorline " don't highlight current line
+
+" keyboard shortcuts
+inoremap jj <ESC>
+
+" For fast and east bundler installing
+nnoremap <Leader>pi :PlugInstall<cr>
+
+" Show TagBar
+nnoremap <Leader>ts :TagbarOpenAutoClose<CR>
+
+if filereadable(expand("~/.vimrc.local"))
+  source ~/.vimrc.local
+endif
+
+" Continue on line 85 in the rest of Dunn's config https://github.com/Attamusc/dotfiles/blob/master/vim/vimrc.symlink#L87
