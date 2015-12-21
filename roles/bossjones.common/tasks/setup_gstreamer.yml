@@ -6,8 +6,7 @@
 
   tasks:
   - name: Add gstreamer-developers repo PPA
-    apt_repository: repo='gstreamer-developers/ppa' state=present
-    update_cache: yes
+    apt_repository: repo='gstreamer-developers/ppa' state=present update_cache=yes
     sudo: yes
 
   - name: Make sure the gstreamer_prereqs packages are installed (Debian)
