@@ -1,5 +1,9 @@
 ---
 - name: restart sshd
   service: name={{ sshd_service_name }} state=restarted
+
 - name: restart pulseaudio
   service: name=pulseaudio state=restarted
+
+- name: restart ntp
+  service: name=ntpd state=restarted
