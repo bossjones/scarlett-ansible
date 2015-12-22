@@ -10,8 +10,6 @@
       name: "{{item}}"
       state: present
     with_items: setup_pulseaudio
-    register: output
-    changed_when: "'0 upgraded, 0 newly installed, 0 to remove' not in output.stdout and 'not upgraded' not in output.stdout"
     sudo: yes
     tags:
     - pulse
@@ -30,7 +28,8 @@
     - system.pa
     tags:
     - pulse
-    notify: restart pulseaudio
+    notify: clear pulseaudio cache
+    when: configure_pulse == true
 
   # - name: ensure apache is running (and enable it at boot)
   #   service: name=pulseaudio state=started enabled=yes
@@ -48,3 +47,5 @@
   - name: adduser pi tty
     command: adduser pi tty
 
+  - name: adduser pi audio
+    command: adduser pi audio

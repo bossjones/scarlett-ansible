@@ -23,3 +23,10 @@ buildessential_packages:
   - ragel
   - dh-autoreconf
   - anjuta
+  - libssl-dev
+  - libreadline-dev
+  - wget
+  - apt-transport-https
+  - curl
+  - openssl
+  - perl

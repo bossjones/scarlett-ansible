@@ -10,7 +10,6 @@ general_prereqs:
   - curl
   - gcc
   - make
-  - linux-headers-$(uname -r)
   - ca-certificates
   - bash
   - lsof
@@ -18,6 +17,7 @@ general_prereqs:
   - nmap
   - htop
   - vim
+  - openssl
 
 python_prereqs:
   - python-setuptools

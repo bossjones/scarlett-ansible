@@ -1,5 +1,8 @@
 # file: bossjones.common/vars/pulseaudio.yml
 ---
+vars:
+  configure_pulse: false
+
 sound_libs:
 - faac
 - faad

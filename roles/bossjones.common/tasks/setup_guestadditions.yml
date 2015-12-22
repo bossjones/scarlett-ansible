@@ -1,0 +1,16 @@
+# file: bossjones.common/tasks/setup_guestadditions.yml
+---
+- hosts: all
+  tasks:
+  - name: configure install_guest
+    copy: src=usr/local/bin/install_guest.sh
+          dest=/tmp/install_guest.sh
+          owner=root
+          group=root
+          mode=0755
+    tags:
+    - guestadditions
+    - configuration
+
+    - name: install guest additions
+      command: "bash /tmp/install_guest.sh"

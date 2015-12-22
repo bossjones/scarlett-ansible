@@ -13,3 +13,14 @@
         mode=0644
   tags:
   - motd
+
+- name: provision scarlett node
+  include: build_essentials.yml
+  include: bootstrap.yml
+# - include: setup_sshd.yml
+# - include: setup_ntp.yml
+# - include: setup_pulseaudio.yml
+# - include: setup_espeak.yml
+# - include: setup_gstreamer.yml
+# - include: setup_python.yml
+# - include: gnome_gtk_prereqs.yml
