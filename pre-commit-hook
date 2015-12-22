@@ -1,0 +1,52 @@
+#!/bin/sh
+#
+# Pre-commit hook that verifies if all files containing 'vault' in the name
+# are encrypted.
+# If not, commit will fail with an error message
+#
+# File should be .git/hooks/pre-commit and executable
+
+# Git Pre-commit Hook for Vault
+#
+# This last practice is not directly Ansible related, it's more a piece of workflow advice.
+#
+# There are 2 ways to handle a vault file: ansible-vault [encrypt|decrypt] or ansible-vault edit With the first method, there is a # good chance that, at one point, a decrypted version will end up in a Git commit. And if it's possible to wipe it from the # history, it's a real pain.
+#
+# I wrote a simple pre-commit hook that checks if a file called "vault-something" is encrypted before committing. If not, it # displays a helpful message.
+#
+# Copy it as .git/hooks/pre-commit and make it executable (or append to the existing pre-commit if any). It can live in your # Ansible project repo's or in your global .git/.
+
+FILES_PATTERN='.*vault.*\.yml$'
+REQUIRED='ANSIBLE_VAULT'
+
+EXIT_STATUS=0
+wipe="\033[1m\033[0m"
+yellow='\033[1;33m'
+# carriage return hack. Leave it on 2 lines.
+cr='
+'
+for f in $(git diff --cached --name-only | grep -E $FILES_PATTERN)
+do
+  # test for the presence of the required bit.
+  MATCH=`head -n1 $f | grep --no-messages $REQUIRED`
+  if [ ! $MATCH ] ; then
+    # Build the list of unencrypted files if any
+    UNENCRYPTED_FILES="$f$cr$UNENCRYPTED_FILES"
+    EXIT_STATUS=1
+  fi
+done
+if [ ! $EXIT_STATUS = 0 ] ; then
+  echo '# COMMIT REJECTED'
+  echo '# Looks like unencrypted ansible-vault files are part of the commit:'
+  echo '#'
+  while read -r line; do
+    if [ -n "$line" ]; then
+      echo "#\t${yellow}unencrypted:   $line${wipe}"
+    fi
+  done <<< "$UNENCRYPTED_FILES"
+  echo '#'
+  echo "# Please encrypt them with 'ansible-vault encrypt <file>'"
+  echo "#   (or force the commit with '--no-verify')."
+  exit $EXIT_STATUS
+fi
+exit $EXIT_STATUS

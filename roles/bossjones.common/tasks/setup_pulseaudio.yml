@@ -14,7 +14,7 @@
   - pulse
 
 - name: configure pulseaudio
-  copy: src=etc/pulse/{{ item }}
+  copy: src=files/etc/pulse/{{ item }}
         dest=/etc/pulse/{{ item }}
         owner=root
         group=root

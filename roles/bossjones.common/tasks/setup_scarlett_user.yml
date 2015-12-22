@@ -1,0 +1,7 @@
+# file: bossjones.common/tasks/setup_scarlett_user.yml
+---
+- name: Create Pi Group
+  group: name=pi
+
+- name: Create Pi User
+  user: name=pi comment='Scarlett User Pi' shell=/bin/bash system=yes group=pi

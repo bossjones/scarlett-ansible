@@ -1,1 +1,8 @@
+# file: bossjones.common/tasks/setup_scarlett.yml
+---
+- name: Creates directory /home/pi/.virtualenvs
+  pip: virtualenv=/home/pi/.virtualenvs/scarlett-dbus-poc
+       virtualenv_command=virtualenv-2.7
+       virtualenv_site_packages=yes
+
 # /etc/motd needs to be 0644

@@ -125,7 +125,7 @@ gnome_gtk_prereqs:
   - libpth-dev
   - libpulse-dev
   - libpython2.7
-  - libpython3.2
+  - libpython3.4
   - libraw1394-dev
   - librsvg2-dev
   - librtmp-dev
@@ -147,21 +147,17 @@ gnome_gtk_prereqs:
   - libtool
   - libtwolame-dev
   - libudev-dev
-  - libusb-1.0
+  - libusb-1.0-0
   - libusb-1.0-0-dev
   - libv4l-dev
-  - libvala-0.12-0
-  - libvala-0.14-0
   - libvala-0.22*
   - libvalad*
-  - libvaladoc0
   - libvisual-0.4-dev
   - libvorbis-dev
   - libvpx-dev
   - libwavpack-dev
   - libwebkitgtk-3.0-dev
   - libwebp-dev
-  - libwebp2
   - libwebp5
   - libx11-dev
   - libx264-dev

@@ -33,3 +33,59 @@ helpful_prereqs:
   - whois
   - bzr
   - unzip
+
+# source: https://github.com/sid137/ansible/tree/6ef762feac918b5e67a8151eec61e3d4b95c02bc
+server_packages:
+  - aptitude
+  - autoconf
+  - automake
+  - binutils-doc
+  - bison
+  - build-essential
+  - bzr
+  - coreutils
+  - curl
+  - debconf-utils
+  - fail2ban
+  - flex
+  - g++
+  - git-core
+  - help2man
+  - libbz2-dev
+  - libc6
+  - libcurl4-openssl-dev
+  - libevent-dev
+  - libmcrypt-dev
+  - libncurses5-dev
+  - libpcre3
+  - libpcre3-dev
+  - libpcrecpp0
+  - libreadline5
+  - libssl-dev
+  - libssl1.0.0
+  - libtool
+  - libxml2
+  - libxml2-dev
+  - libxslt1-dev
+  - libxslt1.1
+  - mercurial
+  - patch
+  - python-dev
+  - python-numpy
+  - python-virtualenv
+  - screen
+  - software-properties-common
+  - ssl-cert
+  - subversion
+  - sudo
+  - swig
+  - unattended-upgrades
+  - unrar-free
+  - unzip
+  - uuid-dev
+  - uuid-runtime
+  - vim-nox
+  - wget
+  - zlib1g
+  - zlib1g-dev
+  - zlibc

@@ -12,19 +12,20 @@
   sudo: yes
 
 - name: install pip
-  easy_install: name=pip state=present
+  easy_install: name=pip
+                state=present
 
 - name: install virtualenv
-  pip: name=virtualenv state=present
+  pip: name=virtualenv
+       state=present
 
 - name: install virtualenvwrapper
-  pip: name=virtualenvwrapper state=present
+  pip: name=virtualenvwrapper
+       state=present
 
 - name: install ipython
-  pip: name=ipython state=present
-
-- name: Creates directory /home/pi/.virtualenvs
-  pip: virtualenv=/home/pi/.virtualenvs/scarlett-dbus-poc virtualenv_command=virtualenv-2.7
+  pip: name=ipython
+       state=present
 
 # # Creates a virtualenv with the given name using mkvirtualenv. Run with
 # #   ansible-playbook mkvirtualenv.yml -e 'hosts=ow1 virtualenv=syndicate_pro"
