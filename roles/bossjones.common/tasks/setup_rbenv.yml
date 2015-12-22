@@ -1,3 +1,17 @@
+---
+- name: Install Ruby
+  script: files/install_ruby.sh
+
+- name: "Install bundler"
+  gem: name=bundler state=latest
+
+# - name: Install passenger-nginx
+#   command: passenger-install-nginx-module --auto-download --auto
+#   --prefix=/opt/nginx --extra-configure-flags='--with-http_gzip_static_module
+#   --with-http_secure_link_module --with-http_realip_module
+#   --with-http_ssl_module''
+#     creates: /opt/nginx
+
 # git clone https://github.com/rbenv/rbenv.git ~/.rbenv
 # git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
 # eval "$(rbenv init -)"

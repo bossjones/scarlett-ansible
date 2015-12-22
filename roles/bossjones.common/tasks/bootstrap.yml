@@ -48,7 +48,7 @@
   sudo: yes
 
 - name: Add git-core repo PPA
-  apt_repository: repo='ppa:git-core/ppa' state=latest update_cache=yes
+  apt_repository: repo='ppa:git-core/ppa' state=present update_cache=yes
   sudo: yes
 
 - name: Install git packages via apt

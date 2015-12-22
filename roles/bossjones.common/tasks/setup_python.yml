@@ -10,8 +10,6 @@
       name: "{{item}}"
       state: present
     with_items: setup_python
-    register: output
-    changed_when: "'0 upgraded, 0 newly installed, 0 to remove' not in output.stdout and 'not upgraded' not in output.stdout"
     sudo: yes
 
   - name: install pip
