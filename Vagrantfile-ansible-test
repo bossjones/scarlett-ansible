@@ -4,14 +4,13 @@
 Vagrant.configure("2")  do |config|
 
   # base information
-  config.vm.box = "scarlettpi-base-ubuntu-14-04-pulse"
-  config.vm.box_url = "/Users/malcolm/ubuntu_14_04_base_w_gst_pulseaudio_guestadd3.box"
+  config.vm.box = "scarlettpi-base-ubuntu-14-04"
+  config.vm.box_url = "file:///Users/malcolm/ubuntu_14_04_base.box"
 
   # name
   # CHANGME
   config.vm.hostname = "scarlett-ansible.local"
   config.vm.boot_timeout = 400
-  config.vm.box_version = "0.1.0"
 
   # networking
   config.vm.network "public_network", :bridge => 'en0: Wi-Fi (AirPort)'
@@ -26,8 +25,9 @@ Vagrant.configure("2")  do |config|
   config.ssh.private_key_path = "/Users/malcolm/.ssh/id_rsa_ssh"
   config.ssh.forward_agent = true
   config.ssh.forward_x11 = true
+  config.ssh.insert_key = false
   #config.ssh.pty = true
-  config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
+  #config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
 
   # config.vm.provision "shell", path: "./bootstrap/start_anaconda.sh"
 
@@ -43,11 +43,12 @@ Vagrant.configure("2")  do |config|
     # vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
   end
 
-  c.vm.provision 'ansible' do |ansible|
+  config.vm.provision 'ansible' do |ansible|
       ansible.playbook = 'test.yml'
+      ansible.verbose = "vvvv"
       ansible.sudo = true
-      ansible.inventory_path = 'vagrant-inventory'
       ansible.host_key_checking = false
+      ansible.limit = 'all'
     end
 
 end

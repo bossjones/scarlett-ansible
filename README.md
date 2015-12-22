@@ -1,6 +1,10 @@
 # scarlett-ansible
 
+# start vagrant server
 VAGRANT_VAGRANTFILE=Vagrantfile-ansible-test vagrant up
+
+# provision server
+VAGRANT_VAGRANTFILE=Vagrantfile-ansible-test vagrant provision
 
 ### TODO
 
