@@ -1,6 +1,6 @@
 # file: bossjones.common/vars/gnome_gtk_prereqs.yml
 ---
-gnome_prereqs:
+gnome_gtk_prereqs:
   - bison
   - bogofilter-bdb
   - bogofilter-common
@@ -44,7 +44,6 @@ gnome_prereqs:
   - libclutter-gtk-1.0-dev
   - libcups2
   - libcups2-dev
-  - libcupsdriver1
   - libcurl4-gnutls-dev
   - libdc1394-22-dev
   - libdca-dev

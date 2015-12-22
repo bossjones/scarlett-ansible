@@ -1,26 +1,24 @@
 # file: bossjones.common/tasks/setup_ntp.yml
 ---
-- hosts: all
-  tasks:
-    - name: ensure ntpd is at the present version
-      apt: pkg={{ item }} state=present
-      with_items:
-      - ntp
-      - ntpdate
+- name: ensure ntpd is at the present version
+  apt: pkg={{ item }} state=present
+  with_items:
+  - ntp
+  - ntpdate
 
-    - name: configure ntpd
-      copy: src=etc/ntp.conf
-            dest=/etc/ntp.conf
-            owner=root
-            group=root
-            mode=0644
-            backup=yes
-      tags:
-      - ntp
-      - configuration
-      notify:
-      - restart ntpd
+- name: configure ntpd
+  copy: src=etc/ntp.conf
+        dest=/etc/ntp.conf
+        owner=root
+        group=root
+        mode=0644
+        backup=yes
+  tags:
+  - ntp
+  - configuration
+  notify:
+  - restart ntpd
 
-    - name: enable ntpd
-      service: name=ntpd state=running enabled=yes
-      tags: service
+- name: enable ntpd
+  service: name=ntpd state=running enabled=yes
+  tags: service
