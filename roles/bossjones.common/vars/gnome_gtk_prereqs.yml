@@ -182,7 +182,7 @@ gnome_gtk_prereqs:
   - xmlto
   - zlib1g-dev
   # source: https://wiki.gnome.org/Projects/PyGObject/IntrospectionPorting
-  - pygtkcompat
+  # - pygtkcompat
 
 gnome_gtk_prereqs_shortlist:
   - dbus-x11
@@ -242,7 +242,7 @@ gnome_gtk_prereqs_shortlist:
   - valac-0.14
   - valadoc
   # source: https://wiki.gnome.org/Projects/PyGObject/IntrospectionPorting
-  - pygtkcompat
+  # - pygtkcompat
 
 ### # optional
 ### devhelp
