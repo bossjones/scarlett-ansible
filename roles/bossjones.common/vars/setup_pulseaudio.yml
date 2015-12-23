@@ -3,6 +3,8 @@
 vars:
   configure_pulse: false
 
+# sudo apt-get install -qq libtheora-dev libogg-dev libvorbis-dev libasound2-dev libjack-dev
+
 sound_libs:
 - faac
 - faad
@@ -35,3 +37,8 @@ pulse_prereqs:
   - pulseaudio-utils
   - pavucontrol
   - avahi-daemon
+  - libtheora-dev
+  - libogg-dev
+  - libvorbis-dev
+  - libasound2-dev
+  - libjack-dev

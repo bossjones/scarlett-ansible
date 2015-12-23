@@ -72,7 +72,6 @@ server_packages:
   - patch
   - python-dev
   - python-numpy
-  - python-virtualenv
   - screen
   - software-properties-common
   - ssl-cert
@@ -89,3 +88,4 @@ server_packages:
   - zlib1g
   - zlib1g-dev
   - zlibc
+  - whois

@@ -70,9 +70,10 @@ done
 
 alias scarlett_listen='cd ~/dev/bossjones-github/scarlett-dbus-poc/ && workon scarlett-dbus-poc && python scarlett_listener.py'
 alias scarlett_task='cd ~/dev/bossjones-github/scarlett-dbus-poc/ && workon scarlett-dbus-poc && python scarlett_tasker.py'
-alias debug_scarlett_listener='cd ~/dev/bossjones-github/scarlett-dbus-poc/ && workon scarlett-dbus-poc && GST_DEBUG=3,python:5,gnl*:5 python scarlett_listener.py 2>&1 | tee listener.log'
+alias scarlett_debug_listener='cd ~/dev/bossjones-github/scarlett-dbus-poc/ && workon scarlett-dbus-poc && GST_DEBUG=3,python:5,gnl*:5 python scarlett_listener.py 2>&1 | tee listener.log'
 alias scarlett_dbus_cd='cd ~/dev/bossjones-github/scarlett-dbus-poc/'
 
-alias bossjones_check_alsa='alsamixer'
-alias bossjones_reinstall_pulse='sudo apt-get remove --purge alsa-base pulseaudio -y ;sudo apt-get install alsa-base pulseaudio -y;sudo alsa force-reload'
-alias bossjones_force_reload_alsa='sudo alsa force-reload'
+alias scarlett_check_alsa='alsamixer'
+alias scarlett_reinstall_pulse='sudo apt-get remove --purge alsa-base pulseaudio -y ;sudo apt-get install alsa-base pulseaudio -y;sudo alsa force-reload'
+alias scarlett_force_reload_alsa='sudo alsa force-reload'
+alias scarlett_clear_pulse_cache='rm -r ~pi/.pulse;rm -r ~pi/.pulse-cookie;rm -r /tmp/pulse-*;rm -r ~pi/.config/pulse;killall -9 pulseaudio;'

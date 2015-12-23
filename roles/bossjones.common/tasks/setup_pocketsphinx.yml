@@ -1,0 +1,55 @@
+# file: bossjones.common/tasks/setup_pocketsphinx.yml
+---
+- name: clone sphinxbase
+  git: repo=https://github.com/cmusphinx/sphinxbase.git
+       dest=/home/pi/dev/bossjones-github/scarlett-dbus-poc/sphinxbase
+       update=yes
+  become: pi
+  become_user: pi
+
+- name: clone pocketsphinx
+  git: repo=https://github.com/cmusphinx/pocketsphinx.git
+       dest=/home/pi/dev/bossjones-github/scarlett-dbus-poc/pocketsphinx
+       update=yes
+  become: pi
+  become_user: pi
+
+- name: configure py2cairo pygobject glib gst-python
+  copy: src=usr/local/bin/{{ item }}
+        dest=/tmp/{{ item }}
+        owner=pi
+        group=pi
+        mode=0755
+        backup=yes
+  with_items:
+  - install_cairo.sh
+  - install_pygobject.sh
+  - install_glib.sh
+  - install_gst-python.sh
+  - install_sphinxbase.sh
+  - install_pocketsphinx.sh
+  tags:
+  - pocketsphinx
+  - sphinxbase
+  - shellscripts
+
+- name: compile py2cairo pygobject glib gst-python
+  command: /tmp/{{ item }}
+  with_items:
+  - install_cairo.sh
+  - install_pygobject.sh
+  - install_glib.sh
+  - install_gst-python.sh
+  - install_sphinxbase.sh
+  - install_pocketsphinx.sh
+  tags:
+  - pocketsphinx
+  - sphinxbase
+  - compile
+  - cmusphinx
+  become: pi
+  become_user: pi
+
+- name: ldconfig after compiling
+  command: "ldconfig"
+  sudo: yes

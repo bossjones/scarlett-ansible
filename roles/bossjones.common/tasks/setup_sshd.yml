@@ -27,7 +27,9 @@
   with_items:
   - ssh_config
   - sshd_config
-  tags: ['ssh', 'configuration']
+  tags:
+  - ssh
+  - configuration
   notify: restart sshd
 
 - name: enable sshd

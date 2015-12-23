@@ -12,9 +12,11 @@
   sudo: yes
   tags:
   - pulse
+  - pulseaudio
+  - packages
 
 - name: configure pulseaudio
-  copy: src=files/etc/pulse/{{ item }}
+  copy: src=etc/pulse/{{ item }}
         dest=/etc/pulse/{{ item }}
         owner=root
         group=root
@@ -29,22 +31,3 @@
   - pulse
   notify: clear pulseaudio cache
   when: configure_pulse == true
-
-# - name: ensure apache is running (and enable it at boot)
-#   service: name=pulseaudio state=started enabled=yes
-#   handlers:
-#   - name: restart apache
-#     service: name=pulseaudio state=restarted
-
-- name: add pi to pulse group
-  command: adduser pi pulse-access
-  sudo: yes
-
-- name: adduser pi dialout
-  command: adduser pi dialout
-
-- name: adduser pi tty
-  command: adduser pi tty
-
-- name: adduser pi audio
-  command: adduser pi audio

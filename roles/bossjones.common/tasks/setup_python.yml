@@ -27,6 +27,10 @@
   pip: name=ipython
        state=present
 
+- name: install numpy
+  pip: name=numpy
+       state=present
+
 # # Creates a virtualenv with the given name using mkvirtualenv. Run with
 # #   ansible-playbook mkvirtualenv.yml -e 'hosts=ow1 virtualenv=syndicate_pro"
 # - name: Run 'mkvirtualenv scarlett-dbus-poc'

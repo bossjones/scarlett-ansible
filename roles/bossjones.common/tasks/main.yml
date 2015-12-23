@@ -24,3 +24,6 @@
   include: setup_gstreamer.yml
   include: gnome_gtk_prereqs.yml
   include: setup_python.yml
+  include: setup_scarlett_user.yml
+  include: setup_scarlett.yml
+  include: setup_pocketsphinx.yml

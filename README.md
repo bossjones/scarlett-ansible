@@ -1,5 +1,14 @@
 # scarlett-ansible
 
+https://blogs.gnome.org/uraeus/2011/10/04/tutorial-for-python-gstreamer-and-gtk-3/
+https://developer.ridgerun.com/wiki/index.php/GStreamer_Debugging
+https://developer.ridgerun.com/wiki/index.php?title=Embedded_GStreamer_Performance_Tuning
+http://docs.gstreamer.com/display/GstSDK/Basic+tutorial+11%3A+Debugging+tools
+http://wiki.buzztrax.org/index.php/Debugging
+http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gst-running.html
+http://gstreamer.freedesktop.org/data/doc/gstreamer/head/manual/html/section-checklist-debug.html
+
+
 # start vagrant server
 VAGRANT_VAGRANTFILE=Vagrantfile-ansible-test vagrant up
 
