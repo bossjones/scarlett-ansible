@@ -13,22 +13,26 @@
 
 - name: install pip
   easy_install: name=pip
-                state=present
+                state=latest
 
 - name: install virtualenv
   pip: name=virtualenv
-       state=present
+       state=latest
 
 - name: install virtualenvwrapper
   pip: name=virtualenvwrapper
-       state=present
+       state=latest
 
 - name: install ipython
   pip: name=ipython
-       state=present
+       state=latest
 
 - name: install numpy
   pip: name=numpy
+       state=latest
+
+- name: pip install requests[security]
+  pip: name=requests[security]
        state=present
 
 # # Creates a virtualenv with the given name using mkvirtualenv. Run with

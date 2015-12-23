@@ -15,15 +15,15 @@
   - motd
 
 - name: provision scarlett node
-  include: build_essentials.yml
-  include: bootstrap.yml
-  include: setup_sshd.yml
-  include: setup_ntp.yml
-  include: setup_pulseaudio.yml
-  include: setup_espeak.yml
-  include: setup_gstreamer.yml
-  include: gnome_gtk_prereqs.yml
+  # include: build_essentials.yml
+  # include: bootstrap.yml
+  # include: setup_sshd.yml
+  # include: setup_ntp.yml
+  # include: setup_pulseaudio.yml
+  # include: setup_espeak.yml
+  # include: setup_gstreamer.yml
+  # include: gnome_gtk_prereqs.yml
   include: setup_python.yml
-  include: setup_scarlett_user.yml
-  include: setup_scarlett.yml
-  include: setup_pocketsphinx.yml
+  # include: setup_scarlett_user.yml
+  # include: setup_scarlett.yml
+  # include: setup_pocketsphinx.yml

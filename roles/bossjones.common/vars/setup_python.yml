@@ -25,9 +25,11 @@ python_packages:
   - python-numpy
   - python-numpy-dbg
   - python-osmgpsmap
-  - python-pip
   - python-pyside
   - python-scipy
   - python-simplejson
   - python2.7-dev
   - swig
+  - libffi-dev
+  - libssl-dev
+  - python-setuptools

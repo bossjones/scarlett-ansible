@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ ! -f /swapfile ]; then
   swapoff -a

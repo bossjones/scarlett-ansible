@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+set -o nounset
+set -o errexit
+
 export GSTREAMER=1.0
 export PI_HOME=/home/pi
 export MAIN_DIR=$PI_HOME/dev/bossjones-github/scarlett-dbus-poc
@@ -16,9 +19,9 @@ export GST_PLUGIN_PATH=$VIRT_ROOT/lib/gstreamer-$GSTREAMER
 
 > /tmp/scarlett_sphinxbasecompile.log && \
 cd $MAIN_DIR && \
-./autogen.sh >> /tmp/scarlett_sphinxbasecompile.log && \
-./configure --prefix=$VIRT_ROOT >> /tmp/scarlett_sphinxbasecompile.log && \
-make clean all >> /tmp/scarlett_sphinxbasecompile.log && \
-make check >> /tmp/scarlett_sphinxbasecompile.log && \
-make install >> /tmp/scarlett_sphinxbasecompile.log && \
+./autogen.sh && \
+./configure --prefix=$VIRT_ROOT && \
+make clean all && \
+make check && \
+make install && \
 cd $MAIN_DIR

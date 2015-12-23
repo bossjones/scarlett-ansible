@@ -20,7 +20,6 @@
         owner=pi
         group=pi
         mode=0755
-        backup=yes
   with_items:
   - install_cairo.sh
   - install_pygobject.sh
@@ -49,6 +48,7 @@
   - cmusphinx
   become: pi
   become_user: pi
+  ignore_errors: yes
 
 - name: ldconfig after compiling
   command: "ldconfig"
