@@ -20,6 +20,39 @@
 - name: bootstrap
   include: bootstrap.yml
 
+# - name: guest additions
+#   include: setup_guestadditions.yml
+
+- name: setup_sshd
+  include: setup_sshd.yml
+
+- name: ntp
+  include: setup_ntp.yml
+
+- name: pulseaudio
+  include: setup_pulseaudio.yml
+
+# - name: hgdf
+#   include: setup_espeak.yml
+
+# - name: hgdf
+#   include: setup_gstreamer.yml
+
+# - name: hgdf
+#   include: gnome_gtk_prereqs.yml
+
+# - name: hgdf
+#   include: setup_python.yml
+
+# - name: hgdf
+#   include: setup_scarlett_user.yml
+
+# - name: hgdf
+#   include: setup_scarlett.yml
+
+# - name: hgdf
+#   include: setup_pocketsphinx.yml
+
   # include: bootstrap.yml
   # include: setup_guestadditions.yml
   # include: setup_sshd.yml

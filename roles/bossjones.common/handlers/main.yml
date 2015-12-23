@@ -6,7 +6,7 @@
   service: name=pulseaudio state=restarted
 
 - name: restart ntp
-  service: name=ntpd state=restarted
+  service: name=ntp state=restarted
 
 - name: clear pulseaudio cache
   command: "rm -r ~pi/.pulse;rm -r ~pi/.pulse-cookie;rm -r /tmp/pulse-*;rm -r ~pi/.config/pulse;killall -9 pulseaudio;"
