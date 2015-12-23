@@ -3,6 +3,9 @@
 set -o nounset
 set -o errexit
 
+source `which virtualenvwrapper.sh` && \
+workon scarlett-dbus-poc
+
 export GSTREAMER=1.0
 export PI_HOME=/home/pi
 export MAIN_DIR=$PI_HOME/dev/bossjones-github/scarlett-dbus-poc
@@ -18,7 +21,7 @@ export LD_LIBRARY_PATH=$VIRT_ROOT/lib
 export GST_PLUGIN_PATH=$VIRT_ROOT/lib/gstreamer-$GSTREAMER
 
 > /tmp/scarlett_sphinxbasecompile.log && \
-cd $MAIN_DIR && \
+cd $MAIN_DIR/sphinxbase && \
 ./autogen.sh && \
 ./configure --prefix=$VIRT_ROOT && \
 make clean all && \

@@ -16,6 +16,14 @@
   become: pi
   become_user: pi
 
+- name: clone py2cairo into ~pi/dev/bossjones-github/scarlett-dbus-poc/py2cairo
+  git: repo=git://git.cairographics.org/git/py2cairo
+       dest=/home/pi/dev/bossjones-github/scarlett-dbus-poc/py2cairo
+       clone=no
+       update=no
+  become: pi
+  become_user: pi
+
 - name: configure py2cairo pygobject glib gst-python
   copy: src=usr/local/bin/{{ item }}
         dest=/tmp/{{ item }}
@@ -33,6 +41,16 @@
   - pocketsphinx
   - sphinxbase
   - shellscripts
+
+- name: compile py2cairo
+  shell: >
+    executable=/bin/bash
+    source `which virtualenvwrapper.sh` && mkvirtualenv --system-site-packages scarlett-dbus-poc
+  register: run_cmd
+  become: pi
+  become_user: pi
+
+- debug: var=run_cmd.stdout_lines
 
 - name: compile py2cairo pygobject glib gst-python
   command: /tmp/{{ item }}

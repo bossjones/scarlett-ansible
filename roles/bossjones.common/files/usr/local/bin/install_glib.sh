@@ -4,6 +4,9 @@
 set -o nounset
 set -o errexit
 
+source `which virtualenvwrapper.sh` && \
+workon scarlett-dbus-poc
+
 export GSTREAMER=1.0
 export PI_HOME=/home/pi
 export MAIN_DIR=$PI_HOME/dev/bossjones-github/scarlett-dbus-poc
@@ -19,7 +22,7 @@ cd $MAIN_DIR && \
 curl -L "http://ftp.acc.umu.se/pub/gnome/sources/glib/2.40/glib-2.40.0.tar.xz" > glib-2.40.0.tar.xz && \
 tar xf glib-2.40.0.tar.xz && \
 cd glib-2.40.0 && \
-./configure --prefix=$VIRT_ROOT >> /tmp/scarlett_glib_compile.log && \
-make >> /tmp/scarlett_glib_compile.log && \
-make install >> /tmp/scarlett_glib_compile.log && \
+./configure --prefix=$VIRT_ROOT && \
+make && \
+make install && \
 cd $MAIN_DIR
