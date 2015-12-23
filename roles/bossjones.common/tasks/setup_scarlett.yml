@@ -14,7 +14,7 @@
 - name: Run 'mkvirtualenv scarlett-dbus-poc'
   shell: >
     executable=/bin/bash
-    source `which virtualenvwrapper.sh` && mkvirtualenv scarlett-dbus-poc
+    source `which virtualenvwrapper.sh` && mkvirtualenv --system-site-packages scarlett-dbus-poc
   register: run_cmd
   become: pi
   become_user: pi
