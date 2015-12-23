@@ -33,3 +33,5 @@
 - name: pip install requests[security]
   pip: name=requests[security]
        state=present
+
+# pip install --upgrade pip
