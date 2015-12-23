@@ -41,17 +41,17 @@
 # - name: gnome_gtk_prereqs
 #   include: gnome_gtk_prereqs.yml
 
-# - name: hgdf
-#   include: setup_python.yml
+- name: setup_python
+  include: setup_python.yml
 
-# - name: hgdf
-#   include: setup_scarlett_user.yml
+- name: setup_scarlett_user
+  include: setup_scarlett_user.yml
 
-# - name: hgdf
-#   include: setup_scarlett.yml
+- name: setup_scarlett
+  include: setup_scarlett.yml
 
-# - name: hgdf
-#   include: setup_pocketsphinx.yml
+- name: setup_pocketsphinx
+  include: setup_pocketsphinx.yml
 
   # include: bootstrap.yml
   # include: setup_guestadditions.yml
