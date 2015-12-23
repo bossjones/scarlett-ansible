@@ -26,19 +26,19 @@
 - name: setup_sshd
   include: setup_sshd.yml
 
-- name: ntp
+- name: setup_ntp
   include: setup_ntp.yml
 
-- name: pulseaudio
+- name: setup_pulseaudio
   include: setup_pulseaudio.yml
 
-# - name: hgdf
-#   include: setup_espeak.yml
+- name: setup_espeak
+  include: setup_espeak.yml
 
-# - name: hgdf
-#   include: setup_gstreamer.yml
+- name: setup_gstreamer
+  include: setup_gstreamer.yml
 
-# - name: hgdf
+# - name: gnome_gtk_prereqs
 #   include: gnome_gtk_prereqs.yml
 
 # - name: hgdf

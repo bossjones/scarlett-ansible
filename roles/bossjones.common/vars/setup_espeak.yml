@@ -1,6 +1,6 @@
 # file: bossjones.common/vars/setup_espeak.yml
 ---
-espeak_prereqs:
+setup_espeak:
   - espeak
   - libespeak-dev
   - python-espeak

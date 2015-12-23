@@ -1,23 +1,17 @@
 # file: bossjones.common/vars/pulseaudio.yml
 ---
-vars:
-  configure_pulse: false
-
-# sudo apt-get install -qq libtheora-dev libogg-dev libvorbis-dev libasound2-dev libjack-dev
-
 sound_libs:
 - faac
 - faad
 - flex
 
-pulse_prereqs:
+setup_pulseaudio:
   - libpulse-dev
   - libpulse-mainloop-glib0
   - libpulse-mainloop-glib0-dbg
   - libpulse0
   - libpulse0-dbg
   - libsox-fmt-pulse
-  - libusb-1.0
   - paman
   - paprefs
   - pavucontrol
