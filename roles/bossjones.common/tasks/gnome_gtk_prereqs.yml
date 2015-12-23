@@ -4,11 +4,11 @@
 - name: Read the gnome_gtk_prereqs variables
   include_vars: "gnome_gtk_prereqs.yml"
 
-- name: Make sure the gnome_gtk_prereqs packages are installed (Debian)
+- name: Make sure the gnome_gtk_prereqs_shortlist packages are installed (Debian)
   apt:
     name: "{{item}}"
     state: present
-  with_items: gnome_gtk_prereqs
+  with_items: gnome_gtk_prereqs_shortlist
   sudo: yes
   tags:
   - gnome

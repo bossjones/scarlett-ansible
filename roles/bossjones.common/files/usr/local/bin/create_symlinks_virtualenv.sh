@@ -25,3 +25,7 @@ ln -s /usr/lib/python2.7/dist-packages/pygst.pth
 ln -s /usr/lib/python2.7/dist-packages/pygst.py
 ln -s /usr/lib/python2.7/dist-packages/pygst.pyc
 
+
+ln -s /usr/lib/python2.7/dist-packages/gobject* $VIRT_ROOT/lib/python2.7/site-packages/
+ln -s /usr/lib/python2.7/dist-packages/glib* $VIRT_ROOT/lib/python2.7/site-packages/
+ln -s /usr/lib/python2.7/dist-packages/cairo* $VIRT_ROOT/lib/python2.7/site-packages/

@@ -4,8 +4,8 @@
 set -o nounset
 set -o errexit
 
-source `which virtualenvwrapper.sh` && \
-workon scarlett-dbus-poc
+# source `which virtualenvwrapper.sh` && \
+# workon scarlett-dbus-poc
 
 export GSTREAMER=1.0
 export PI_HOME=/home/pi
@@ -23,7 +23,7 @@ export GST_PLUGIN_PATH=$VIRT_ROOT/lib/gstreamer-$GSTREAMER
 
 > /tmp/scarlett_pocketsphinx_compile.log && \
 cd $MAIN_DIR/pocketsphinx && \
-./autogen.sh && \
+./autogen.sh --prefix=$VIRT_ROOT && \
 ./configure --prefix=$VIRT_ROOT && \
 make clean all && \
 make check && \

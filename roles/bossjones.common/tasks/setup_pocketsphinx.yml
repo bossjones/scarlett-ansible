@@ -21,6 +21,7 @@
        dest=/home/pi/dev/bossjones-github/scarlett-dbus-poc/py2cairo
        clone=no
        update=no
+       accept_hostkey=true
   become: pi
   become_user: pi
 
@@ -31,10 +32,11 @@
         group=pi
         mode=0755
   with_items:
-  - install_cairo.sh
-  - install_pygobject.sh
-  - install_glib.sh
-  - install_gst-python.sh
+  # - install_cairo.sh
+  # - install_glib.sh
+  # - install_pygobject.sh
+  # - install_gst-python.sh
+  - create_symlinks_virtualenv.sh
   - install_sphinxbase.sh
   - install_pocketsphinx.sh
   tags:
@@ -55,10 +57,11 @@
 - name: compile py2cairo pygobject glib gst-python
   command: /tmp/{{ item }}
   with_items:
-  - install_cairo.sh
-  - install_pygobject.sh
-  - install_glib.sh
-  - install_gst-python.sh
+  # - install_cairo.sh
+  # - install_pygobject.sh
+  # - install_glib.sh
+  # - install_gst-python.sh
+  - create_symlinks_virtualenv.sh
   - install_sphinxbase.sh
   - install_pocketsphinx.sh
   tags:
@@ -71,11 +74,11 @@
   ignore_errors: yes
   register: compile
 
-# - name: stdout compile py2cairo pygobject glib gst-python
-#   debug: msg="{{ compile.stdout }}"
+- name: stdout compile py2cairo pygobject glib gst-python
+  debug: msg="{{ compile.stdout }}"
 
-# - name: stderr compile py2cairo pygobject glib gst-python
-#   debug: msg="{{ compile.stderr }}"
+- name: stderr compile py2cairo pygobject glib gst-python
+  debug: msg="{{ compile.stderr }}"
 
 - name: ldconfig after compiling
   command: "ldconfig"

@@ -38,8 +38,8 @@
 - name: setup_gstreamer
   include: setup_gstreamer.yml
 
-# - name: gnome_gtk_prereqs
-#   include: gnome_gtk_prereqs.yml
+- name: gnome_gtk_prereqs
+  include: gnome_gtk_prereqs.yml
 
 - name: setup_python
   include: setup_python.yml

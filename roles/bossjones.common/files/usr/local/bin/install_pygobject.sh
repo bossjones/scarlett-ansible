@@ -5,8 +5,8 @@
 set -o nounset
 set -o errexit
 
-source `which virtualenvwrapper.sh` && \
-workon scarlett-dbus-poc
+# source `which virtualenvwrapper.sh` && \
+# workon scarlett-dbus-poc
 
 export GSTREAMER=1.0
 export PI_HOME=/home/pi
@@ -23,6 +23,7 @@ cd $MAIN_DIR && \
 curl -L "http://ftp.gnome.org/pub/GNOME/sources/pygobject/3.12/pygobject-3.12.0.tar.xz" > pygobject-3.12.0.tar.xz && \
 tar xf pygobject-3.12.0.tar.xz && \
 cd pygobject-3.12.0 && \
+./autogen.sh --prefix=$VIRT_ROOT --with-python=/usr/bin/python --disable-introspection
 ./configure --prefix=$VIRT_ROOT --disable-introspection && \
 make && \
 make install && \
