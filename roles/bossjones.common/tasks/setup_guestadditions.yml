@@ -12,3 +12,5 @@
 
   - name: install guest additions
     command: "bash /tmp/install_guest.sh"
+    tags:
+    - guestadditions

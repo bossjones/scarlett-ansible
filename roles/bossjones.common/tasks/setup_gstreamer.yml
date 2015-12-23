@@ -7,6 +7,9 @@
 - name: Add gstreamer-developers repo PPA
   apt_repository: repo='gstreamer-developers/ppa' state=present update_cache=yes
   sudo: yes
+  tags:
+  - gstreamer
+  - packages
 
 - name: Make sure the gstreamer_prereqs packages are installed (Debian)
   apt:
@@ -14,6 +17,10 @@
     state: present
   with_items: gstreamer_prereqs
   sudo: yes
+  tags:
+  - gstreamer
+  - packages
+  - install_packages
 
 - name: install build-deps for gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly gstreamer1.0-plugins-ugly
   apt: pkg={{ item }} state=build-dep
@@ -21,3 +28,7 @@
   - gstreamer1.0-plugins-base
   - gstreamer1.0-plugins-good
   - gstreamer1.0-plugins-ugly
+  tags:
+  - gstreamer
+  - packages
+  - install_build-dep

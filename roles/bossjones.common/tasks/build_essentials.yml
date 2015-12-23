@@ -11,3 +11,7 @@
   with_items: buildessential_packages
   when: ansible_os_family == "Debian"
   sudo: yes
+  tags:
+  - build_essentials
+  - packages
+  - install_packages

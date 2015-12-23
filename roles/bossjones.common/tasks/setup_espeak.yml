@@ -12,6 +12,7 @@
   sudo: yes
   tags:
   - espeak
+  - packages
 
 # ##############################################################################################################
 # # HOW TO INSTALL gst-plugins-espeak : gstreamer 1.0

@@ -17,7 +17,7 @@
         groups=adm,cdrom,sudo,dip,plugdev,lpadmin,sambashare,pulse,pulse-access,dailout,tty,audio
 
 # Leaving this here because we need the folder structure in place to setup pocketsphinx
-- name: Create Scarlett folders
+- name: Create ~pi/dev and ~pi/dev/bossjones-github/scarlett-dbus-poc folders
   file: path=/home/pi/dev/bossjones-github/scarlett-dbus-poc
         state=directory
         mode=0755
@@ -25,7 +25,7 @@
         owner=pi
         group=pi
 
-- name: clone scarlett-dbus-poc
+- name: clone scarlett-dbus-poc into
   git: repo=https://github.com/bossjones/scarlett-dbus-poc.git
        dest=/home/pi/dev/bossjones-github/scarlett-dbus-poc
        update=no

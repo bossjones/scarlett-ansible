@@ -10,3 +10,7 @@
     state: present
   with_items: gnome_gtk_prereqs
   sudo: yes
+  tags:
+  - gnome
+  - packages
+  - install_packages
