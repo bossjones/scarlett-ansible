@@ -14,7 +14,9 @@
         uid=1000
         password=$6$UoXP1mRrk$S4k6yMNQkcX38ZP5OqEo7WaXm7ahly9qTEyYVDRP2kHBfh4ToShZHVcPYjKmYiGslDuiv7dmS/3.9sbZ5Z75u/
         state=present
-        groups=adm,cdrom,sudo,dip,plugdev,lpadmin,sambashare,pulse,pulse-access,dailout,tty,audio
+        groups=adm,cdrom,sudo,dip,plugdev,lpadmin,sambashare,pulse,pulse-access,tty,audio
+
+# NOTE: missing group dailout
 
 # Leaving this here because we need the folder structure in place to setup pocketsphinx
 - name: Create ~pi/dev and ~pi/dev/bossjones-github/scarlett-dbus-poc folders

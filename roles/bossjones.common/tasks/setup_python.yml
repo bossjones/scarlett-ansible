@@ -13,23 +13,22 @@
 
 - name: install pip
   easy_install: name=pip
-                state=latest
 
 - name: install virtualenv
   pip: name=virtualenv
-       state=latest
+       state=present
 
 - name: install virtualenvwrapper
   pip: name=virtualenvwrapper
-       state=latest
+       state=present
 
 - name: install ipython
   pip: name=ipython
-       state=latest
+       state=present
 
 - name: install numpy
   pip: name=numpy
-       state=latest
+       state=present
 
 - name: pip install requests[security]
   pip: name=requests[security]
