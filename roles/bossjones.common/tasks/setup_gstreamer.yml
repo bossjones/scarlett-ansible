@@ -5,7 +5,7 @@
   include_vars: "setup_gstreamer.yml"
 
 - name: Add gstreamer-developers repo PPA
-  apt_repository: repo='gstreamer-developers/ppa' state=present update_cache=yes
+  apt_repository: repo='ppa:gstreamer-developers/ppa' state=present update_cache=yes
   sudo: yes
   tags:
   - gstreamer
