@@ -32,9 +32,9 @@
        dest=/home/pi/dev/bossjones-github/scarlett-dbus-poc
        update=no
        version=feature-fix-dobule
+       refspec=+refs/pull/*:refs/heads/*
   become: pi
   become_user: pi
-
 
 # use this to run scripts as a particular user
 # source: http://stackoverflow.com/questions/21344777/how-to-switch-a-user-per-task-or-set-of-tasks

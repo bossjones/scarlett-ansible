@@ -1,8 +1,22 @@
 # file: bossjones.common/tasks/setup_scarlett.yml
 ---
-- name: Creates virtualenv directory /home/pi/.virtualenvs
-  pip: virtualenv=/home/pi/.virtualenvs/scarlett-dbus-poc
-       virtualenv_command=/usr/local/bin/virtualenv-2.7
-       virtualenv_site_packages=yes
+# - name: Creates virtualenv directory /home/pi/.virtualenvs
+#   pip: virtualenv=/home/pi/.virtualenvs/scarlett-dbus-poc
+#        virtualenv_command=/usr/local/bin/virtualenv-2.7
+#        virtualenv_site_packages=yes
+#   become: pi
+#   become_user: pi
+
+
+# Creates a virtualenv with the given name using mkvirtualenv. Run with
+#   ansible-playbook mkvirtualenv.yml -e 'hosts=ow1 virtualenv=syndicate_pro"
+# i.e. with a > after the git:, which tells YAML to concatenate the following lines into a single line, or like this:
+- name: Run 'mkvirtualenv scarlett-dbus-poc'
+  shell: >
+    executable=/bin/bash
+    source `which virtualenvwrapper.sh` && mkvirtualenv scarlett-dbus-poc
+  register: run_cmd
   become: pi
   become_user: pi
+
+- debug: var=run_cmd.stdout_lines

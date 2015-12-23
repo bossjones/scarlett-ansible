@@ -33,13 +33,3 @@
 - name: pip install requests[security]
   pip: name=requests[security]
        state=present
-
-# # Creates a virtualenv with the given name using mkvirtualenv. Run with
-# #   ansible-playbook mkvirtualenv.yml -e 'hosts=ow1 virtualenv=syndicate_pro"
-# - name: Run 'mkvirtualenv scarlett-dbus-poc'
-#   shell: >
-#     executable=/bin/bash
-#     source `which virtualenvwrapper.sh` && mkvirtualenv scarlett-dbus-poc
-#   register: run_cmd
-
-# - debug: var=run_cmd.stdout_lines
