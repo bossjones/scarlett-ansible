@@ -49,6 +49,13 @@
   become: pi
   become_user: pi
   ignore_errors: yes
+  register: compile
+
+# - name: stdout compile py2cairo pygobject glib gst-python
+#   debug: msg="{{ compile.stdout }}"
+
+# - name: stderr compile py2cairo pygobject glib gst-python
+#   debug: msg="{{ compile.stderr }}"
 
 - name: ldconfig after compiling
   command: "ldconfig"
