@@ -42,3 +42,17 @@
   notify: clear pulseaudio cache
   when: configure_pulse is defined
   # NOTE if the above var is not defined, don't run this step at all
+
+# NOTE: This fixes 14.04 ALC892 Low sound issue
+# Source: http://askubuntu.com/questions/456425/alc892-low-sound-issue-fixed-with-changing-alsa-config-why-does-it-work
+- name: configure /etc/modprobe.d/alsa-base.conf
+  copy: src=etc/modprobe.d/alsa-base.conf
+        dest=/etc/modprobe.d/alsa-base.conf
+        owner=root
+        group=root
+        mode=0644
+        backup=yes
+  tags:
+  - alsa
+  - configuration
+  - sound

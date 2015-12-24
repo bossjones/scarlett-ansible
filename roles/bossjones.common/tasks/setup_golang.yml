@@ -1,0 +1,12 @@
+# file: bossjones.common/tasks/setup_golang.yml
+# NOTE: Not required, just wanted to save this task somewhere for future development
+---
+- name: Add golang repository
+  apt_repository: repo='ppa:gophers/go' state=present update_cache=yes
+  sudo: yes
+  tags:
+  - golang
+  - packages
+
+- name: Install GoLang
+  apt: pkg=golang

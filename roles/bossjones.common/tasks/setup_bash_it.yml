@@ -19,7 +19,7 @@
 
 - name: configure devops.theme.bash
   copy: src=home/pi/bash_it/themes/devops/devops.theme.bash
-        dest=/home/pi/bash_it/themes/devops/devops.theme.bash
+        dest=/home/pi/.bash_it/themes/devops/devops.theme.bash
         owner=pi
         group=pi
         mode=0644
@@ -29,7 +29,7 @@
   - configuration
 
 - name: configure bash_profile
-  copy: src=home/pi/.bash_profile
+  copy: src=home/pi/bash_profile
         dest=/home/pi/.bash_profile
         owner=pi
         group=pi
@@ -40,7 +40,7 @@
   - configuration
 
 - name: configure bashrc
-  copy: src=home/pi/.bashrc
+  copy: src=home/pi/bashrc
         dest=/home/pi/.bashrc
         owner=pi
         group=pi

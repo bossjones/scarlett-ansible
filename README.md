@@ -7,7 +7,7 @@ http://docs.gstreamer.com/display/GstSDK/Basic+tutorial+11%3A+Debugging+tools
 http://wiki.buzztrax.org/index.php/Debugging
 http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gst-running.html
 http://gstreamer.freedesktop.org/data/doc/gstreamer/head/manual/html/section-checklist-debug.html
-
+https://gramps-project.org/wiki/index.php?title=GEPS_029:_GTK3-GObject_introspection_Conversion
 
 # start vagrant server
 VAGRANT_VAGRANTFILE=Vagrantfile-ansible-test vagrant up

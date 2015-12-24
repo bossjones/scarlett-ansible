@@ -22,6 +22,7 @@ cd $MAIN_DIR && \
 curl -L "http://ftp.acc.umu.se/pub/gnome/sources/glib/2.40/glib-2.40.0.tar.xz" > glib-2.40.0.tar.xz && \
 tar xf glib-2.40.0.tar.xz && \
 cd glib-2.40.0 && \
+./autogen.sh --prefix=$VIRT_ROOT && \
 ./configure --prefix=$VIRT_ROOT && \
 make && \
 make install && \
