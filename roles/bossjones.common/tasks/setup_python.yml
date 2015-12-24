@@ -35,3 +35,14 @@
        state=present
 
 # pip install --upgrade pip
+
+- name: configure pythonrc
+  copy: src=home/pi/pythonrc
+        dest=/home/pi/.pythonrc
+        owner=pi
+        group=pi
+        mode=0644
+        backup=yes
+  tags:
+  - pythonrc
+  - configuration

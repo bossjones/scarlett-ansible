@@ -4,9 +4,6 @@
 set -o nounset
 set -o errexit
 
-source `which virtualenvwrapper.sh` && \
-workon scarlett-dbus-poc
-
 export GSTREAMER=1.0
 export PI_HOME=/home/pi
 export MAIN_DIR=$PI_HOME/dev/bossjones-github/scarlett-dbus-poc
@@ -17,7 +14,10 @@ export SCARLETT_HMM=$MAIN_DIR/tests/fixtures/model/hmm/en_US/hub4wsj_sc_8k
 export SCARLETT_LM=$MAIN_DIR/tests/fixtures/lm/1602.lm
 export SCARLETT_DICT=$MAIN_DIR/tests/fixtures/dict/1602.dic
 
-> /tmp/scarlett_gst-plugins-espeak_compile.log && \
+# for GST PLUGINS
+export LD_LIBRARY_PATH=$VIRT_ROOT/lib
+export GST_PLUGIN_PATH=$VIRT_ROOT/lib/gstreamer-$GSTREAMER
+
 cd $MAIN_DIR && \
 curl -L "http://download.sugarlabs.org/sources/honey/gst-plugins-espeak/gst-plugins-espeak-0.4.0.tar.gz" > gst-plugins-espeak-0.4.0.tar.gz && \
 tar xvf gst-plugins-espeak-0.4.0.tar.gz && \

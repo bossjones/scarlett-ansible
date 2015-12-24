@@ -72,4 +72,5 @@
   apt: pkg={{ item }} state=latest
   with_items:
   - git
+  - bash-completion
   sudo: yes

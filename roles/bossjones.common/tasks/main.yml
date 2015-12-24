@@ -53,6 +53,12 @@
 - name: setup_pocketsphinx
   include: setup_pocketsphinx.yml
 
+- name: setup_rbenv
+  include: setup_rbenv.yml
+
+- name: setup_bash_it
+  include: setup_bash_it.yml
+
   # include: bootstrap.yml
   # include: setup_guestadditions.yml
   # include: setup_sshd.yml

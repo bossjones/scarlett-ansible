@@ -1,18 +1,35 @@
 ---
-- name: Install Ruby
-  script: files/install_ruby.sh
+- name: Add ppa:brightbox/ruby-ng repo PPA
+  apt_repository: repo='ppa:brightbox/ruby-ng' state=present update_cache=yes
+  sudo: yes
+  tags:
+  - ruby
+  - packages
+
+- name: Make sure the ruby2.2 packages are installed (Debian)
+  apt:
+    name: "{{item}}"
+    state: present
+  with_items:
+  - ruby2.2
+  - ruby2.2-dev
+  sudo: yes
+  tags:
+  - ruby
+  - packages
+  - install_packages
 
 - name: "Install bundler"
-  gem: name=bundler state=latest
+  gem: name=bundler state=present
 
-# - name: Install passenger-nginx
-#   command: passenger-install-nginx-module --auto-download --auto
-#   --prefix=/opt/nginx --extra-configure-flags='--with-http_gzip_static_module
-#   --with-http_secure_link_module --with-http_realip_module
-#   --with-http_ssl_module''
-#     creates: /opt/nginx
-
-# git clone https://github.com/rbenv/rbenv.git ~/.rbenv
-# git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
-# eval "$(rbenv init -)"
-# type rbenv
+- name: configure .gemrc
+  copy: src=home/pi/gemrc
+        dest=/home/pi/.gemrc
+        owner=pi
+        group=pi
+        mode=0644
+        backup=yes
+  tags:
+  - ruby
+  - gem
+  - configuration

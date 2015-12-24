@@ -36,6 +36,17 @@
   become: pi
   become_user: pi
 
+- name: configure .pythonrc
+  copy: src=home/pi/pythonrc
+        dest=/home/pi/.pythonrc
+        owner=pi
+        group=pi
+        mode=0644
+        backup=yes
+  tags:
+  - pythonrc
+  - configuration
+
 # use this to run scripts as a particular user
 # source: http://stackoverflow.com/questions/21344777/how-to-switch-a-user-per-task-or-set-of-tasks
 # become: yes

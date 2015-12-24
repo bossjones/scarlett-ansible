@@ -36,6 +36,7 @@
   # - install_glib.sh
   # - install_pygobject.sh
   # - install_gst-python.sh
+  - install_gst-plugins-espeak.sh
   - create_symlinks_virtualenv.sh
   - install_sphinxbase.sh
   - install_pocketsphinx.sh
@@ -61,6 +62,7 @@
   # - install_pygobject.sh
   # - install_glib.sh
   # - install_gst-python.sh
+  - install_gst-plugins-espeak.sh
   - create_symlinks_virtualenv.sh
   - install_sphinxbase.sh
   - install_pocketsphinx.sh
