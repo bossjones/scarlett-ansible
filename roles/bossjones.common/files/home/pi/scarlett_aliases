@@ -96,3 +96,15 @@ alias scarlett_increase_capture_levels='alsamixer -c 0'
 alias scarlett_microphone_record_test2='arecord -D plughw:0,0 -f cd /tmp/test.wav'
 alias scarlett_microphone_play_sound_test2='aplay /tmp/test.wav'
 alias scarlett_check_pocketsphinx_gst_plugin_exists='gst-inspect-1.0 | grep sphinx'
+
+scarlett_setup_env_vars(){
+  export GSTREAMER=1.0
+  export PI_HOME=/home/pi
+  export MAIN_DIR=$PI_HOME/dev/bossjones-github/scarlett-dbus-poc
+  export VIRT_ROOT=$PI_HOME/.virtualenvs/scarlett-dbus-poc
+  export PKG_CONFIG_PATH=$VIRT_ROOT/lib/pkgconfig
+  export SCARLETT_CONFIG=$MAIN_DIR/tests/fixtures/.scarlett
+  export SCARLETT_HMM=$MAIN_DIR/tests/fixtures/model/hmm/en_US/hub4wsj_sc_8k
+  export SCARLETT_LM=$MAIN_DIR/tests/fixtures/lm/1602.lm
+  export SCARLETT_DICT=$MAIN_DIR/tests/fixtures/dict/1602.dic
+}
