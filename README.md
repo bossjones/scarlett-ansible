@@ -9,6 +9,9 @@ http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gst-runn
 http://gstreamer.freedesktop.org/data/doc/gstreamer/head/manual/html/section-checklist-debug.html
 https://gramps-project.org/wiki/index.php?title=GEPS_029:_GTK3-GObject_introspection_Conversion
 
+# good example of how to compile from source in ansible
+https://github.com/ozzyjohnson/ansible-ffmpeg-build/blob/master/build-ffmpeg.yml
+
 # start vagrant server
 VAGRANT_VAGRANTFILE=Vagrantfile-ansible-test vagrant up
 
