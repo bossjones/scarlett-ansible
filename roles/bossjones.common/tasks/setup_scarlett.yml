@@ -32,3 +32,15 @@
   - virtualenv
   - configuration
   - python
+
+- name: configure /home/pi/.virtualenvs/scarlett-dbus-poc/bin/postdeactivate
+  copy: src=home/pi/postdeactivate
+        dest=/home/pi/.virtualenvs/scarlett-dbus-poc/bin/postdeactivate
+        owner=pi
+        group=pi
+        mode=0644
+        backup=no
+  tags:
+  - virtualenv
+  - configuration
+  - python
