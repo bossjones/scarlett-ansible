@@ -49,3 +49,14 @@
   tags:
   - bashrc
   - configuration
+
+- name: configure .scarlett_aliases
+  copy: src=home/pi/scarlett_aliases
+        dest=/home/pi/.scarlett_aliases
+        owner=pi
+        group=pi
+        mode=0644
+        backup=yes
+  tags:
+  - scarlett_aliases
+  - configuration

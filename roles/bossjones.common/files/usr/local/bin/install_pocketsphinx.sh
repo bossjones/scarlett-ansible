@@ -25,8 +25,8 @@ export SCARLETT_LM=$MAIN_DIR/tests/fixtures/lm/1602.lm
 export SCARLETT_DICT=$MAIN_DIR/tests/fixtures/dict/1602.dic
 
 # for GST PLUGINS
-export LD_LIBRARY_PATH=$VIRT_ROOT/lib
-export GST_PLUGIN_PATH=$VIRT_ROOT/lib/gstreamer-$GSTREAMER
+# export LD_LIBRARY_PATH=$VIRT_ROOT/lib
+export GST_PLUGIN_PATH=/usr/local/lib/gstreamer-$GSTREAMER
 
 > /tmp/scarlett_pocketsphinx_compile.log && \
 cd $MAIN_DIR/pocketsphinx && \

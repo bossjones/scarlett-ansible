@@ -20,3 +20,15 @@
   become_user: pi
 
 - debug: var=run_cmd.stdout_lines
+
+- name: configure /home/pi/.virtualenvs/scarlett-dbus-poc/bin/postactivate
+  copy: src=home/pi/postactivate
+        dest=/home/pi/.virtualenvs/scarlett-dbus-poc/bin/postactivate
+        owner=pi
+        group=pi
+        mode=0644
+        backup=no
+  tags:
+  - virtualenv
+  - configuration
+  - python
