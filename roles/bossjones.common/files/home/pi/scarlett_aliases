@@ -86,4 +86,12 @@ alias scarlett_check_alsa='alsamixer'
 alias scarlett_reinstall_pulse='sudo apt-get remove --purge alsa-base pulseaudio -y ;sudo apt-get install alsa-base pulseaudio -y;sudo alsa force-reload;sudo shutdown -r now'
 alias scarlett_force_reload_alsa='sudo alsa force-reload;sudo shutdown -r now'
 alias scarlett_clear_pulse_cache='rm -r ~pi/.pulse;rm -r ~pi/.pulse-cookie;rm -r /tmp/pulse-*;rm -r ~pi/.config/pulse;killall -9 pulseaudio;'
-
+alias scarlett_list_usb_devices='lsusb'
+alias scarlett_list_microphones='arecord -l'
+alias scarlett_microphone_record_test='arecord -D plughw:1,0 /tmp/scarlett_microphone_test.wav'
+alias scarlett_microphone_play_test='aplay /tmp/scarlett_microphone_test.wav'
+alias scarlett_get_recording_settings="amixer -c 0 sget 'Mic',0"
+alias scarlett_get_playback_settings="amixer -c 1"
+alias scarlett_increase_capture_levels='alsamixer -c 0'
+alias scarlett_microphone_record_test2='arecord -D plughw:0,0 -f cd /tmp/test.wav'
+alias scarlett_microphone_play_sound_test2='aplay /tmp/test.wav'

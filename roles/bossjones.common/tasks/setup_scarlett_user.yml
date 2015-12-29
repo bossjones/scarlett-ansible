@@ -27,7 +27,7 @@
         owner=pi
         group=pi
 
-- name: clone scarlett-dbus-poc into
+- name: clone scarlett-dbus-poc into /home/pi/dev/bossjones-github/scarlett-dbus-poc
   git: repo=https://github.com/bossjones/scarlett-dbus-poc.git
        dest=/home/pi/dev/bossjones-github/scarlett-dbus-poc
        update=no
@@ -39,6 +39,15 @@
 - name: clone scarlett into /home/pi/dev/bossjones-github/scarlett
   git: repo=https://github.com/bossjones/scarlett.git
        dest=/home/pi/dev/bossjones-github/scarlett
+       update=no
+       version=master
+       refspec=+refs/pull/*:refs/heads/*
+  become: pi
+  become_user: pi
+
+- name: clone scarlett-gstreamer-pocketsphinx-demo into /home/pi/dev/bossjones-github/scarlett-gstreamer-pocketsphinx-demo
+  git: repo=https://github.com/bossjones/scarlett-gstreamer-pocketsphinx-demo.git
+       dest=/home/pi/dev/bossjones-github/scarlett-gstreamer-pocketsphinx-demo
        update=no
        version=master
        refspec=+refs/pull/*:refs/heads/*

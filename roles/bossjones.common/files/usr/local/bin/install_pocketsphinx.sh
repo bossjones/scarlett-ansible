@@ -4,8 +4,15 @@
 set -o nounset
 set -o errexit
 
-# source `which virtualenvwrapper.sh` && \
-# workon scarlett-dbus-poc
+# source: https://wolfpaulus.com/journal/embedded/raspberrypi2-sr/
+# cd ~/
+# wget http://sourceforge.net/projects/cmusphinx/files/pocketsphinx/5prealpha/pocketsphinx-5prealpha.tar.gz
+# tar -zxvf pocketsphinx-5prealpha.tar.gz
+# cd ./pocketsphinx-5prealpha
+# ./configure
+# make clean all
+# make check
+# sudo make install
 
 export GSTREAMER=1.0
 export PI_HOME=/home/pi
