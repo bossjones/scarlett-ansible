@@ -68,3 +68,14 @@
   tags:
   - alsa
   - shellscripts
+
+# source: http://www.freedesktop.org/wiki/Software/PulseAudio/Documentation/User/PerfectSetup/
+# GStreamer Applications
+
+# Applications using the modern GStreamer media framework such as Rhythmbox or Totem can make use of the PulseAudio through gst-pulse, the PulseAudio plugin for GStreamer in gst-plugins-good. After installing it, you have to enable it as default audio sink and source for all GNOME applications by changing the GConf keys /system/gstreamer/0.10/default/audiosink and /system/gstreamer/0.10/default/audiosrc:
+
+# gconftool -t string --set /system/gstreamer/0.10/default/audiosink pulsesink
+# gconftool -t string --set /system/gstreamer/0.10/default/audiosrc pulsesrc
+# Alternatively, you can make these changes with the GUI tool gstreamer-properties.
+
+# The GStreamer plugin wraps playback, recording and the mixer interface.

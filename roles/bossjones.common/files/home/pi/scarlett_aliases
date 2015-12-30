@@ -117,7 +117,7 @@ alias scarlett_list_pulse_sources='pacmd list-sources'
 alias scarlett_microphone_check='alsamixer'
 alias scarlett_alsa_info='/tmp/alsa-info.sh'
 # alias scarlett_os_x_get_usb_devices='ioreg -p IOUSB -w0 -l'
-
+alias scarlett_change_default_pulse_sink_and_src='gstreamer-properties'
 
 scarlett_setup_env_vars(){
   export GSTREAMER=1.0

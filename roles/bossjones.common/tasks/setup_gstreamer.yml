@@ -32,3 +32,12 @@
   - gstreamer
   - packages
   - install_build-dep
+
+- name: Install gnome-media packages via apt
+  apt: pkg={{ item }} state=latest
+  with_items:
+  - gnome-media
+  sudo: yes
+  tags:
+  - gstreamer
+  - gnome
