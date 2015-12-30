@@ -96,6 +96,7 @@ alias scarlett_increase_capture_levels='alsamixer -c 0'
 alias scarlett_microphone_record_test2='arecord -D plughw:0,0 -f cd /tmp/test.wav'
 alias scarlett_microphone_play_sound_test2='aplay /tmp/test.wav'
 alias scarlett_check_pocketsphinx_gst_plugin_exists='gst-inspect-1.0 | grep sphinx'
+alias scarlett_list_pulse_sources='pacmd list-sources'
 
 scarlett_setup_env_vars(){
   export GSTREAMER=1.0
