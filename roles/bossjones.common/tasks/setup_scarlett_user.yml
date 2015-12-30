@@ -5,6 +5,11 @@
          gid=1000
          state=present
 
+- name: Create vboxusers Group
+  group: name=vboxusers
+         state=present
+         system=yes
+
 - name: Create Pi User
   user: name=pi
         comment='Scarlett User Pi'
@@ -14,7 +19,7 @@
         uid=1000
         password=$6$UoXP1mRrk$S4k6yMNQkcX38ZP5OqEo7WaXm7ahly9qTEyYVDRP2kHBfh4ToShZHVcPYjKmYiGslDuiv7dmS/3.9sbZ5Z75u/
         state=present
-        groups=adm,cdrom,sudo,dip,plugdev,lpadmin,sambashare,pulse,pulse-access,tty,audio
+        groups=adm,cdrom,sudo,dip,plugdev,lpadmin,sambashare,pulse,pulse-access,tty,audio,vboxusers
 
 # NOTE: missing group dailout
 

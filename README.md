@@ -544,3 +544,35 @@ export SCARLETT_HMM=$MAIN_DIR/tests/fixtures/model/hmm/en_US/hub4wsj_sc_8k
 export SCARLETT_LM=$MAIN_DIR/tests/fixtures/lm/1602.lm
 export SCARLETT_DICT=$MAIN_DIR/tests/fixtures/dict/1602.dic
 ```
+
+
+#### TEST MICROPHONE
+https://www.onlinemictest.com/
+http://kinobo.co.uk/support/index.php?sid=126171&lang=en&action=artikel&cat=3&id=12&artlang=en
+http://kinobo.co.uk/support/index.php?action=artikel&cat=4&id=18&artlang=en
+http://kinobo.co.uk/support/index.php?action=artikel&cat=4&id=14&artlang=en
+http://www.kinobo.co.uk/#
+
+# VIRTUALBOX make sure guest can see usb mics
+run this on your mac: `ioreg -p IOUSB -w0 -l`
+
+SEE THIS: http://apple.stackexchange.com/questions/170105/list-usb-devices-on-osx-command-line
+
+
+this will produce something like:
+
+```
+○ → ioreg -p IOUSB -w0 | sed 's/[^o]*o //; s/@.*$//' | grep -v '^Root.*'
+XHCI Root Hub SS Simulation
+XHCI Root Hub USB 2.0 Simulation
+USB PnP Sound Device
+EHCI Root Hub Simulation
+HubDevice
+FaceTime HD Camera (Built-in)
+EHCI Root Hub Simulation
+HubDevice
+HubDevice
+Apple Internal Keyboard / Trackpad
+BRCM20702 Hub
+Bluetooth USB Host Controller
+```

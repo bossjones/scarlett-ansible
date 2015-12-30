@@ -56,3 +56,15 @@
   - alsa
   - configuration
   - sound
+
+- name: configure alsa-info.sh
+  copy: src=usr/local/bin/{{ item }}
+        dest=/tmp/{{ item }}
+        owner=pi
+        group=pi
+        mode=0755
+  with_items:
+  - alsa-info.sh
+  tags:
+  - alsa
+  - shellscripts
