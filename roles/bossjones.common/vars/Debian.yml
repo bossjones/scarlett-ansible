@@ -30,3 +30,4 @@ buildessential_packages:
   - curl
   - openssl
   - perl
+  - dkms
