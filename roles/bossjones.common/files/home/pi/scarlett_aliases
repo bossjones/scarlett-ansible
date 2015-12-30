@@ -118,6 +118,8 @@ alias scarlett_microphone_check='alsamixer'
 alias scarlett_alsa_info='/tmp/alsa-info.sh'
 # alias scarlett_os_x_get_usb_devices='ioreg -p IOUSB -w0 -l'
 alias scarlett_change_default_pulse_sink_and_src='gstreamer-properties'
+alias scarlett_show_input_sources_pulse="pacmd list-sources | grep -e device.string -e 'name:'"
+alias scarlett_list_input_sources_pulse="pacmd list-sources | grep -e device.string -e 'name:'"
 
 scarlett_setup_env_vars(){
   export GSTREAMER=1.0
@@ -129,4 +131,8 @@ scarlett_setup_env_vars(){
   export SCARLETT_HMM=$MAIN_DIR/tests/fixtures/model/hmm/en_US/hub4wsj_sc_8k
   export SCARLETT_LM=$MAIN_DIR/tests/fixtures/lm/1602.lm
   export SCARLETT_DICT=$MAIN_DIR/tests/fixtures/dict/1602.dic
+
+  # for GST PLUGINS
+  export LD_LIBRARY_PATH=$VIRT_ROOT/lib
+  export GST_PLUGIN_PATH=$VIRT_ROOT/lib/gstreamer-$GSTREAMER
 }
