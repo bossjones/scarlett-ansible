@@ -46,3 +46,12 @@
   tags:
   - pythonrc
   - configuration
+
+# pip install --upgrade setuptools
+
+- name: pip install --upgrade setuptools
+  command: pip install --upgrade setuptools
+  tags:
+  - pip
+  - setuptools
+  sudo: yes

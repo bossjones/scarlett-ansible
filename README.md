@@ -528,3 +528,19 @@ Alternatively, is there a way to make PocketSphinx use the mic at index 1?
 # Is this still valid?
 
 https://bugs.tizen.org/jira/browse/TC-664
+
+
+# NOTE:
+If there is ever concern about env variables messing up how scarlett runs, make sure these are either set/unset, which are defined in postactivate and postdeactivate:
+
+```
+export GSTREAMER=1.0
+export PI_HOME=/home/pi
+export MAIN_DIR=$PI_HOME/dev/bossjones-github/scarlett-dbus-poc
+export VIRT_ROOT=$PI_HOME/.virtualenvs/scarlett-dbus-poc
+export PKG_CONFIG_PATH=$VIRT_ROOT/lib/pkgconfig
+export SCARLETT_CONFIG=$MAIN_DIR/tests/fixtures/.scarlett
+export SCARLETT_HMM=$MAIN_DIR/tests/fixtures/model/hmm/en_US/hub4wsj_sc_8k
+export SCARLETT_LM=$MAIN_DIR/tests/fixtures/lm/1602.lm
+export SCARLETT_DICT=$MAIN_DIR/tests/fixtures/dict/1602.dic
+```
