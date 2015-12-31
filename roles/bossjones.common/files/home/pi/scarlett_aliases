@@ -125,6 +125,8 @@ alias scarlett_list_output_sources_and_cards="aplay -l | grep card"
 alias scarlett_list_usb_sound_devices='cat /proc/asound/cards'
 alias scarlett_list_usb_sound_pcm='cat /proc/asound/pcm'
 alias scarlett_pulse_default_info='pactl info'
+alias scarlett_pulse_switch_device_gui='gnome-volume-control'
+alias scarlett_pulse_switch_device_gui2='gnome-control-center sound'
 
 # ± |master U:3 ?:3 ✗| → pactl info
 # Server String: /run/user/1000/pulse/native
