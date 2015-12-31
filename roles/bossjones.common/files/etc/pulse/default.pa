@@ -31,7 +31,12 @@
 
 ### Automatically restore the volume of streams and devices
 load-module module-device-restore
-load-module module-stream-restore
+
+# BOSSJONES NOTE: DEFAULT IS THIS
+# load-module module-stream-restore
+
+# Using this based on answer here: http://askubuntu.com/questions/71863/how-to-change-pulseaudio-sink-with-pacmd-set-default-sink-during-playback
+load-module module-stream-restore restore_device=false
 load-module module-card-restore
 
 ### Automatically augment property information from .desktop files
@@ -161,3 +166,6 @@ load-module module-switch-on-port-available
 ### Make some devices default
 #set-default-sink output
 #set-default-source input
+
+# NOTE if we want to set fallback/default to the mini usb microphone, use this
+#set-default-source input 2

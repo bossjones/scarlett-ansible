@@ -41,3 +41,17 @@
   tags:
   - gstreamer
   - gnome
+
+# TODO: WE NEED TO RUN THIS
+# source: https://projects.gnome.org/gconf/
+# This sets Gstreamer to use pulse audio by default when running in custom applications ( eg scarlett )
+# gconftool-2 -t string --set /system/gstreamer/1.0/default/audiosink pulsesink
+# gconftool-2 -t string --set /system/gstreamer/1.0/default/audiosrc pulsesrc
+
+# The following extra packages will be installed:
+#   gnome-control-center gnome-control-center-data gnome-settings-daemon
+#   gstreamer0.10-gconf libgnome-media-profiles-3.0-0 libgoa-backend-1.0-1
+# The following NEW packages will be installed:
+#   gnome-control-center gnome-control-center-data gnome-media
+#   gnome-settings-daemon gstreamer0.10-gconf libgnome-media-profiles-3.0-0
+#   libgoa-backend-1.0-1

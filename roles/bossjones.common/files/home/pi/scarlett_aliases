@@ -120,6 +120,44 @@ alias scarlett_alsa_info='/tmp/alsa-info.sh'
 alias scarlett_change_default_pulse_sink_and_src='gstreamer-properties'
 alias scarlett_show_input_sources_pulse="pacmd list-sources | grep -e device.string -e 'name:'"
 alias scarlett_list_input_sources_pulse="pacmd list-sources | grep -e device.string -e 'name:'"
+alias scarlett_list_sinks_pulse="pacmd list-sinks | grep -e 'name:' -e 'index'"
+alias scarlett_list_output_sources_and_cards="aplay -l | grep card"
+alias scarlett_list_usb_sound_devices='cat /proc/asound/cards'
+alias scarlett_list_usb_sound_pcm='cat /proc/asound/pcm'
+alias scarlett_pulse_default_info='pactl info'
+
+# ± |master U:3 ?:3 ✗| → pactl info
+# Server String: /run/user/1000/pulse/native
+# Library Protocol Version: 28
+# Server Protocol Version: 28
+# Is Local: yes
+# Client Index: 39
+# Tile Size: 65472
+# User Name: pi
+# Host Name: scarlett-ansible
+# Server Name: pulseaudio
+# Server Version: 4.0
+# Default Sample Specification: s16le 2ch 44100Hz
+# Default Channel Map: front-left,front-right
+# Default Sink: alsa_output.pci-0000_00_05.0.analog-stereo
+# Default Source: alsa_input.pci-0000_00_05.0.analog-stereo
+# Cookie: 15e8:5971
+
+# list all soundcards and digital audio devices
+alias scarlett_list_all_sound_cards='arecord --list-pcms'
+alias scarlett_test_pocketsphinx='pocketsphinx_continuous -hmm /home/pi/.virtualenvs/scarlett-dbus-poc/share/pocketsphinx/model/en-us/en-us -lm 1602.lm -dict 1602.dic -samprate 16000/8000/48000 -inmic yes -adcdev hw:1'
+# when we get it working add this:
+# -silprob 0.1 -wip 1e-4 -bestpath 0
+
+
+#####################################################################################################################################
+# # source: https://wiki.archlinux.org/index.php/PulseAudio/Examples
+# # Set ALSA as USB_PnP_Sound_Device
+#####################################################################################################################################
+# pacmd load-module module-alsa-source source_name=alsa_input.usb-C-Media_Electronics_Inc._USB_PnP_Sound_Device-00-Device.analog-mono device=hw:1
+# # Make it ALSA default
+# pacmd set-default-source alsa_input.usb-C-Media_Electronics_Inc._USB_PnP_Sound_Device-00-Device.analog-mono
+#####################################################################################################################################
 
 scarlett_setup_env_vars(){
   export GSTREAMER=1.0
