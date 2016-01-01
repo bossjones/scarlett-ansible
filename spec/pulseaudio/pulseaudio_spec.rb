@@ -75,6 +75,12 @@ end
 # NOT ^exit-idle-time = 20 # 3 hours$
 # ^log-level = info$
 
+describe command('cat /etc/pulse/daemon.conf') do
+  its(:stdout) { should match /.*^exit-idle-time = 10800 # 3 hours$.*/ }
+  its(:stdout) { should_not match /.*^exit-idle-time = 20 # 3 hours$.*/ }
+  its(:stdout) { should match /.*^log-level = info$.*/ }
+end
+
 # /home/pi/postactivate
 # export GSTREAMER=1.0
 # export PI_HOME=/home/pi
