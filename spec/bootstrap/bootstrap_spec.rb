@@ -54,8 +54,6 @@ describe 'ppa:git-core/ppa installed' do
   end
 end
 
-# export LC_CTYPE=en_US.UTF-8
-# export LC_ALL=en_US.UTF-8
 
 describe 'locales set correctly' do
   it 'export LC_CTYPE=en_US.UTF-8 and export LC_ALL=en_US.UTF-8 exists in /etc/profile.d/locales.sh' do
@@ -63,3 +61,15 @@ describe 'locales set correctly' do
     expect(file('/etc/profile.d/locales.sh').content).to match(/^export LC_ALL=en_US.UTF-8/)
   end
 end
+
+describe command('dpkg --print-architecture') do
+  its(:stdout) { should match /.*amd64.*/ }
+end
+
+# describe 'dpkg --print-architecture is amd64 and NOT i386' do
+#   # it 'amd64 enabled' do
+#     describe command('dpkg --print-architecture') do
+#         its(:stdout) { should match /.*amd64.*/ }
+#     end
+#   # end
+# end
