@@ -118,6 +118,8 @@ load-module module-always-sink
 load-module module-intended-roles
 
 ### Automatically suspend sinks/sources that become idle for too long
+# source: http://unix.stackexchange.com/questions/114602/pulseaudio-sink-always-suspended
+# source:
 # BOSSJONES NOTE: this use to be disabled # load-module module-suspend-on-idle
 # load-module module-suspend-on-idle
 

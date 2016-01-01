@@ -47,3 +47,19 @@ server_packages.each { |x|
     end
   end
 }
+
+describe 'ppa:git-core/ppa installed' do
+  it "has ppa:git-core/ppa" do
+    expect(ppa('git-core/ppa')).to exist
+  end
+end
+
+# export LC_CTYPE=en_US.UTF-8
+# export LC_ALL=en_US.UTF-8
+
+describe 'locales set correctly' do
+  it 'export LC_CTYPE=en_US.UTF-8 and export LC_ALL=en_US.UTF-8 exists in /etc/profile.d/locales.sh' do
+    expect(file('/etc/profile.d/locales.sh').content).to match(/^export LC_CTYPE=en_US.UTF-8/)
+    expect(file('/etc/profile.d/locales.sh').content).to match(/^export LC_ALL=en_US.UTF-8/)
+  end
+end
