@@ -42,6 +42,24 @@
   - gstreamer
   - gnome
 
+# lets make sure gstreamer is aware of pulse audio
+
+- name: gconftool-2 -t string --set /system/gstreamer/1.0/default/audiosink pulsesink
+  command: "gconftool-2 -t string --set /system/gstreamer/1.0/default/audiosink pulsesink"
+  become: pi
+  become_user: pi
+
+- name: gconftool-2 -t string --set /system/gstreamer/1.0/default/audiosrc pulsesrc
+  command: "gconftool-2 -t string --set /system/gstreamer/1.0/default/audiosrc pulsesrc"
+  become: pi
+  become_user: pi
+
+- name: gconftool-2 -t string --set /system/gstreamer/1.0/default/musicaudiosink pulsesink
+  command: "gconftool-2 -t string --set /system/gstreamer/1.0/default/musicaudiosink pulsesink"
+  become: pi
+  become_user: pi
+
+
 # TODO: WE NEED TO RUN THIS
 # source: https://projects.gnome.org/gconf/
 # This sets Gstreamer to use pulse audio by default when running in custom applications ( eg scarlett )
