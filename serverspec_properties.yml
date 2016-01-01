@@ -5,7 +5,7 @@ default:
   # tests to run - found in spec/
   :roles:
   # - gnome
-  # - python
+  - python
   # - ntp
   # - bash_it
   # - espeak
