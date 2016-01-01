@@ -22,12 +22,6 @@ options[:user] ||= Etc.getlogin
 set :host,        options[:host_name] || host
 set :ssh_options, options
 
-# begin
-#   Gem::Specification.find_by_name('yaml')
-# rescue Gem::LoadError
-#   require 'rubygems/dependency_installer'
-#   Gem::DependencyInstaller.new(Gem::DependencyInstaller::DEFAULT_OPTIONS).install('yaml')
-# end
 
 RSpec.configure do |c|
   c.around :each, sudo: false do |example|
