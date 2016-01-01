@@ -17,3 +17,10 @@ describe 'ppa:gstreamer-developers/ppa installed' do
     expect(ppa('gstreamer-developers/ppa')).to exist
   end
 end
+
+
+describe command('gconftool-2 -a /system/gstreamer/1.0/default') do
+  its(:stdout) { should match /.*musicaudiosink = pulsesink.*/ }
+  its(:stdout) { should match /.*audiosink = pulsesink.*/ }
+  its(:stdout) { should match /.*audiosrc = pulsesrc.*/ }
+end
