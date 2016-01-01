@@ -22,6 +22,8 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+.bundle/
+.vendor/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -57,3 +59,4 @@ docs/_build/
 target/
 real_scarlett_configuration_files/
 .vagrant
+Gemfile.lock
