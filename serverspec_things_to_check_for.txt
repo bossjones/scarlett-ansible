@@ -1,0 +1,384 @@
+[1mdiff --git a/README.md b/README.md[m
+[1mindex 6df5a3f..3c0ce35 100644[m
+[1m--- a/README.md[m
+[1m+++ b/README.md[m
+[36m@@ -11,6 +11,8 @@[m [mhttps://gramps-project.org/wiki/index.php?title=GEPS_029:_GTK3-GObject_introspec[m
+ [m
+ https://wiki.archlinux.org/index.php/PulseAudio/Examples[m
+ [m
+[32m+[m[32mhttps://wiki.archlinux.org/index.php/PulseAudio/Configuration[m
+[32m+[m
+ # good example of how to compile from source in ansible[m
+ https://github.com/ozzyjohnson/ansible-ffmpeg-build/blob/master/build-ffmpeg.yml[m
+ [m
+[36m@@ -578,3 +580,123 @@[m [mApple Internal Keyboard / Trackpad[m
+ BRCM20702 Hub[m
+ Bluetooth USB Host Controller[m
+ ```[m
+[32m+[m
+[32m+[m
+[32m+[m[32m# DEBUGGING[m
+[32m+[m
+[32m+[m[32m```[m
+[32m+[m[32m± |master U:3 ?:3 ✗| → gconftool-2 --recursive-list /system/gstreamer[m
+[32m+[m[32m /system/gstreamer/0.10:[m
+[32m+[m[32m  /system/gstreamer/0.10/default:[m
+[32m+[m[32m   musicaudiosink_description = Default[m
+[32m+[m[32m   audiosrc = autoaudiosrc[m
+[32m+[m[32m   audiosrc_description = Default[m
+[32m+[m[32m   chataudiosink_description = Default[m
+[32m+[m[32m   musicaudiosink = autoaudiosink[m
+[32m+[m[32m   audiosink_description = Default[m
+[32m+[m[32m   visualization = goom[m
+[32m+[m[32m   videosrc = v4l2src[m
+[32m+[m[32m   audiosink = autoaudiosink[m
+[32m+[m[32m   chataudiosink = autoaudiosink[m
+[32m+[m[32m   videosink = autovideosink[m
+[32m+[m[32m /system/gstreamer/1.0:[m
+[32m+[m[32m  /system/gstreamer/1.0/default:[m
+[32m+[m[32m   audiosink = pulsesink[m
+[32m+[m[32m   audiosrc = pulsesrc[m
+[32m+[m[32m  /system/gstreamer/1.0/audio:[m
+[32m+[m[32m   /system/gstreamer/1.0/audio/profiles:[m
+[32m+[m[32m    /system/gstreamer/1.0/audio/profiles/mp3:[m
+[32m+[m[32m     name = CD Quality, MP3[m
+[32m+[m[32m     extension = mp3[m
+[32m+[m[32m     pipeline = audio/x-raw,rate=44100,channels=2 ! lamemp3enc name=enc target=0 quality=6 ! xingmux ! id3v2mux[m
+[32m+[m[32m     description = Used for converting to CD-quality audio, but with the lossy MP3 codec. Use this for preparing files for copying to devices that only support the MP3 codec. Note that using this format may be illegal in your jurisdiction; contact your lawyer for advice.[m
+[32m+[m[32m     active = true[m
+[32m+[m[32m    /system/gstreamer/1.0/audio/profiles/cdlossless:[m
+[32m+[m[32m     name = CD Quality, Lossless[m
+[32m+[m[32m     extension = flac[m
+[32m+[m[32m     pipeline = audio/x-raw,rate=44100,channels=2 ! flacenc name=enc[m
+[32m+[m[32m     description = Used for converting to CD-quality audio, but with a lossless compression codec. Use this if you later want to edit the file or burn it to CD.[m
+[32m+[m[32m     active = true[m
+[32m+[m[32m    /system/gstreamer/1.0/audio/profiles/mp2:[m
+[32m+[m[32m     name = CD Quality, MP2[m
+[32m+[m[32m     extension = mp2[m
+[32m+[m[32m     pipeline = audio/x-raw,rate=44100,channels=2 ! twolame name=enc mode=0 bitrate=192 ! id3v2mux[m
+[32m+[m[32m     description = Used for converting to CD-quality audio, but with the lossy MP2 codec. Use this for preparing files for copying to devices that only support the MP2 codec. Note that using this format may be illegal in your jurisdiction; contact your lawyer for advice.[m
+[32m+[m[32m     active = true[m
+[32m+[m[32m    /system/gstreamer/1.0/audio/profiles/aac:[m
+[32m+[m[32m     name = CD Quality, AAC[m
+[32m+[m[32m     extension = m4a[m
+[32m+[m[32m     pipeline = audio/x-raw,rate=44100,channels=2 ! faac profile=2 ! ffmux_mp4[m
+[32m+[m[32m     description = Used for converting to CD-quality audio, but with the lossy AAC codec. Use this for preparing files for copying to devices that only support the AAC codec. Note that using this format may be illegal in your jurisdiction; contact your lawyer for advice.[m
+[32m+[m[32m     active = true[m
+[32m+[m[32m    /system/gstreamer/1.0/audio/profiles/voicelossless:[m
+[32m+[m[32m     name = Voice, Lossless[m
+[32m+[m[32m     extension = wav[m
+[32m+[m[32m     pipeline = audio/x-raw,rate=22050,channels=1 ! wavenc name=enc[m
+[32m+[m[32m     description = Used for converting to lossless voice-quality audio. Use this for recording and editing speech.[m
+[32m+[m[32m     active = true[m
+[32m+[m[32m    /system/gstreamer/1.0/audio/profiles/voicelossy:[m
+[32m+[m[32m     name = Voice, Lossy[m
+[32m+[m[32m     extension = spx[m
+[32m+[m[32m     pipeline = audio/x-raw,rate=32000,channels=1 ! speexenc name=enc ! oggmux[m
+[32m+[m[32m     description = Used for converting to lossy voice-quality audio. Use this for recording speech that doesn't need to be edited.[m
+[32m+[m[32m     active = true[m
+[32m+[m[32m    /system/gstreamer/1.0/audio/profiles/cdlossy:[m
+[32m+[m[32m     name = CD Quality, Lossy[m
+[32m+[m[32m     extension = ogg[m
+[32m+[m[32m     pipeline = audio/x-raw,rate=44100,channels=2 ! vorbisenc name=enc quality=0.5 ! oggmux[m
+[32m+[m[32m     description = Used for converting to CD-quality audio, but with a lossy compression codec. Use this for CD extraction and radio recordings.[m
+[32m+[m[32m     active = true[m
+[32m+[m[32m   /system/gstreamer/1.0/audio/global:[m
+[32m+[m[32m    profile_list = [cdlossy,cdlossless,aac,mp2,mp3,voicelossy,voicelossless][m
+[32m+[m
+[32m+[m[32m  using virtualenv: scarlett-dbus-poc scarlett-ansible in ~/dev/bossjones-github/scarlett-gstreamer-pocketsphinx-demo[m
+[32m+[m[32m± |master U:3 ?:3 ✗| →[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32m# source: https://twitter.com/andolamin/status/661050200614502400[m
+[32m+[m[32mgconftool-2 -t string --set /system/gstreamer/1.0/default/audiosink pulsesink[m
+[32m+[m
+[32m+[m[32m```[m
+[32m+[m[32m# modified with 1.0[m
+[32m+[m[32mgconftool-2 -t string --set /system/gstreamer/1.0/default/audiosink pulsesink[m
+[32m+[m[32mgconftool-2 -t string --set /system/gstreamer/1.0/default/audiosrc pulsesrc[m
+[32m+[m[32mgconftool-2 -t string --set /system/gstreamer/1.0/default/musicaudiosink pulsesink[m
+[32m+[m
+[32m+[m[32m# source: http://blog.scphillips.com/posts/2013/01/getting-gstreamer-to-work-on-a-raspberry-pi/[m
+[32m+[m[32m# check the keys are there:[m
+[32m+[m[32m± |master U:3 ?:3 ✗| → gconftool-2 -a /system/gstreamer/1.0/default[m
+[32m+[m[32m musicaudiosink = pulsesink[m
+[32m+[m[32m audiosink = pulsesink[m
+[32m+[m[32m audiosrc = pulsesrc[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m
+[32m+[m[32m```[m
+[32m+[m[32m# modified with 1.0[m
+[32m+[m[32mgconftool -t string --set /system/gstreamer/1.0/default/audiosink pulsesink[m
+[32m+[m[32mgconftool -t string --set /system/gstreamer/1.0/default/audiosrc pulsesrc[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32m```[m
+[32m+[m[32m# gstreamer 0.10[m
+[32m+[m[32mgconftool -t string --set /system/gstreamer/0.10/default/audiosink pulsesink[m
+[32m+[m[32mgconftool -t string --set /system/gstreamer/0.10/default/audiosrc pulsesrc[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32msource: http://www.alsa-project.org/main/index.php/Asoundrc[m
+[32m+[m
+[32m+[m[32m```[m
+[32m+[m[32mThe numbers after hw: stand for the soundcard number and device number. This can get confusing as some sound "cards" are better represented by calling them sound "devices", for example USB sounddevices. However they are still "cards" in the sense that they have a specific driver controlling a specific piece of hardware. They also correspond to the index shown in[m
+[32m+[m[32m/proc/asound/cards[m
+[32m+[m[32mAs with most arrays the first item usually starts at 0 not 1. This is true for the way pcm devices (physical I/O channels) are represented in ALSA. Starting at pcm0c (capture), pcm0p (playback).[m
+[32m+[m[32mWe use subdevices mainly for hardware which can mix several streams together. It is impractical to have 32 devices with exactly the same capabilities. The subdevices can be opened without a specific address, so the first free subdevice is opened. Also, we temporarily use subdevices for hardware with a lot of streams (I/O connectors) — for example MIDI. There are several limits given by used minor numbers (8 PCM devices per card, 8 MIDI devices per card etc.).[m
+[32m+[m[32mFor example, to access the first device on the first soundcard/device, you would use[m
+[32m+[m[32mhw:0,0[m
+[32m+[m[32mto access the first device on the second soundcard/device, you would use[m
+[32m+[m[32mhw:1,0[m
+[32m+[m[32mto access the second device on the third soundcard/device, you would use[m
+[32m+[m[32mhw:2,1[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32mhttps://wiki.archlinux.org/index.php/PulseAudio/Configuration[m
+[1mdiff --git a/Vagrantfile-ansible-test b/Vagrantfile-ansible-test[m
+[1mindex e3ea8d3..d06ae23 100644[m
+[1m--- a/Vagrantfile-ansible-test[m
+[1m+++ b/Vagrantfile-ansible-test[m
+[36m@@ -91,7 +91,7 @@[m [mVagrant.configure("2")  do |config|[m
+     better_usbfilter_add(vb, "0x0d8c", "0x013c", "C-Media Electronics Inc. USB PnP Sound Device [0100]", "0100", "C-Media Electronics Inc.", "USB PnP Sound Device", "0")[m
+ [m
+     vb.customize ["modifyvm", :id, "--usb", "on"][m
+[31m-    vb.customize ["modifyvm", :id, "--usbehci", "on"][m
+[32m+[m[32m    # vb.customize ["modifyvm", :id, "--usbohci", "on"][m
+   end[m
+ [m
+   config.vm.provision 'ansible' do |ansible|[m
+[1mdiff --git a/roles/bossjones.common/files/etc/libao.conf b/roles/bossjones.common/files/etc/libao.conf[m
+[1mindex 733abe4..5c11d89 100644[m
+[1m--- a/roles/bossjones.common/files/etc/libao.conf[m
+[1m+++ b/roles/bossjones.common/files/etc/libao.conf[m
+[36m@@ -1,3 +1,4 @@[m
+[32m+[m[32m# NOTE: BOSSJONES CONFIG[m
+ # default_driver=pulse[m
+ default_driver=alsa[m
+ quiet[m
+[1mdiff --git a/roles/bossjones.common/files/etc/modprobe.d/alsa-base.conf b/roles/bossjones.common/files/etc/modprobe.d/alsa-base.conf[m
+[1mindex f70197e..687bfaf 100644[m
+[1m--- a/roles/bossjones.common/files/etc/modprobe.d/alsa-base.conf[m
+[1m+++ b/roles/bossjones.common/files/etc/modprobe.d/alsa-base.conf[m
+[36m@@ -30,7 +30,7 @@[m [moptions saa7134-alsa index=-2[m
+ options snd-atiixp-modem index=-2[m
+ options snd-intel8x0m index=-2[m
+ options snd-via82xx-modem index=-2[m
+[31m-options snd-usb-audio index=-2[m
+[32m+[m[32moptions snd-usb-audio index=0[m
+ options snd-usb-caiaq index=-2[m
+ options snd-usb-ua101 index=-2[m
+ options snd-usb-us122l index=-2[m
+[36m@@ -40,5 +40,11 @@[m [moptions snd-cmipci mpu_port=0x330 fm_port=0x388[m
+ # Keep snd-pcsp from being loaded as first soundcard[m
+ options snd-pcsp index=-2[m
+ # Keep snd-usb-audio from beeing loaded as first soundcard[m
+[31m-options snd-usb-audio index=-2[m
+[32m+[m[32m# options snd-usb-audio index=-2[m
+[32m+[m
+[32m+[m[32m# BOSSJONES[m
+[32m+[m[32m# ALC892 Low sound issue fixed with changing alsa config, why does it work?[m
+ snd-hda-intel model=generic[m
+[32m+[m
+[32m+[m[32m# source: http://www.linuxquestions.org/questions/linux-newbie-8/recording-sound-with-pulseaudio-from-line-in-and-microphone-not-working-854942/[m
+[32m+[m[32m# options snd-hda-intel model=auto enable=yes[m
+[1mdiff --git a/roles/bossjones.common/files/etc/pulse/daemon.conf b/roles/bossjones.common/files/etc/pulse/daemon.conf[m
+[1mindex f477582..a771763 100644[m
+[1m--- a/roles/bossjones.common/files/etc/pulse/daemon.conf[m
+[1m+++ b/roles/bossjones.common/files/etc/pulse/daemon.conf[m
+[36m@@ -40,13 +40,18 @@[m
+ ; exit-idle-time = 20[m
+ ; scache-idle-time = 20[m
+ [m
+[32m+[m[32m; BOSSJONES NOTE[m
+[32m+[m[32m; # You can use -1 for exit-idle-time to keep the daemon running indefinitely. Beware this is seconds and the default is 20 (meaning it will keep "mysteriously" dying if you don't set this).[m
+[32m+[m[32m; # source: http://raspberrypi.stackexchange.com/questions/8621/how-to-set-up-a-pulseaudio-sink[m
+[32m+[m[32mexit-idle-time = 10800 # 3 hours[m
+[32m+[m
+ ; dl-search-path = (depends on architecture)[m
+ [m
+ ; load-default-script-file = yes[m
+ ; default-script-file = /etc/pulse/default.pa[m
+ [m
+ ; log-target = auto[m
+[31m-; log-level = notice[m
+[32m+[m[32mlog-level = info[m
+ ; log-meta = no[m
+ ; log-time = no[m
+ ; log-backtrace = 0[m
+[1mdiff --git a/roles/bossjones.common/files/home/pi/postactivate b/roles/bossjones.common/files/home/pi/postactivate[m
+[1mindex b2184d1..31bcf98 100644[m
+[1m--- a/roles/bossjones.common/files/home/pi/postactivate[m
+[1m+++ b/roles/bossjones.common/files/home/pi/postactivate[m
+[36m@@ -13,6 +13,10 @@[m [mexport SCARLETT_HMM=$MAIN_DIR/tests/fixtures/model/hmm/en_US/hub4wsj_sc_8k[m
+ export SCARLETT_LM=$MAIN_DIR/tests/fixtures/lm/1602.lm[m
+ export SCARLETT_DICT=$MAIN_DIR/tests/fixtures/dict/1602.dic[m
+ [m
+[32m+[m[32m# for GST PLUGINS[m
+[32m+[m[32mexport LD_LIBRARY_PATH=$VIRT_ROOT/lib[m
+[32m+[m[32mexport GST_PLUGIN_PATH=$VIRT_ROOT/lib/gstreamer-$GSTREAMER[m
+[32m+[m
+ echo "I have set the following env variables for this Scarlett virtualenv"[m
+ echo "*******************************************************************"[m
+ echo $GSTREAMER[m
+[36m@@ -24,4 +28,6 @@[m [mecho $SCARLETT_CONFIG[m
+ echo $SCARLETT_HMM[m
+ echo $SCARLETT_LM[m
+ echo $SCARLETT_DICT[m
+[32m+[m[32mecho $LD_LIBRARY_PATH[m
+[32m+[m[32mecho $GST_PLUGIN_PATH[m
+ echo "*******************************************************************"[m
+[1mdiff --git a/roles/bossjones.common/files/home/pi/postdeactivate b/roles/bossjones.common/files/home/pi/postdeactivate[m
+[1mindex 66999ae..a7f8f8d 100644[m
+[1m--- a/roles/bossjones.common/files/home/pi/postdeactivate[m
+[1m+++ b/roles/bossjones.common/files/home/pi/postdeactivate[m
+[36m@@ -13,6 +13,10 @@[m [munset SCARLETT_HMM[m
+ unset SCARLETT_LM[m
+ unset SCARLETT_DICT[m
+ [m
+[32m+[m[32m# for GST PLUGINS[m
+[32m+[m[32munset LD_LIBRARY_PATH[m
+[32m+[m[32munset GST_PLUGIN_PATH[m
+[32m+[m
+ echo "I have unset the following env variables for this Scarlett virtualenv"[m
+ echo "*******************************************************************"[m
+ echo "unset GSTREAMER"[m
+[36m@@ -24,6 +28,8 @@[m [mecho "unset SCARLETT_CONFIG"[m
+ echo "unset SCARLETT_HMM"[m
+ echo "unset SCARLETT_LM"[m
+ echo "unset SCARLETT_DICT"[m
+[32m+[m[32mecho "unset LD_LIBRARY_PATH"[m
+[32m+[m[32mecho "unset GST_PLUGIN_PATH"[m
+ echo "*******************************************************************"[m
+ echo "PROOF THEY HAVE ALL BEEN UNSET"[m
+ echo "*******************************************************************"[m
+[36m@@ -36,4 +42,6 @@[m [mecho $SCARLETT_CONFIG[m
+ echo $SCARLETT_HMM[m
+ echo $SCARLETT_LM[m
+ echo $SCARLETT_DICT[m
+[32m+[m[32mecho $LD_LIBRARY_PATH[m
+[32m+[m[32mecho $GST_PLUGIN_PATH[m
+ echo "*******************************************************************"[m
+[1mdiff --git a/roles/bossjones.common/files/home/pi/scarlett_aliases b/roles/bossjones.common/files/home/pi/scarlett_aliases[m
+[1mindex df49f06..1a1bd55 100644[m
+[1m--- a/roles/bossjones.common/files/home/pi/scarlett_aliases[m
+[1m+++ b/roles/bossjones.common/files/home/pi/scarlett_aliases[m
+[36m@@ -127,6 +127,41 @@[m [malias scarlett_list_usb_sound_pcm='cat /proc/asound/pcm'[m
+ alias scarlett_pulse_default_info='pactl info'[m
+ alias scarlett_pulse_switch_device_gui='gnome-volume-control'[m
+ alias scarlett_pulse_switch_device_gui2='gnome-control-center sound'[m
+[32m+[m[32malias scarlett_cd_demo='cd ~/dev/bossjones-github/scarlett-gstreamer-pocketsphinx-demo/'[m
+[32m+[m[32malias scarlett_pulse_prefrences='paprefs'[m
+[32m+[m
+[32m+[m[32m# list all soundcards and digital audio devices[m
+[32m+[m[32malias scarlett_list_alsa_playback_hardware_devices='aplay -l'[m
+[32m+[m
+[32m+[m[32m# list device names, pcms[m
+[32m+[m[32malias scarlett_list_alsa_playback_hardware_devices='aplay -L'[m
+[32m+[m
+[32m+[m[32malias scarlett_test_pulseaudio_record='parecord --monitor-stream 1 outfile.wav'[m
+[32m+[m[32malias scarlett_list_pulse_short_names='pactl list short'[m
+[32m+[m[32malias scarlett_list_pulse_short_sinks='pactl list short sinks'[m
+[32m+[m[32m# use this to see if usb mic is enabled[m
+[32m+[m[32malias scarlett_check_pulse_module_enabled='pactl list short modules'[m
+[32m+[m
+[32m+[m[32m# card name[m
+[32m+[m[32m# alsa_card.usb-C-Media_Electronics_Inc._USB_PnP_Sound_Device-00-Device[m
+[32m+[m
+[32m+[m[32m#26  module-alsa-card  device_id="1" name="usb-C-Media_Electronics_Inc._USB_PnP_Sound_Device-00-Device" card_name="alsa_card.usb-C-Media_Electronics_Inc._USB_PnP_Sound_Device-00-Device" namereg_fail=false tsched=yes fixed_latency_range=no ignore_dB=no deferred_volume=yes use_ucm=yes card_properties="module-udev-detect.discovered=1"[m
+[32m+[m
+[32m+[m[32m# source: https://askubuntu.com/questions/410737/record-desktop-and-microphone-audio-with-avconv/552344[m
+[32m+[m[32m# pactl [command] [module] [option] [audio output sink eg speakers] [input audio index eg. run pactl list short modules][m
+[32m+[m[32m# pactl load-module module-loopback latency_msec=1 sink=alsa_output.pci-0000_00_05.0.analog-stereo 26[m
+[32m+[m[32m# pactl unload-module 26[m
+[32m+[m
+[32m+[m[32m# pactl load-module module-loopback latency_msec=1 sinkalsa_card.usb-C-Media_Electronics_Inc._USB_PnP_Sound_Device-00-Device[m
+[32m+[m[32m# record at 16khz according to http://sourceforge.net/p/cmusphinx/discussion/help/thread/24e0e28c/?limit=25[m
+[32m+[m[32m# parecord --no-remix --no-remap --device="alsa_output.pci-0000_00_05.0.analog-stereo" --rate 16000 --file-format=wav outfile.wav[m
+[32m+[m
+[32m+[m[32m# pacmd load-module module-alsa-source device=alsa_card.usb-C-Media_Electronics_Inc._USB_PnP_Sound_Device-00-Device[m
+[32m+[m[32m# parec --device=alsa_card.usb-C-Media_Electronics_Inc._USB_PnP_Sound_Device-00-Device --format=s16le --rate=16000 --channels=2 | sox --type raw -e signed-integer --rate 44100 --channels 2 - --type wav outfile.wav[m
+[32m+[m[32m# parecord -d alsa_card.usb-C-Media_Electronics_Inc._USB_PnP_Sound_Device-00-Device outfile.wav[m
+[32m+[m
+[32m+[m[32malias scarlett_check_pulse_default_source='pactl stat| grep -i Source'[m
+[32m+[m
+ [m
+ # ± |master U:3 ?:3 ✗| → pactl info[m
+ # Server String: /run/user/1000/pulse/native[m
+[36m@@ -151,7 +186,7 @@[m [malias scarlett_test_pocketsphinx='pocketsphinx_continuous -hmm /home/pi/.virtual[m
+ # when we get it working add this:[m
+ # -silprob 0.1 -wip 1e-4 -bestpath 0[m
+ [m
+[31m-[m
+[32m+[m[32malias scarlett_test_pocketsphinx_example='pocketsphinx_continuous -inmic yes -hmm /home/pi/dev/bossjones-github/scarlett-dbus-poc/pocketsphinx/model/en-us/en-us -lm /home/pi/dev/bossjones-github/scarlett-dbus-poc/pocketsphinx/model/en-us/en-us.lm.bin -dict /home/pi/dev/bossjones-github/scarlett-dbus-poc/pocketsphinx/model/en-us/cmudict-en-us.dict'[m
+ #####################################################################################################################################[m
+ # # source: https://wiki.archlinux.org/index.php/PulseAudio/Examples[m
+ # # Set ALSA as USB_PnP_Sound_Device[m
+[1mdiff --git a/roles/bossjones.common/tasks/setup_gstreamer.yml b/roles/bossjones.common/tasks/setup_gstreamer.yml[m
+[1mindex 49eee03..a60a4eb 100644[m
+[1m--- a/roles/bossjones.common/tasks/setup_gstreamer.yml[m
+[1m+++ b/roles/bossjones.common/tasks/setup_gstreamer.yml[m
+[36m@@ -55,3 +55,35 @@[m
+ #   gnome-control-center gnome-control-center-data gnome-media[m
+ #   gnome-settings-daemon gstreamer0.10-gconf libgnome-media-profiles-3.0-0[m
+ #   libgoa-backend-1.0-1[m
+[32m+[m
+[32m+[m[32m##### WORK THIS IN #[m
+[32m+[m[32m##### WORK THIS IN #[m
+[32m+[m[32m##### WORK THIS IN # # Need to configure gstreamer to use pulseaudio[m
+[32m+[m[32m##### WORK THIS IN # # Looking here: https://wiki.archlinux.org/index.php/PulseAudio[m
+[32m+[m[32m##### WORK THIS IN #[m
+[32m+[m[32m##### WORK THIS IN # $ gconftool-2 -t string --set /system/gstreamer/0.10/default/audiosink pulsesink[m
+[32m+[m[32m##### WORK THIS IN # $ gconftool-2 -t string --set /system/gstreamer/0.10/default/audiosrc pulsesrc[m
+[32m+[m[32m##### WORK THIS IN #[m
+[32m+[m[32m##### WORK THIS IN # # and another just in case:[m
+[32m+[m[32m##### WORK THIS IN #[m
+[32m+[m[32m##### WORK THIS IN # $ gconftool-2 -t string --set /system/gstreamer/0.10/default/musicaudiosink pulsesink[m
+[32m+[m[32m##### WORK THIS IN #[m
+[32m+[m[32m##### WORK THIS IN # # check the keys are there:[m
+[32m+[m[32m##### WORK THIS IN #[m
+[32m+[m[32m##### WORK THIS IN # $ gconftool-2 -a /system/gstreamer/0.10/default[m
+[32m+[m[32m##### WORK THIS IN # musicaudiosink_description = Default[m
+[32m+[m[32m##### WORK THIS IN # audiosrc = pulsesrc[m
+[32m+[m[32m##### WORK THIS IN # audiosrc_description = Default[m
+[32m+[m[32m##### WORK THIS IN # chataudiosink_description = Default[m
+[32m+[m[32m##### WORK THIS IN # musicaudiosink = pulsesink[m
+[32m+[m[32m##### WORK THIS IN # audiosink_description = Default[m
+[32m+[m[32m##### WORK THIS IN # visualization = goom[m
+[32m+[m[32m##### WORK THIS IN # videosrc = v4l2src[m
+[32m+[m[32m##### WORK THIS IN # audiosink = pulsesink[m
+[32m+[m[32m##### WORK THIS IN # chataudiosink = autoaudiosink[m
+[32m+[m[32m##### WORK THIS IN # videosink = autovideosink[m
+[32m+[m[32m##### WORK THIS IN #[m
+[32m+[m[32m##### WORK THIS IN # # Still not working[m
+[32m+[m[32m##### WORK THIS IN # # Then I realise I don't have pulseaudio itself installed...[m
+[32m+[m[32m##### WORK THIS IN #[m
+[32m+[m[32m##### WORK THIS IN # $ sudo apt-get install pulseaudio[m
+[1mdiff --git a/roles/bossjones.common/tasks/setup_pulseaudio.yml b/roles/bossjones.common/tasks/setup_pulseaudio.yml[m
+[1mindex f1b91ba..51f7acc 100644[m
+[1m--- a/roles/bossjones.common/tasks/setup_pulseaudio.yml[m
+[1m+++ b/roles/bossjones.common/tasks/setup_pulseaudio.yml[m
+[36m@@ -57,6 +57,22 @@[m
+   - configuration[m
+   - sound[m
+ [m
+[32m+[m[32m# Disallow module loading after startup. This is a security feature since it disallows additional module loading during runtime and on user request.[m
+[32m+[m[32m# this file has the following change:[m
+[32m+[m[32m# sudo sed -i "s,DISALLOW_MODULE_LOADING=1,DISALLOW_MODULE_LOADING=0,g" /etc/default/pulseaudio[m
+[32m+[m[32m- name: configure /etc/init/pulseaudio.conf[m
+[32m+[m[32m  copy: src=etc/init/pulseaudio.conf[m
+[32m+[m[32m        dest=/etc/init/pulseaudio.conf[m
+[32m+[m[32m        owner=root[m
+[32m+[m[32m        group=root[m
+[32m+[m[32m        mode=0644[m
+[32m+[m[32m        backup=yes[m
+[32m+[m[32m  tags:[m
+[32m+[m[32m  - pulse[m
+[32m+[m[32m  - configuration[m
+[32m+[m[32m  - sound[m
+[32m+[m[32m  - pulseaudio[m
+[32m+[m
+ - name: configure alsa-info.sh[m
+   copy: src=usr/local/bin/{{ item }}[m
+         dest=/tmp/{{ item }}[m

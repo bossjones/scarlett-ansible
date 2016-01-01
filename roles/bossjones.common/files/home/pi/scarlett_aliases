@@ -127,6 +127,41 @@ alias scarlett_list_usb_sound_pcm='cat /proc/asound/pcm'
 alias scarlett_pulse_default_info='pactl info'
 alias scarlett_pulse_switch_device_gui='gnome-volume-control'
 alias scarlett_pulse_switch_device_gui2='gnome-control-center sound'
+alias scarlett_cd_demo='cd ~/dev/bossjones-github/scarlett-gstreamer-pocketsphinx-demo/'
+alias scarlett_pulse_prefrences='paprefs'
+
+# list all soundcards and digital audio devices
+alias scarlett_list_alsa_playback_hardware_devices='aplay -l'
+
+# list device names, pcms
+alias scarlett_list_alsa_playback_hardware_devices='aplay -L'
+
+alias scarlett_test_pulseaudio_record='parecord --monitor-stream 1 outfile.wav'
+alias scarlett_list_pulse_short_names='pactl list short'
+alias scarlett_list_pulse_short_sinks='pactl list short sinks'
+# use this to see if usb mic is enabled
+alias scarlett_check_pulse_module_enabled='pactl list short modules'
+
+# card name
+# alsa_card.usb-C-Media_Electronics_Inc._USB_PnP_Sound_Device-00-Device
+
+#26  module-alsa-card  device_id="1" name="usb-C-Media_Electronics_Inc._USB_PnP_Sound_Device-00-Device" card_name="alsa_card.usb-C-Media_Electronics_Inc._USB_PnP_Sound_Device-00-Device" namereg_fail=false tsched=yes fixed_latency_range=no ignore_dB=no deferred_volume=yes use_ucm=yes card_properties="module-udev-detect.discovered=1"
+
+# source: https://askubuntu.com/questions/410737/record-desktop-and-microphone-audio-with-avconv/552344
+# pactl [command] [module] [option] [audio output sink eg speakers] [input audio index eg. run pactl list short modules]
+# pactl load-module module-loopback latency_msec=1 sink=alsa_output.pci-0000_00_05.0.analog-stereo 26
+# pactl unload-module 26
+
+# pactl load-module module-loopback latency_msec=1 sinkalsa_card.usb-C-Media_Electronics_Inc._USB_PnP_Sound_Device-00-Device
+# record at 16khz according to http://sourceforge.net/p/cmusphinx/discussion/help/thread/24e0e28c/?limit=25
+# parecord --no-remix --no-remap --device="alsa_output.pci-0000_00_05.0.analog-stereo" --rate 16000 --file-format=wav outfile.wav
+
+# pacmd load-module module-alsa-source device=alsa_card.usb-C-Media_Electronics_Inc._USB_PnP_Sound_Device-00-Device
+# parec --device=alsa_card.usb-C-Media_Electronics_Inc._USB_PnP_Sound_Device-00-Device --format=s16le --rate=16000 --channels=2 | sox --type raw -e signed-integer --rate 44100 --channels 2 - --type wav outfile.wav
+# parecord -d alsa_card.usb-C-Media_Electronics_Inc._USB_PnP_Sound_Device-00-Device outfile.wav
+
+alias scarlett_check_pulse_default_source='pactl stat| grep -i Source'
+
 
 # ± |master U:3 ?:3 ✗| → pactl info
 # Server String: /run/user/1000/pulse/native
@@ -151,7 +186,7 @@ alias scarlett_test_pocketsphinx='pocketsphinx_continuous -hmm /home/pi/.virtual
 # when we get it working add this:
 # -silprob 0.1 -wip 1e-4 -bestpath 0
 
-
+alias scarlett_test_pocketsphinx_example='pocketsphinx_continuous -inmic yes -hmm /home/pi/dev/bossjones-github/scarlett-dbus-poc/pocketsphinx/model/en-us/en-us -lm /home/pi/dev/bossjones-github/scarlett-dbus-poc/pocketsphinx/model/en-us/en-us.lm.bin -dict /home/pi/dev/bossjones-github/scarlett-dbus-poc/pocketsphinx/model/en-us/cmudict-en-us.dict'
 #####################################################################################################################################
 # # source: https://wiki.archlinux.org/index.php/PulseAudio/Examples
 # # Set ALSA as USB_PnP_Sound_Device

@@ -57,6 +57,22 @@
   - configuration
   - sound
 
+# Disallow module loading after startup. This is a security feature since it disallows additional module loading during runtime and on user request.
+# this file has the following change:
+# sudo sed -i "s,DISALLOW_MODULE_LOADING=1,DISALLOW_MODULE_LOADING=0,g" /etc/default/pulseaudio
+- name: configure /etc/init/pulseaudio.conf
+  copy: src=etc/init/pulseaudio.conf
+        dest=/etc/init/pulseaudio.conf
+        owner=root
+        group=root
+        mode=0644
+        backup=yes
+  tags:
+  - pulse
+  - configuration
+  - sound
+  - pulseaudio
+
 - name: configure alsa-info.sh
   copy: src=usr/local/bin/{{ item }}
         dest=/tmp/{{ item }}
