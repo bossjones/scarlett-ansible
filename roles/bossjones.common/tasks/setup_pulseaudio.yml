@@ -39,8 +39,8 @@
   - system.pa
   tags:
   - pulse
-  notify: clear pulseaudio cache
-  when: configure_pulse is defined
+  # notify: clear pulseaudio cache
+  # when: configure_pulse is defined
   # NOTE if the above var is not defined, don't run this step at all
 
 # NOTE: This fixes 14.04 ALC892 Low sound issue

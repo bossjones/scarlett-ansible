@@ -74,3 +74,7 @@ describe command('cat /etc/init/pulseaudio.conf') do
   its(:stdout) { should match /.*^env DISALLOW_MODULE_LOADING=0$.*/ }
   its(:stdout) { should_not match /.*^env DISALLOW_MODULE_LOADING=1$.*/ }
 end
+
+describe command('cat /etc/pulse/client.conf') do
+  its(:stdout) { should match /.*^extra-arguments = --log-target=syslog -vv$.*/ }
+end
