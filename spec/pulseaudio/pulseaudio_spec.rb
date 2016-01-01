@@ -35,37 +35,22 @@ setup_pulseaudio = ["libpulse-dev",
                     "libasound2-dev",
                     "libjack-dev"]
 
-# echo "libpulse-dev
-# libpulse-mainloop-glib0
-# libpulse-mainloop-glib0-dbg
-# libpulse0
-# libpulse0-dbg
-# libsox-fmt-pulse
-# paman
-# paprefs
-# pavucontrol
-# pavumeter
-# pulseaudio
-# pulseaudio-dbg
-# pulseaudio-esound-compat
-# pulseaudio-esound-compat-dbg
-# pulseaudio-module-bluetooth
-# pulseaudio-module-gconf
-# pulseaudio-module-jack
-# pulseaudio-module-lirc
-# pulseaudio-module-lirc-dbg
-# pulseaudio-module-x11
-# pulseaudio-module-zeroconf
-# pulseaudio-module-zeroconf-dbg
-# pulseaudio-utils
-# pavucontrol
-# avahi-daemon
-# libtheora-dev
-# libogg-dev
-# libvorbis-dev
-# libasound2-dev
-# libjack-dev" | sed 's,^,",g' | sed 's,$,",g'
 
+sound_libs.each { |x|
+  describe 'sound_libs' do
+    it "installs #{x}" do
+      expect(package x).to be_installed
+    end
+  end
+}
+
+setup_pulseaudio.each { |x|
+  describe 'setup_pulseaudio' do
+    it "installs #{x}" do
+      expect(package x).to be_installed
+    end
+  end
+}
 
 describe command('pactl stat'), :sudo => false do
   its(:stdout) { should match /.*Default Source: input.*/ }
