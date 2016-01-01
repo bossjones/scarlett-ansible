@@ -12,8 +12,8 @@ default:
   - bootstrap
   # - build_essentials
   - gstreamer
-  # - pocketsphinx
-  # - pulseaudio
+  - pocketsphinx
+  - pulseaudio
   # - ruby
   # - scarlett
   # - scarlett_user

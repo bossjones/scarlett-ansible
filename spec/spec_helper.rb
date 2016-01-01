@@ -28,3 +28,11 @@ set :ssh_options, options
 #   require 'rubygems/dependency_installer'
 #   Gem::DependencyInstaller.new(Gem::DependencyInstaller::DEFAULT_OPTIONS).install('yaml')
 # end
+
+RSpec.configure do |c|
+  c.around :each, sudo: false do |example|
+    set :disable_sudo, true
+    example.run
+    set :disable_sudo, false
+  end
+end
