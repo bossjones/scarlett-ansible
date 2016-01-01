@@ -11,7 +11,7 @@ default:
   # - espeak
   - bootstrap
   # - build_essentials
-  # - gstreamer
+  - gstreamer
   # - pocketsphinx
   # - pulseaudio
   # - ruby
