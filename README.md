@@ -734,3 +734,38 @@ libvorbis-dev
 libasound2-dev
 libjack-dev" | sed 's,^,",g' | sed 's,$,",g'
 ```
+
+
+```
+# COMMANDS THAT FINALLY LET ME RECORD W/ PULSE AUDIO FROM COMMANDLINE
+
+$ pacmd "load-module module-alsa-source source_name=input device=hw:1"
+
+$ pacmd "set-default-source input"
+
+$ pactl stat
+# Currently in use: 1 blocks containing 63.9 KiB bytes total.
+# Allocated during whole lifetime: 46233 blocks containing 74.5 MiB bytes total.
+# Sample cache size: 0 B
+# Server String: /run/user/1000/pulse/native
+# Library Protocol Version: 28
+# Server Protocol Version: 28
+# Is Local: yes
+# Client Index: 30
+# Tile Size: 65472
+# User Name: pi
+# Host Name: scarlett-ansible
+# Server Name: pulseaudio
+# Server Version: 4.0
+# Default Sample Specification: s16le 2ch 44100Hz
+# Default Channel Map: front-left,front-right
+# Default Sink: alsa_output.pci-0000_00_05.0.analog-stereo
+# Default Source: input
+# Cookie: 008c:872c
+
+$ parecord -d input outfile.wav
+
+$ aplay outfile.wav
+
+# IMPORTANT NOTE: IF DEFAULT SOURCE ISNT SET TO HW:1, THIS DOES NOT WORK!
+```

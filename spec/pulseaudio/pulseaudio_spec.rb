@@ -78,3 +78,26 @@ end
 describe command('cat /etc/pulse/client.conf') do
   its(:stdout) { should match /.*^extra-arguments = --log-target=syslog -vv$.*/ }
 end
+
+describe command('cat /etc/default/speech-dispatcher') do
+  its(:stdout) { should match /.*^RUN=no$.*/ }
+end
+
+# Currently in use: 1 blocks containing 63.9 KiB bytes total.
+# Allocated during whole lifetime: 46233 blocks containing 74.5 MiB bytes total.
+# Sample cache size: 0 B
+# Server String: /run/user/1000/pulse/native
+# Library Protocol Version: 28
+# Server Protocol Version: 28
+# Is Local: yes
+# Client Index: 30
+# Tile Size: 65472
+# User Name: pi
+# Host Name: scarlett-ansible
+# Server Name: pulseaudio
+# Server Version: 4.0
+# Default Sample Specification: s16le 2ch 44100Hz
+# Default Channel Map: front-left,front-right
+# Default Sink: alsa_output.pci-0000_00_05.0.analog-stereo
+# Default Source: input
+# Cookie: 008c:872c

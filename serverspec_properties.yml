@@ -8,15 +8,15 @@ default:
   - python
   # - ntp
   # - bash_it
-  # - espeak
+  - espeak
   - bootstrap
   # - build_essentials
   - gstreamer
   - pocketsphinx
   - pulseaudio
   # - ruby
-  # - scarlett
-  # - scarlett_user
+  - scarlett
+  - scarlett_user
   # - sshd
   fake-var: 1.1.14
 
