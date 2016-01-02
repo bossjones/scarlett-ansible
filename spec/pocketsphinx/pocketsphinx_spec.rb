@@ -7,6 +7,7 @@ venv_site_pkgs_pocketsphinx_folder='/home/pi/.virtualenvs/scarlett-dbus-poc/lib/
 venv_site_pkgs_sphinxbase_folder='/home/pi/.virtualenvs/scarlett-dbus-poc/lib/python2.7/site-packages/sphinxbase'
 venv_lib_pkgconfig_folder='/home/pi/.virtualenvs/scarlett-dbus-poc/lib/pkgconfig'
 venv_lib_folder='/home/pi/.virtualenvs/scarlett-dbus-poc/lib'
+venv_lib_gstreamer_folder='/home/pi/.virtualenvs/scarlett-dbus-poc/lib/gstreamer-1.0'
 
 describe 'pocketsphinx_setup' do
   it 'creates /home/pi/dev/bossjones-github/scarlett-dbus-poc/sphinxbase' do
@@ -97,6 +98,20 @@ describe "content of #{venv_lib_pkgconfig_folder} directory" do
   %w(pocketsphinx.pc sphinxbase.pc).each do |pkg|
     it "expect directory #{venv_lib_pkgconfig_folder}/#{pkg}" do
       expect(file "#{venv_lib_pkgconfig_folder}/#{pkg}").to exist
+    end
+  end
+end
+
+# make sure gst-espeak plugin is compiled correctly
+describe "content of #{venv_lib_gstreamer_folder} directory" do
+  it "expect directory #{venv_lib_gstreamer_folder}" do
+    expect(file "#{venv_lib_gstreamer_folder}").to be_directory
+  end
+
+
+  %w(libgstespeak.la libgstespeak.so libgstpocketsphinx.a libgstpocketsphinx.la libgstpocketsphinx.so).each do |pkg|
+    it "expect directory #{venv_lib_gstreamer_folder}/#{pkg}" do
+      expect(file "#{venv_lib_gstreamer_folder}/#{pkg}").to exist
     end
   end
 end
