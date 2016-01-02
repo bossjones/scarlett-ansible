@@ -2,6 +2,8 @@
 
 require 'spec_helper'
 
+venv_site_pkgs_folder = '/home/pi/.virtualenvs/scarlett-dbus-poc/lib/python2.7/site-packages'
+
 describe 'pocketsphinx_setup' do
   it 'creates /home/pi/dev/bossjones-github/scarlett-dbus-poc/sphinxbase' do
     expect(file '/home/pi/dev/bossjones-github/scarlett-dbus-poc/sphinxbase').to be_directory
@@ -51,37 +53,32 @@ describe 'content of /home/pi/.virtualenvs/scarlett-dbus-poc/lib directory' do
     end
   end
 
-  # be_symlink
-
 end
 
-# /home/pi/.virtualenvs/scarlett-dbus-poc
-#
+describe 'content of #{venv_site_pkgs_folder} directory' do
 
-# using virtualenv: scarlett-dbus-poc scarlett-ansible in ~/.virtualenvs/scarlett-dbus-poc/lib
-# ○ → ls -lta
-# total 6324
-# drwxrwxr-x 2 pi pi    4096 Dec 30 19:32 pkgconfig
-# drwxrwxr-x 2 pi pi    4096 Dec 30 19:32 gstreamer-1.0
-# drwxrwxr-x 5 pi pi    4096 Dec 30 19:32 .
-# -rw-r--r-- 1 pi pi 1941766 Dec 30 19:32 libpocketsphinx.a
-# -rwxr-xr-x 1 pi pi    1393 Dec 30 19:32 libpocketsphinx.la
-# lrwxrwxrwx 1 pi pi      24 Dec 30 19:32 libpocketsphinx.so -> libpocketsphinx.so.3.0.0
-# lrwxrwxrwx 1 pi pi      24 Dec 30 19:32 libpocketsphinx.so.3 -> libpocketsphinx.so.3.0.0
-# -rwxr-xr-x 1 pi pi 1147601 Dec 30 19:32 libpocketsphinx.so.3.0.0
-# -rw-r--r-- 1 pi pi   18938 Dec 30 19:23 libsphinxad.a
-# -rwxr-xr-x 1 pi pi    1096 Dec 30 19:23 libsphinxad.la
-# lrwxrwxrwx 1 pi pi      20 Dec 30 19:23 libsphinxad.so -> libsphinxad.so.3.0.0
-# lrwxrwxrwx 1 pi pi      20 Dec 30 19:23 libsphinxad.so.3 -> libsphinxad.so.3.0.0
-# -rwxr-xr-x 1 pi pi   21677 Dec 30 19:23 libsphinxad.so.3.0.0
-# -rw-r--r-- 1 pi pi 2074892 Dec 30 19:23 libsphinxbase.a
-# -rwxr-xr-x 1 pi pi    1049 Dec 30 19:23 libsphinxbase.la
-# lrwxrwxrwx 1 pi pi      22 Dec 30 19:23 libsphinxbase.so -> libsphinxbase.so.3.0.0
-# lrwxrwxrwx 1 pi pi      22 Dec 30 19:23 libsphinxbase.so.3 -> libsphinxbase.so.3.0.0
-# -rwxr-xr-x 1 pi pi 1222864 Dec 30 19:23 libsphinxbase.so.3.0.0
-# drwxrwxr-x 8 pi pi    4096 Dec 24 12:09 ..
-# drwxrwxr-x 4 pi pi    4096 Dec 23 16:25 python2.7
+  %w(pocketsphinx sphinxbase).each do |pkg|
+    it "expect directory #{venv_site_pkgs_folder}/#{pkg}" do
+      expect(file "#{venv_site_pkgs_folder}/#{pkg}").to be_directory
+    end
+  end
 
+# lrwxrwxrwx 1 pi pi 41 Dec 23 16:25 ./pygst.py -> /usr/lib/python2.7/dist-packages/pygst.py
+# lrwxrwxrwx 1 pi pi 42 Dec 23 16:25 ./pygst.pth -> /usr/lib/python2.7/dist-packages/pygst.pth
+# lrwxrwxrwx 1 pi pi 40 Dec 23 16:25 ./gobject -> /usr/lib/python2.7/dist-packages/gobject
+# lrwxrwxrwx 1 pi pi 37 Dec 23 16:25 ./glib -> /usr/lib/python2.7/dist-packages/glib
+# lrwxrwxrwx 1 pi pi 45 Dec 23 16:25 ./gstoption.so -> /usr/lib/python2.7/dist-packages/gstoption.so
+# lrwxrwxrwx 1 pi pi 42 Dec 23 16:25 ./pygst.pyc -> /usr/lib/python2.7/dist-packages/pygst.pyc
+# lrwxrwxrwx 1 pi pi 40 Dec 23 16:25 ./gst-1.0 -> /usr/lib/python2.7/dist-packages/gst-1.0
+# lrwxrwxrwx 1 pi pi 38 Dec 23 16:25 ./cairo -> /usr/lib/python2.7/dist-packages/cairo
+
+  %w(pygst.py pygst.pth gobject glib gstoption.so pygst.pyc gst-1.0 cairo).each do |pkg|
+    it "expect directory #{venv_site_pkgs_folder}/#{pkg}" do
+      expect(file "#{venv_site_pkgs_folder}/#{pkg}").to be_linked_to("/usr/lib/python2.7/dist-packages/#{pkg}")
+    end
+  end
+
+end
 
 #   using virtualenv: scarlett-dbus-poc scarlett-ansible in ~/.virtualenvs/scarlett-dbus-poc/lib/python2.7/site-packages
 # ○ → ls -lta
