@@ -23,6 +23,6 @@ mv *.lm $langdir/lm
 
 _LANGUAGE_VERSION=$(cat $tempfile | cut -d\/ -f7)
 
-echo $_LANGUAGE_VERSION > $(pwd)/LANGUAGE_VERSION.txt
+echo "${_LANGUAGE_VERSION}" > $(pwd)/LANGUAGE_VERSION.txt
 
 rm $tempfile
