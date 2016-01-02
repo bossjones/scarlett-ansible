@@ -48,3 +48,12 @@ describe command('pip freeze'), :sudo => false do
       its(:stdout) { should match /.*#{x}.*/ }
   }
 end
+
+describe '/home/pi/.pythonrc exists' do
+  it "/home/pi/.pythonrc exists" do
+    expect(file '/home/pi/.pythonrc').to be_file
+    expect(file '/home/pi/.pythonrc').to be_mode('644')
+  end
+end
+
+
