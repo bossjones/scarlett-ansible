@@ -13,6 +13,10 @@ unset SCARLETT_HMM
 unset SCARLETT_LM
 unset SCARLETT_DICT
 
+# for GST PLUGINS
+unset LD_LIBRARY_PATH
+unset GST_PLUGIN_PATH
+
 echo "I have unset the following env variables for this Scarlett virtualenv"
 echo "*******************************************************************"
 echo "unset GSTREAMER"
@@ -24,6 +28,8 @@ echo "unset SCARLETT_CONFIG"
 echo "unset SCARLETT_HMM"
 echo "unset SCARLETT_LM"
 echo "unset SCARLETT_DICT"
+echo "unset LD_LIBRARY_PATH"
+echo "unset GST_PLUGIN_PATH"
 echo "*******************************************************************"
 echo "PROOF THEY HAVE ALL BEEN UNSET"
 echo "*******************************************************************"
@@ -36,4 +42,6 @@ echo $SCARLETT_CONFIG
 echo $SCARLETT_HMM
 echo $SCARLETT_LM
 echo $SCARLETT_DICT
+echo $LD_LIBRARY_PATH
+echo $GST_PLUGIN_PATH
 echo "*******************************************************************"

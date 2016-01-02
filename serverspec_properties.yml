@@ -1,0 +1,32 @@
+# source: https://github.com/serverspec/serverspec-integration-test/tree/6d5d04b302b09f7cc6268a945da135ef5283aa96
+#vagrant serverspec:
+# BOSSJONES: Note this is called default since that's what vagrant named it
+default:
+  # tests to run - found in spec/
+  :roles:
+  # - gnome
+  - python
+  # - ntp
+  # - bash_it
+  - espeak
+  - bootstrap
+  # - build_essentials
+  - gstreamer
+  - pocketsphinx
+  - pulseaudio
+  # - ruby
+  - scarlett
+  - scarlett_user
+  # - sshd
+  fake-var: 1.1.14
+
+
+# # second vagrant host
+# #jdemo-test-1:
+# 192.168.56.161:
+#   # tests to run - found in spec/
+#   :roles:
+#   - ubuntu
+#   - jdemo
+#   fake-var: 1.1.14
+

@@ -39,8 +39,8 @@
   - system.pa
   tags:
   - pulse
-  notify: clear pulseaudio cache
-  when: configure_pulse is defined
+  # notify: clear pulseaudio cache
+  # when: configure_pulse is defined
   # NOTE if the above var is not defined, don't run this step at all
 
 # NOTE: This fixes 14.04 ALC892 Low sound issue
@@ -57,6 +57,22 @@
   - configuration
   - sound
 
+# Disallow module loading after startup. This is a security feature since it disallows additional module loading during runtime and on user request.
+# this file has the following change:
+# sudo sed -i "s,DISALLOW_MODULE_LOADING=1,DISALLOW_MODULE_LOADING=0,g" /etc/default/pulseaudio
+- name: configure /etc/init/pulseaudio.conf
+  copy: src=etc/init/pulseaudio.conf
+        dest=/etc/init/pulseaudio.conf
+        owner=root
+        group=root
+        mode=0644
+        backup=yes
+  tags:
+  - pulse
+  - configuration
+  - sound
+  - pulseaudio
+
 - name: configure alsa-info.sh
   copy: src=usr/local/bin/{{ item }}
         dest=/tmp/{{ item }}
@@ -68,6 +84,27 @@
   tags:
   - alsa
   - shellscripts
+
+# NEEDED FOR USB MIC MINI
+# $ pacmd "load-module module-alsa-source source_name=input device=hw:1"
+# $ pacmd "set-default-source input"
+# $ pactl stat
+
+- name: pacmd "load-module module-alsa-source source_name=input device=hw:1"
+  command: pacmd "load-module module-alsa-source source_name=input device=hw:1"
+  tags:
+  - pulseaudio
+  become: pi
+  become_user: pi
+  ignore_errors: yes
+
+- name: pacmd "set-default-source input"
+  command: pacmd "set-default-source input"
+  tags:
+  - pulseaudio
+  become: pi
+  become_user: pi
+  ignore_errors: yes
 
 # source: http://www.freedesktop.org/wiki/Software/PulseAudio/Documentation/User/PerfectSetup/
 # GStreamer Applications

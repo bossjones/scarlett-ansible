@@ -31,17 +31,20 @@
 
 ### Automatically restore the volume of streams and devices
 load-module module-device-restore
-
 # BOSSJONES NOTE: DEFAULT IS THIS
 # load-module module-stream-restore
 
 # Using this based on answer here: http://askubuntu.com/questions/71863/how-to-change-pulseaudio-sink-with-pacmd-set-default-sink-during-playback
-load-module module-stream-restore restore_device=false
+# load-module module-stream-restore restore_device=false
+load-module module-stream-restore
 load-module module-card-restore
 
 ### Automatically augment property information from .desktop files
 ### stored in /usr/share/application
 load-module module-augment-properties
+
+### Should be after module-*-restore but before module-*-detect
+load-module module-switch-on-port-available
 
 ### Load audio drivers statically
 ### (it's probably better to not load these drivers manually, but instead
@@ -57,18 +60,26 @@ load-module module-augment-properties
 .ifexists module-udev-detect.so
 load-module module-udev-detect
 .else
-### Use the static hardware detection module (for systems that lack udev/hal support)
+### Use the static hardware detection module (for systems that lack udev support)
 load-module module-detect
+.endif
+
+.ifexists module-android-audio-hal.so
+load-module module-android-audio-hal
 .endif
 
 ### Automatically connect sink and source if JACK server is present
 .ifexists module-jackdbus-detect.so
 .nofail
-load-module module-jackdbus-detect
+load-module module-jackdbus-detect channels=2
 .fail
 .endif
 
 ### Automatically load driver modules for Bluetooth hardware
+.ifexists module-bluetooth-policy.so
+load-module module-bluetooth-policy
+.endif
+
 .ifexists module-bluetooth-discover.so
 load-module module-bluetooth-discover
 .endif
@@ -118,20 +129,26 @@ load-module module-always-sink
 load-module module-intended-roles
 
 ### Automatically suspend sinks/sources that become idle for too long
+# source: http://unix.stackexchange.com/questions/114602/pulseaudio-sink-always-suspended
+# source:
 # BOSSJONES NOTE: this use to be disabled # load-module module-suspend-on-idle
 # load-module module-suspend-on-idle
+load-module module-suspend-on-idle
 
 ### If autoexit on idle is enabled we want to make sure we only quit
 ### when no local session needs us anymore.
 .ifexists module-console-kit.so
 load-module module-console-kit
 .endif
+.ifexists module-systemd-login.so
+load-module module-systemd-login
+.endif
 
 ### Enable positioned event sounds
 load-module module-position-event-sounds
 
-### Cork music streams when a phone stream is active
-#load-module module-cork-music-on-phone
+### Cork music/video streams when a phone stream is active
+#load-module module-role-cork
 
 ### Modules to allow autoloading of filters (such as echo cancellation)
 ### on demand. module-filter-heuristics tries to determine what filters
@@ -139,11 +156,6 @@ load-module module-position-event-sounds
 ### loading modules and rerouting streams.
 load-module module-filter-heuristics
 load-module module-filter-apply
-
-### Load DBus protocol
-#.ifexists module-dbus-protocol.so
-#load-module module-dbus-protocol
-#.endif
 
 # X11 modules should not be started from default.pa so that one daemon
 # can be shared by multiple sessions.
@@ -160,8 +172,6 @@ load-module module-filter-apply
 #load-module module-x11-publish
 #.fail
 #.endif
-
-load-module module-switch-on-port-available
 
 ### Make some devices default
 #set-default-sink output

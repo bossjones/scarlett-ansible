@@ -11,6 +11,8 @@ https://gramps-project.org/wiki/index.php?title=GEPS_029:_GTK3-GObject_introspec
 
 https://wiki.archlinux.org/index.php/PulseAudio/Examples
 
+https://wiki.archlinux.org/index.php/PulseAudio/Configuration
+
 # good example of how to compile from source in ansible
 https://github.com/ozzyjohnson/ansible-ffmpeg-build/blob/master/build-ffmpeg.yml
 
@@ -577,4 +579,193 @@ HubDevice
 Apple Internal Keyboard / Trackpad
 BRCM20702 Hub
 Bluetooth USB Host Controller
+```
+
+
+# DEBUGGING
+
+```
+± |master U:3 ?:3 ✗| → gconftool-2 --recursive-list /system/gstreamer
+ /system/gstreamer/0.10:
+  /system/gstreamer/0.10/default:
+   musicaudiosink_description = Default
+   audiosrc = autoaudiosrc
+   audiosrc_description = Default
+   chataudiosink_description = Default
+   musicaudiosink = autoaudiosink
+   audiosink_description = Default
+   visualization = goom
+   videosrc = v4l2src
+   audiosink = autoaudiosink
+   chataudiosink = autoaudiosink
+   videosink = autovideosink
+ /system/gstreamer/1.0:
+  /system/gstreamer/1.0/default:
+   audiosink = pulsesink
+   audiosrc = pulsesrc
+  /system/gstreamer/1.0/audio:
+   /system/gstreamer/1.0/audio/profiles:
+    /system/gstreamer/1.0/audio/profiles/mp3:
+     name = CD Quality, MP3
+     extension = mp3
+     pipeline = audio/x-raw,rate=44100,channels=2 ! lamemp3enc name=enc target=0 quality=6 ! xingmux ! id3v2mux
+     description = Used for converting to CD-quality audio, but with the lossy MP3 codec. Use this for preparing files for copying to devices that only support the MP3 codec. Note that using this format may be illegal in your jurisdiction; contact your lawyer for advice.
+     active = true
+    /system/gstreamer/1.0/audio/profiles/cdlossless:
+     name = CD Quality, Lossless
+     extension = flac
+     pipeline = audio/x-raw,rate=44100,channels=2 ! flacenc name=enc
+     description = Used for converting to CD-quality audio, but with a lossless compression codec. Use this if you later want to edit the file or burn it to CD.
+     active = true
+    /system/gstreamer/1.0/audio/profiles/mp2:
+     name = CD Quality, MP2
+     extension = mp2
+     pipeline = audio/x-raw,rate=44100,channels=2 ! twolame name=enc mode=0 bitrate=192 ! id3v2mux
+     description = Used for converting to CD-quality audio, but with the lossy MP2 codec. Use this for preparing files for copying to devices that only support the MP2 codec. Note that using this format may be illegal in your jurisdiction; contact your lawyer for advice.
+     active = true
+    /system/gstreamer/1.0/audio/profiles/aac:
+     name = CD Quality, AAC
+     extension = m4a
+     pipeline = audio/x-raw,rate=44100,channels=2 ! faac profile=2 ! ffmux_mp4
+     description = Used for converting to CD-quality audio, but with the lossy AAC codec. Use this for preparing files for copying to devices that only support the AAC codec. Note that using this format may be illegal in your jurisdiction; contact your lawyer for advice.
+     active = true
+    /system/gstreamer/1.0/audio/profiles/voicelossless:
+     name = Voice, Lossless
+     extension = wav
+     pipeline = audio/x-raw,rate=22050,channels=1 ! wavenc name=enc
+     description = Used for converting to lossless voice-quality audio. Use this for recording and editing speech.
+     active = true
+    /system/gstreamer/1.0/audio/profiles/voicelossy:
+     name = Voice, Lossy
+     extension = spx
+     pipeline = audio/x-raw,rate=32000,channels=1 ! speexenc name=enc ! oggmux
+     description = Used for converting to lossy voice-quality audio. Use this for recording speech that doesn't need to be edited.
+     active = true
+    /system/gstreamer/1.0/audio/profiles/cdlossy:
+     name = CD Quality, Lossy
+     extension = ogg
+     pipeline = audio/x-raw,rate=44100,channels=2 ! vorbisenc name=enc quality=0.5 ! oggmux
+     description = Used for converting to CD-quality audio, but with a lossy compression codec. Use this for CD extraction and radio recordings.
+     active = true
+   /system/gstreamer/1.0/audio/global:
+    profile_list = [cdlossy,cdlossless,aac,mp2,mp3,voicelossy,voicelossless]
+
+  using virtualenv: scarlett-dbus-poc scarlett-ansible in ~/dev/bossjones-github/scarlett-gstreamer-pocketsphinx-demo
+± |master U:3 ?:3 ✗| →
+```
+
+# source: https://twitter.com/andolamin/status/661050200614502400
+gconftool-2 -t string --set /system/gstreamer/1.0/default/audiosink pulsesink
+
+```
+# modified with 1.0
+gconftool-2 -t string --set /system/gstreamer/1.0/default/audiosink pulsesink
+gconftool-2 -t string --set /system/gstreamer/1.0/default/audiosrc pulsesrc
+gconftool-2 -t string --set /system/gstreamer/1.0/default/musicaudiosink pulsesink
+
+# source: http://blog.scphillips.com/posts/2013/01/getting-gstreamer-to-work-on-a-raspberry-pi/
+# check the keys are there:
+± |master U:3 ?:3 ✗| → gconftool-2 -a /system/gstreamer/1.0/default
+ musicaudiosink = pulsesink
+ audiosink = pulsesink
+ audiosrc = pulsesrc
+```
+
+
+```
+# modified with 1.0
+gconftool -t string --set /system/gstreamer/1.0/default/audiosink pulsesink
+gconftool -t string --set /system/gstreamer/1.0/default/audiosrc pulsesrc
+```
+
+```
+# gstreamer 0.10
+gconftool -t string --set /system/gstreamer/0.10/default/audiosink pulsesink
+gconftool -t string --set /system/gstreamer/0.10/default/audiosrc pulsesrc
+```
+
+source: http://www.alsa-project.org/main/index.php/Asoundrc
+
+```
+The numbers after hw: stand for the soundcard number and device number. This can get confusing as some sound "cards" are better represented by calling them sound "devices", for example USB sounddevices. However they are still "cards" in the sense that they have a specific driver controlling a specific piece of hardware. They also correspond to the index shown in
+/proc/asound/cards
+As with most arrays the first item usually starts at 0 not 1. This is true for the way pcm devices (physical I/O channels) are represented in ALSA. Starting at pcm0c (capture), pcm0p (playback).
+We use subdevices mainly for hardware which can mix several streams together. It is impractical to have 32 devices with exactly the same capabilities. The subdevices can be opened without a specific address, so the first free subdevice is opened. Also, we temporarily use subdevices for hardware with a lot of streams (I/O connectors) — for example MIDI. There are several limits given by used minor numbers (8 PCM devices per card, 8 MIDI devices per card etc.).
+For example, to access the first device on the first soundcard/device, you would use
+hw:0,0
+to access the first device on the second soundcard/device, you would use
+hw:1,0
+to access the second device on the third soundcard/device, you would use
+hw:2,1
+```
+
+https://wiki.archlinux.org/index.php/PulseAudio/Configuration
+
+
+```
+echo "libpulse-dev
+libpulse-mainloop-glib0
+libpulse-mainloop-glib0-dbg
+libpulse0
+libpulse0-dbg
+libsox-fmt-pulse
+paman
+paprefs
+pavucontrol
+pavumeter
+pulseaudio
+pulseaudio-dbg
+pulseaudio-esound-compat
+pulseaudio-esound-compat-dbg
+pulseaudio-module-bluetooth
+pulseaudio-module-gconf
+pulseaudio-module-jack
+pulseaudio-module-lirc
+pulseaudio-module-lirc-dbg
+pulseaudio-module-x11
+pulseaudio-module-zeroconf
+pulseaudio-module-zeroconf-dbg
+pulseaudio-utils
+pavucontrol
+avahi-daemon
+libtheora-dev
+libogg-dev
+libvorbis-dev
+libasound2-dev
+libjack-dev" | sed 's,^,",g' | sed 's,$,",g'
+```
+
+
+```
+# COMMANDS THAT FINALLY LET ME RECORD W/ PULSE AUDIO FROM COMMANDLINE
+
+$ pacmd "load-module module-alsa-source source_name=input device=hw:1"
+
+$ pacmd "set-default-source input"
+
+$ pactl stat
+# Currently in use: 1 blocks containing 63.9 KiB bytes total.
+# Allocated during whole lifetime: 46233 blocks containing 74.5 MiB bytes total.
+# Sample cache size: 0 B
+# Server String: /run/user/1000/pulse/native
+# Library Protocol Version: 28
+# Server Protocol Version: 28
+# Is Local: yes
+# Client Index: 30
+# Tile Size: 65472
+# User Name: pi
+# Host Name: scarlett-ansible
+# Server Name: pulseaudio
+# Server Version: 4.0
+# Default Sample Specification: s16le 2ch 44100Hz
+# Default Channel Map: front-left,front-right
+# Default Sink: alsa_output.pci-0000_00_05.0.analog-stereo
+# Default Source: input
+# Cookie: 008c:872c
+
+$ parecord -d input outfile.wav
+
+$ aplay outfile.wav
+
+# IMPORTANT NOTE: IF DEFAULT SOURCE ISNT SET TO HW:1, THIS DOES NOT WORK!
 ```

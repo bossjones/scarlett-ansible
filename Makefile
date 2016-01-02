@@ -17,3 +17,12 @@ vagrant-destroy:
 
 vagrant-halt:
 	VAGRANT_VAGRANTFILE=Vagrantfile-ansible-test vagrant halt
+
+serverspec-diff:
+	cat serverspec_things_to_check_for.txt
+
+serverspec:
+	bundle exec rake
+
+serverspec-install:
+	bundle install --path .vendor

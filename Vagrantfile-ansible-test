@@ -91,7 +91,7 @@ Vagrant.configure("2")  do |config|
     better_usbfilter_add(vb, "0x0d8c", "0x013c", "C-Media Electronics Inc. USB PnP Sound Device [0100]", "0100", "C-Media Electronics Inc.", "USB PnP Sound Device", "0")
 
     vb.customize ["modifyvm", :id, "--usb", "on"]
-    vb.customize ["modifyvm", :id, "--usbehci", "on"]
+    # vb.customize ["modifyvm", :id, "--usbohci", "on"]
   end
 
   config.vm.provision 'ansible' do |ansible|
