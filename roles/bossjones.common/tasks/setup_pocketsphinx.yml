@@ -45,15 +45,15 @@
   - sphinxbase
   - shellscripts
 
-- name: compile py2cairo
-  shell: >
-    executable=/bin/bash
-    source `which virtualenvwrapper.sh` && mkvirtualenv --system-site-packages scarlett-dbus-poc
-  register: run_cmd
-  become: pi
-  become_user: pi
+# - name: compile py2cairo
+#   shell: >
+#     executable=/bin/bash
+#     source `which virtualenvwrapper.sh` && mkvirtualenv --system-site-packages scarlett-dbus-poc
+#   register: run_cmd
+#   become: pi
+#   become_user: pi
 
-- debug: var=run_cmd.stdout_lines
+# - debug: var=run_cmd.stdout_lines
 
 - name: compile py2cairo pygobject glib gst-python
   command: /tmp/{{ item }}

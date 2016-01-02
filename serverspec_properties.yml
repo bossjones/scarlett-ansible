@@ -10,7 +10,7 @@ default:
   # - bash_it
   - espeak
   - bootstrap
-  # - build_essentials
+  - build_essentials
   - gstreamer
   - pocketsphinx
   - pulseaudio
