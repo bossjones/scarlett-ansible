@@ -13,6 +13,8 @@ https://wiki.archlinux.org/index.php/PulseAudio/Examples
 
 https://wiki.archlinux.org/index.php/PulseAudio/Configuration
 
+http://trac.gateworks.com/wiki/Yocto/gstreamer/audio
+
 # good example of how to compile from source in ansible
 https://github.com/ozzyjohnson/ansible-ffmpeg-build/blob/master/build-ffmpeg.yml
 

@@ -4,7 +4,8 @@
   git: repo=https://github.com/cmusphinx/sphinxbase.git
        dest=/home/pi/dev/bossjones-github/scarlett-dbus-poc/sphinxbase
        clone=no
-       update=no
+       update=yes
+       force=yes
   become: pi
   become_user: pi
 
@@ -12,7 +13,8 @@
   git: repo=https://github.com/cmusphinx/pocketsphinx.git
        dest=/home/pi/dev/bossjones-github/scarlett-dbus-poc/pocketsphinx
        clone=no
-       update=no
+       update=yes
+       force=yes
   become: pi
   become_user: pi
 

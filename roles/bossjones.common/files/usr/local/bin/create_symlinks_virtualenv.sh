@@ -15,9 +15,9 @@ export SCARLETT_DICT=$MAIN_DIR/tests/fixtures/dict/1602.dic
 export LD_LIBRARY_PATH=$VIRT_ROOT/lib
 export GST_PLUGIN_PATH=$VIRT_ROOT/lib/gstreamer-$GSTREAMER
 
-ls -lta /usr/include/gstreamer-$GSTREAMER/
-ls -lta /usr/share/pyshared | grep pygst
-ls -lta $VIRT_ROOT/lib/python2.7/
+# ls -lta /usr/include/gstreamer-$GSTREAMER/
+# ls -lta /usr/share/pyshared | grep pygst
+# ls -lta $VIRT_ROOT/lib/python2.7/
 cd $VIRT_ROOT/lib/python2.7/site-packages/
 ln -s /usr/lib/python2.7/dist-packages/gst-$GSTREAMER
 ln -s /usr/lib/python2.7/dist-packages/gstoption.so
