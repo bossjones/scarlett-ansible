@@ -59,9 +59,9 @@ describe command('pactl stat'), :sudo => false do
 end
 
 describe command('cat /etc/modprobe.d/alsa-base.conf') do
-  its(:stdout) { should match /.*^options snd-usb-audio index=0$.*/ }
+  its(:stdout) { should match /.*^options snd-usb-audio index=-2$.*/ }
   its(:stdout) { should match /.*^options snd-hda-intel model=generic$.*/ }
-  its(:stdout) { should_not match /.*^options snd-usb-audio index=-2$.*/ }
+  its(:stdout) { should_not match /.*^options snd-usb-audio index=0$.*/ }
 end
 
 describe command('cat /etc/pulse/daemon.conf') do

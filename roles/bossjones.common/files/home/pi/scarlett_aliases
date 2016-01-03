@@ -136,7 +136,7 @@ alias scarlett_list_alsa_playback_hardware_devices='aplay -l'
 # list device names, pcms
 alias scarlett_list_alsa_playback_hardware_devices='aplay -L'
 
-alias scarlett_test_pulseaudio_record='parecord --monitor-stream 1 outfile.wav'
+alias scarlett_test_pulseaudio_record='parecord -d input outfile2.wav'
 alias scarlett_list_pulse_short_names='pactl list short'
 alias scarlett_list_pulse_short_sinks='pactl list short sinks'
 # use this to see if usb mic is enabled
@@ -182,7 +182,7 @@ alias scarlett_check_pulse_default_source='pactl stat| grep -i Source'
 
 # list all soundcards and digital audio devices
 alias scarlett_list_all_sound_cards='arecord --list-pcms'
-alias scarlett_test_pocketsphinx='pocketsphinx_continuous -hmm /home/pi/.virtualenvs/scarlett-dbus-poc/share/pocketsphinx/model/en-us/en-us -lm 1602.lm -dict 1602.dic -samprate 16000/8000/48000 -inmic yes -adcdev hw:1'
+alias scarlett_test_pocketsphinx='pocketsphinx_continuous -hmm /home/pi/.virtualenvs/scarlett-dbus-poc/share/pocketsphinx/model/en-us/en-us -lm 1473.lm -dict 1473.dic -samprate 16000/8000/48000 -inmic yes'
 # when we get it working add this:
 # -silprob 0.1 -wip 1e-4 -bestpath 0
 
@@ -195,6 +195,50 @@ alias scarlett_test_pocketsphinx_example='pocketsphinx_continuous -inmic yes -hm
 # # Make it ALSA default
 # pacmd set-default-source alsa_input.usb-C-Media_Electronics_Inc._USB_PnP_Sound_Device-00-Device.analog-mono
 #####################################################################################################################################
+
+test_pulseaudio_command_line(){
+  pacmd "load-module module-alsa-source source_name=input device=hw:1"
+  pacmd "set-default-source input"
+}
+
+alias scarlett_gst_launch_test='gst-launch-1.0 alsasrc device=hw:1 ! audioconvert ! audioresample ! pocketsphinx name=asr hmm=/home/pi/.virtualenvs/scarlett-dbus-poc/share/pocketsphinx/model/en-us/en-us lm=1473.lm dict=1473.dic ! fakesink'
+
+# source: http://trac.gateworks.com/wiki/Yocto/gstreamer/audio
+alias scarlett_list_devices_to_record_with='arecord -L'
+alias scarlett_gst_hear_yourself='gst-launch-1.0 alsasrc device=plughw:CARD=Device,DEV=0 ! audioconvert ! audioresample ! pulsesink'
+# clean playback
+alias scarlett_gst_hear_yourself_queue='gst-launch-1.0 --gst-debug=3 alsasrc device=plughw:CARD=Device,DEV=0 ! audioresample ! audioconvert ! audioresample !  queue silent=false leaky=2 max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! pulsesink'
+
+# BOSSJONES NOTE:
+# works but slow, getting error:
+# gstaudiobasesrc.c(863): gst_audio_base_src_create (): /GstPipeline:pipeline0/GstAlsaSrc:alsasrc0: Dropped 8820 samples. This is most likely because downstream can't keep up and is consuming samples too slowly.
+# gst-launch-1.0 alsasrc device=hw:1 ! audioconvert ! audioresample ! pocketsphinx name=asr hmm=/home/pi/.virtualenvs/scarlett-dbus-poc/share/pocketsphinx/model/en-us/en-us lm=1473.lm dict=1473.dic ! fakesink
+
+# another attempt
+#gst-launch-1.0 alsasrc device=plughw:CARD=Device,DEV=0 ! queue silent=false leaky=2 max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! audioconvert ! audioresample ! audio/x-raw-int, rate=16000, width=16, depth=16, channels=1 ! audioresample ! audio/x-raw-int, rate=8000 ! pocketsphinx name=asr hmm=/home/pi/.virtualenvs/scarlett-dbus-poc/share/pocketsphinx/model/en-us/en-us lm=1473.lm dict=1473.dic ! fakesink
+
+#gst-launch-1.0 --gst-debug=3 alsasrc device=plughw:CARD=Device,DEV=0 ! audioresample ! queue silent=false leaky=2 max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! audioconvert ! audioresample ! pocketsphinx name=asr hmm=/home/pi/.virtualenvs/scarlett-dbus-poc/share/pocketsphinx/model/en-us/en-us lm=1473.lm dict=1473.dic ! fakesink
+
+#WARNING: erroneous pipeline: could not link audioresample0 to audioresample1
+
+# if use_legacy_parse_launch:
+#     parse_launch_array = ['alsasrc device=' +
+#            ps_device,
+#            'queue silent=false leaky=2 max-size-buffers=0 max-size-time=0 max-size-bytes=0',  # noqa
+#            'audioconvert',
+#            'audioresample',
+#            'audio/x-raw-int, rate=16000, width=16, depth=16, channels=1',
+#            'audioresample',
+#            'audio/x-raw-int, rate=8000',
+#            'pocketsphinx name=asr',
+#            'fakesink dump=1']
+
+# pocketsphinx_continuous -lm 1473.lm -dict 1473.dic -keyphrase "OKAY PI" -kws_threshold 1e-20 -inmic yes
+
+# pocketsphinx_continuous -lm 1473.lm -dict 1473.dic -keyphrase "SCARLETT" -kws_threshold 1e-20 -inmic yes -verbose yes -adcdev plughw:CARD=Device,DEV=0
+
+# hmm=/home/pi/.virtualenvs/scarlett-dbus-poc/share/pocketsphinx/model/en-us/en-us lm=1473.lm dict=1473.dic
+# -samprate 16000/8000/48000 -inmic yes
 
 scarlett_setup_env_vars(){
   export GSTREAMER=1.0

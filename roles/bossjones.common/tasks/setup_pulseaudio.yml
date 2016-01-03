@@ -91,7 +91,7 @@
 # $ pactl stat
 
 - name: pacmd "load-module module-alsa-source source_name=input device=hw:1"
-  command: pacmd "load-module module-alsa-source source_name=input device=hw:1"
+  command: 'pacmd "load-module module-alsa-source source_name=input device=hw:1"'
   tags:
   - pulseaudio
   become: pi
@@ -99,7 +99,7 @@
   ignore_errors: yes
 
 - name: pacmd "set-default-source input"
-  command: pacmd "set-default-source input"
+  command: 'pacmd "set-default-source input"'
   tags:
   - pulseaudio
   become: pi

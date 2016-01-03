@@ -1,0 +1,63 @@
+gst-launch-1.0 --gst-debug=3 alsasrc device=plughw:CARD=Device,DEV=0 ! audioresample ! queue silent=false leaky=2 max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! audioconvert ! audioresample ! pocketsphinx name=asr hmm=/home/pi/.virtualenvs/scarlett-dbus-poc/share/pocketsphinx/model/en-us/en-us lm=1473.lm dict=1473.dic ! fakesink
+
+# clean playback
+gst-launch-1.0 --gst-debug=3 alsasrc device=plughw:CARD=Device,DEV=0 ! audioresample ! audioconvert ! audioresample !  queue silent=false leaky=2 max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! pulsesink
+
+alias scarlett_gst_hear_yourself='gst-launch-1.0 alsasrc device=plughw:CARD=Device,DEV=0 ! audioconvert ! audioresample ! pulsesink'
+
+# START HERE
+gst-launch-1.0 alsasrc device=plughw:CARD=Device,DEV=0 ! queue silent=false leaky=2 max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! audioconvert ! audioresample ! audio/x-raw-int, rate=16000, width=16, depth=16, channels=1 ! audioresample ! audio/x-raw-int, rate=8000 ! pocketsphinx name=asr hmm=/home/pi/.virtualenvs/scarlett-dbus-poc/share/pocketsphinx/model/en-us/en-us lm=1473.lm dict=1473.dic ! fakesink
+
+
+# NOTE: (the pocketsphinx element currently requires 16kHz, 16-bit PCM audio)
+# REQUIREMENTS source: http://stackoverflow.com/questions/13693006/convert-audio-files-for-cmu-sphinx-4-input
+#########################################################
+# Sphinx requires the following format:
+# 
+# 16 khz
+# 16 bit
+# mono
+# little-endian
+#########################################################
+# ANOTHER WAY OF SAYING THIS:
+# S16LE
+# 16 bits in 16 bits, signed, little endian
+# source: http://www.valadoc.org/#!api=gstreamer-audio-1.0/Gst.Audio.Format.S16LE
+#########################################################
+# capsfilter, OLD: caps=audio/x-raw-int,rate=16000,width=16,channels=1
+#########################################################
+
+# GET THIS WORKING
+gst-launch-1.0 alsasrc device=plughw:CARD=Device,DEV=0 ! audioconvert ! audioresample ! audio/x-raw,format=S16LE,channels=1,layout=interleaved ! queue silent=false leaky=2 max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! pocketsphinx name=asr hmm=/home/pi/.virtualenvs/scarlett-dbus-poc/share/pocketsphinx/model/en-us/en-us lm=1473.lm dict=1473.dic ! fakesink
+
+# attempt 1
+gst-launch-1.0 alsasrc device=plughw:CARD=Device,DEV=0 ! queue silent=false leaky=2 max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! audioconvert ! audioresample ! audio/x-raw,format=S16LE,channels=1,layout=interleaved ! pocketsphinx name=asr hmm=/home/pi/.virtualenvs/scarlett-dbus-poc/share/pocketsphinx/model/en-us/en-us lm=1473.lm dict=1473.dic ! queue silent=false leaky=2 max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! fakesink
+
+# cleaner format attempt 2
+gst-launch-1.0 alsasrc device=plughw:CARD=Device,DEV=0 ! \
+    queue silent=false leaky=2 max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! \
+    audioconvert ! \
+    audioresample ! \
+    audio/x-raw,format=S16LE,channels=1,layout=interleaved ! \
+    pocketsphinx name=asr hmm=/home/pi/.virtualenvs/scarlett-dbus-poc/share/pocketsphinx/model/en-us/en-us lm=1473.lm dict=1473.dic ! \
+    queue silent=false leaky=2 max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! \
+    fakesink
+
+# cleaner format attempt 3
+gst-launch-1.0 alsasrc device=plughw:CARD=Device,DEV=0 ! \
+    queue leaky=2 ! \
+    audioconvert ! \
+    audioresample ! \
+    audio/x-raw,format=S16LE,channels=1,layout=interleaved ! \
+    pocketsphinx name=asr hmm=/home/pi/.virtualenvs/scarlett-dbus-poc/share/pocketsphinx/model/en-us/en-us lm=1473.lm dict=1473.dic ! \
+    queue leaky=2 ! \
+    fakesink
+
+
+# example: audio/x-raw,format=S16LE,channels=1,layout=interleaved
+# what does this mean:
+
+
+
+
+

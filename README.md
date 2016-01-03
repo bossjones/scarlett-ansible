@@ -769,3 +769,52 @@ $ aplay outfile.wav
 
 # IMPORTANT NOTE: IF DEFAULT SOURCE ISNT SET TO HW:1, THIS DOES NOT WORK!
 ```
+
+
+# blog post notes
+
+```
+UPGRADING FROM POCKETSPHINX 0.8 -> 5prealpha
+
+# what is alsa
+# what is pulse audio
+# why do we need to configure both
+# setting up alsa
+# setting up pulseaudio
+# other sound frameworks ( Gstreamer ) + how to configure it
+# testing alsa works correctly w/ arecord and aplay
+# testing pulseaduio works with parecord and paplay
+# pocketsphinx install 
+# finally running pocketsphinx_continuous
+
+# TERMS
+PCM - Pulse-code modulation (PCM) is a method used to digitally represent sampled analog signals. It is the standard form of digital audio in computers, Compact Discs, digital telephony and other digital audio applications.
+```
+
+# set usb to default sound device
+
+```
+
+1. To configure the adapter to be card 0, I changed the following line in /etc/modprobe.d/alsa-base.conf from
+options snd-usb-audio index=-2
+to
+options snd-usb-audio index=0
+
+2. REBOOT
+
+3. with /proc/asound/cards now showing the adapter as the default (card 0), I'm able to record audio from the mic input with "arecord -d 5 -r 48000 test.wav" and play it back through the headset output with "aplay test.wav." I used alsamixer to adjust the Speaker output level and the Capture input level.
+
+# NOTE THIS IS WRONG
+± |master U:3 ?:6 ✗| → cat /proc/asound/cards
+ 0 [I82801AAICH    ]: ICH - Intel 82801AA-ICH
+                      Intel 82801AA-ICH with AD1980 at irq 21
+ 1 [Device         ]: USB-Audio - USB PnP Sound Device
+                      C-Media Electronics Inc. USB PnP Sound Device at usb-0000:00:1f.4-1, full speed
+
+# NOTE THIS IS RIGHT
+± |master U:3 ?:6 ✗| → cat /proc/asound/cards
+ 0 [Device         ]: USB-Audio - USB PnP Sound Device
+                      C-Media Electronics Inc. USB PnP Sound Device at usb-0000:00:1f.4-1, full speed
+ 1 [I82801AAICH    ]: ICH - Intel 82801AA-ICH
+                      Intel 82801AA-ICH with AD1980 at irq 21
+```
