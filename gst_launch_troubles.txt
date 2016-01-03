@@ -43,12 +43,12 @@ gst-launch-1.0 alsasrc device=plughw:CARD=Device,DEV=0 ! \
     queue silent=false leaky=2 max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! \
     fakesink
 
-# cleaner format attempt 3
-gst-launch-1.0 alsasrc device=plughw:CARD=Device,DEV=0 ! \
+# WORKINGGGGGG
+gst-launch-1.0 -v -m alsasrc device=plughw:CARD=Device,DEV=0 ! \
     queue leaky=2 ! \
     audioconvert ! \
     audioresample ! \
-    audio/x-raw,format=S16LE,channels=1,layout=interleaved ! \
+    "audio/x-raw,format=S16LE,channels=1,layout=interleaved" ! \
     pocketsphinx name=asr hmm=/home/pi/.virtualenvs/scarlett-dbus-poc/share/pocketsphinx/model/en-us/en-us lm=1473.lm dict=1473.dic ! \
     queue leaky=2 ! \
     fakesink

@@ -201,7 +201,20 @@ test_pulseaudio_command_line(){
   pacmd "set-default-source input"
 }
 
-alias scarlett_gst_launch_test='gst-launch-1.0 alsasrc device=hw:1 ! audioconvert ! audioresample ! pocketsphinx name=asr hmm=/home/pi/.virtualenvs/scarlett-dbus-poc/share/pocketsphinx/model/en-us/en-us lm=1473.lm dict=1473.dic ! fakesink'
+scarlett_gst_launch_test(){
+  gst-launch-1.0 -m alsasrc device=plughw:CARD=Device,DEV=0 ! \
+    queue silent=false leaky=2 max-size-buffers=0 max-size-time=0 max-size-bytes=0 ! \
+    audioconvert ! \
+    audioresample ! \
+    "audio/x-raw,format=S16LE,channels=1,layout=interleaved" ! \
+    pocketsphinx name=asr \
+    bestpath=0 \
+    hmm=/home/pi/.virtualenvs/scarlett-dbus-poc/share/pocketsphinx/model/en-us/en-us \
+    lm=~/dev/bossjones-github/scarlett-gstreamer-pocketsphinx-demo/1473.lm \
+    dict=~/dev/bossjones-github/scarlett-gstreamer-pocketsphinx-demo/1473.dic ! \
+    queue leaky=2 ! \
+    fakesink
+}
 
 # source: http://trac.gateworks.com/wiki/Yocto/gstreamer/audio
 alias scarlett_list_devices_to_record_with='arecord -L'

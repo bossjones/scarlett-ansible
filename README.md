@@ -15,6 +15,11 @@ https://wiki.archlinux.org/index.php/PulseAudio/Configuration
 
 http://trac.gateworks.com/wiki/Yocto/gstreamer/audio
 
+http://www.alsa-project.org/alsa-doc/alsa-lib/pcm.html
+
+# set alsa and save settings
+https://www.raspberrypi.org/forums/viewtopic.php?f=38&t=37873
+
 # good example of how to compile from source in ansible
 https://github.com/ozzyjohnson/ansible-ffmpeg-build/blob/master/build-ffmpeg.yml
 
@@ -819,4 +824,257 @@ options snd-usb-audio index=0
                       C-Media Electronics Inc. USB PnP Sound Device at usb-0000:00:1f.4-1, full speed
  1 [I82801AAICH    ]: ICH - Intel 82801AA-ICH
                       Intel 82801AA-ICH with AD1980 at irq 21
+```
+
+# GSTREAMER 1.0 + POCKETSPHINX 5prealpha WORKING IN a gst-launch-1.0 pipeline
+
+```
+  using virtualenv: scarlett-dbus-poc scarlett-ansible in ~/dev/bossjones-github/scarlett-gstreamer-pocketsphinx-demo
+± |master U:3 ?:12 ✗| → gst-launch-1.0 -m alsasrc device=plughw:CARD=Device,DEV=0 ! \
+>     queue leaky=2 ! \
+>     audioconvert ! \
+>     audioresample ! \
+>     "audio/x-raw,format=S16LE,channels=1,layout=interleaved" ! \
+>     pocketsphinx name=asr \
+>     bestpath=0 \
+>     hmm=/home/pi/.virtualenvs/scarlett-dbus-poc/share/pocketsphinx/model/en-us/en-us \
+>     lm=~/dev/bossjones-github/scarlett-gstreamer-pocketsphinx-demo/1473.lm \
+>     dict=~/dev/bossjones-github/scarlett-gstreamer-pocketsphinx-demo/1473.dic ! \
+>     queue leaky=2 ! \
+>     fakesink
+Setting pipeline to PAUSED ...
+Current configuration:
+[NAME]      [DEFLT]   [VALUE]
+-agc      none    none
+-agcthresh    2.0   2.000000e+00
+-allphone
+-allphone_ci    no    no
+-alpha      0.97    9.700000e-01
+-ascale     20.0    2.000000e+01
+-aw     1   1
+-backtrace    no    no
+-beam     1e-48   1.000000e-48
+-bestpath   yes   no
+-bestpathlw   9.5   9.500000e+00
+-ceplen     13    13
+-cmn      current   current
+-cmninit    8.0   40,3,-1
+-compallsen   no    no
+-debug          0
+-dict         /home/pi/dev/bossjones-github/scarlett-gstreamer-pocketsphinx-demo/1473.dic
+-dictcase   no    no
+-dither     no    no
+-doublebw   no    no
+-ds     1   1
+-fdict
+-feat     1s_c_d_dd 1s_c_d_dd
+-featparams
+-fillprob   1e-8    1.000000e-08
+-frate      100   100
+-fsg
+-fsgusealtpron    yes   yes
+-fsgusefiller   yes   yes
+-fwdflat    yes   yes
+-fwdflatbeam    1e-64   1.000000e-64
+-fwdflatefwid   4   4
+-fwdflatlw    8.5   8.500000e+00
+-fwdflatsfwin   25    25
+-fwdflatwbeam   7e-29   7.000000e-29
+-fwdtree    yes   yes
+-hmm          /home/pi/.virtualenvs/scarlett-dbus-poc/share/pocketsphinx/model/en-us/en-us
+-input_endian   little    little
+-jsgf
+-keyphrase
+-kws
+-kws_delay    10    10
+-kws_plp    1e-1    1.000000e-01
+-kws_threshold    1   1.000000e+00
+-latsize    5000    5000
+-lda
+-ldadim     0   0
+-lifter     0   22
+-lm         /home/pi/dev/bossjones-github/scarlett-gstreamer-pocketsphinx-demo/1473.lm
+-lmctl
+-lmname
+-logbase    1.0001    1.000100e+00
+-logfn
+-logspec    no    no
+-lowerf     133.33334 1.300000e+02
+-lpbeam     1e-40   1.000000e-40
+-lponlybeam   7e-29   7.000000e-29
+-lw     6.5   6.500000e+00
+-maxhmmpf   30000   30000
+-maxwpf     -1    -1
+-mdef
+-mean
+-mfclogdir
+-min_endfr    0   0
+-mixw
+-mixwfloor    0.0000001 1.000000e-07
+-mllr
+-mmap     yes   yes
+-ncep     13    13
+-nfft     512   512
+-nfilt      40    25
+-nwpen      1.0   1.000000e+00
+-pbeam      1e-48   1.000000e-48
+-pip      1.0   1.000000e+00
+-pl_beam    1e-10   1.000000e-10
+-pl_pbeam   1e-10   1.000000e-10
+-pl_pip     1.0   1.000000e+00
+-pl_weight    3.0   3.000000e+00
+-pl_window    5   5
+-rawlogdir
+-remove_dc    no    no
+-remove_noise   yes   yes
+-remove_silence   yes   yes
+-round_filters    yes   yes
+-samprate   16000   1.600000e+04
+-seed     -1    -1
+-sendump
+-senlogdir
+-senmgau
+-silprob    0.005   5.000000e-03
+-smoothspec   no    no
+-svspec         0-12/13-25/26-38
+-tmat
+-tmatfloor    0.0001    1.000000e-04
+-topn     4   4
+-topn_beam    0   0
+-toprule
+-transform    legacy    dct
+-unit_area    yes   yes
+-upperf     6855.4976 6.800000e+03
+-uw     1.0   1.000000e+00
+-vad_postspeech   50    50
+-vad_prespeech    20    20
+-vad_startspeech  10    10
+-vad_threshold    2.0   2.000000e+00
+-var
+-varfloor   0.0001    1.000000e-04
+-varnorm    no    no
+-verbose    no    no
+-warp_params
+-warp_type    inverse_linear  inverse_linear
+-wbeam      7e-29   7.000000e-29
+-wip      0.65    6.500000e-01
+-wlen     0.025625  2.562500e-02
+
+Pipeline is live and does not need PREROLL ...
+Got message #23 from element "fakesink0" (state-changed): GstMessageStateChanged, old-state=(GstState)GST_STATE_NULL, new-state=(GstState)GST_STATE_READY, pending-state=(GstState)GST_STATE_VOID_PENDING;
+Got message #24 from element "queue1" (state-changed): GstMessageStateChanged, old-state=(GstState)GST_STATE_NULL, new-state=(GstState)GST_STATE_READY, pending-state=(GstState)GST_STATE_VOID_PENDING;
+Got message #25 from element "asr" (state-changed): GstMessageStateChanged, old-state=(GstState)GST_STATE_NULL, new-state=(GstState)GST_STATE_READY, pending-state=(GstState)GST_STATE_VOID_PENDING;
+Got message #26 from element "capsfilter0" (state-changed): GstMessageStateChanged, old-state=(GstState)GST_STATE_NULL, new-state=(GstState)GST_STATE_READY, pending-state=(GstState)GST_STATE_VOID_PENDING;
+Got message #27 from element "audioresample0" (state-changed): GstMessageStateChanged, old-state=(GstState)GST_STATE_NULL, new-state=(GstState)GST_STATE_READY, pending-state=(GstState)GST_STATE_VOID_PENDING;
+Got message #28 from element "audioconvert0" (state-changed): GstMessageStateChanged, old-state=(GstState)GST_STATE_NULL, new-state=(GstState)GST_STATE_READY, pending-state=(GstState)GST_STATE_VOID_PENDING;
+Got message #29 from element "queue0" (state-changed): GstMessageStateChanged, old-state=(GstState)GST_STATE_NULL, new-state=(GstState)GST_STATE_READY, pending-state=(GstState)GST_STATE_VOID_PENDING;
+Got message #30 from element "alsasrc0" (state-changed): GstMessageStateChanged, old-state=(GstState)GST_STATE_NULL, new-state=(GstState)GST_STATE_READY, pending-state=(GstState)GST_STATE_VOID_PENDING;
+Got message #31 from element "pipeline0" (state-changed): GstMessageStateChanged, old-state=(GstState)GST_STATE_NULL, new-state=(GstState)GST_STATE_READY, pending-state=(GstState)GST_STATE_PAUSED;
+Got message #33 from pad "queue1:src" (stream-status): GstMessageStreamStatus, type=(GstStreamStatusType)GST_STREAM_STATUS_TYPE_CREATE, owner=(GstElement)"\(GstQueue\)\ queue1", object=(GstTask)"\(GstTask\)\ queue1:src";
+Got message #34 from element "queue1" (state-changed): GstMessageStateChanged, old-state=(GstState)GST_STATE_READY, new-state=(GstState)GST_STATE_PAUSED, pending-state=(GstState)GST_STATE_VOID_PENDING;
+Got message #35 from element "asr" (state-changed): GstMessageStateChanged, old-state=(GstState)GST_STATE_READY, new-state=(GstState)GST_STATE_PAUSED, pending-state=(GstState)GST_STATE_VOID_PENDING;
+Got message #36 from element "capsfilter0" (state-changed): GstMessageStateChanged, old-state=(GstState)GST_STATE_READY, new-state=(GstState)GST_STATE_PAUSED, pending-state=(GstState)GST_STATE_VOID_PENDING;
+Got message #37 from element "audioresample0" (state-changed): GstMessageStateChanged, old-state=(GstState)GST_STATE_READY, new-state=(GstState)GST_STATE_PAUSED, pending-state=(GstState)GST_STATE_VOID_PENDING;
+Got message #38 from element "audioconvert0" (state-changed): GstMessageStateChanged, old-state=(GstState)GST_STATE_READY, new-state=(GstState)GST_STATE_PAUSED, pending-state=(GstState)GST_STATE_VOID_PENDING;
+Got message #39 from pad "queue0:src" (stream-status): GstMessageStreamStatus, type=(GstStreamStatusType)GST_STREAM_STATUS_TYPE_CREATE, owner=(GstElement)"\(GstQueue\)\ queue0", object=(GstTask)"\(GstTask\)\ queue0:src";
+Got message #40 from element "queue0" (state-changed): GstMessageStateChanged, old-state=(GstState)GST_STATE_READY, new-state=(GstState)GST_STATE_PAUSED, pending-state=(GstState)GST_STATE_VOID_PENDING;
+Got message #41 from pad "queue1:src" (stream-status): GstMessageStreamStatus, type=(GstStreamStatusType)GST_STREAM_STATUS_TYPE_ENTER, owner=(GstElement)"\(GstQueue\)\ queue1", object=(GstTask)"\(GstTask\)\ queue1:src";
+Got message #42 from pad "queue0:src" (stream-status): GstMessageStreamStatus, type=(GstStreamStatusType)GST_STREAM_STATUS_TYPE_ENTER, owner=(GstElement)"\(GstQueue\)\ queue0", object=(GstTask)"\(GstTask\)\ queue0:src";
+Got message #46 from pad "alsasrc0:src" (stream-status): GstMessageStreamStatus, type=(GstStreamStatusType)GST_STREAM_STATUS_TYPE_CREATE, owner=(GstElement)"\(GstAlsaSrc\)\ alsasrc0", object=(GstTask)"\(GstTask\)\ alsasrc0:src";
+Got message #47 from element "alsasrc0" (state-changed): GstMessageStateChanged, old-state=(GstState)GST_STATE_READY, new-state=(GstState)GST_STATE_PAUSED, pending-state=(GstState)GST_STATE_VOID_PENDING;
+Got message #48 from element "pipeline0" (state-changed): GstMessageStateChanged, old-state=(GstState)GST_STATE_READY, new-state=(GstState)GST_STATE_PAUSED, pending-state=(GstState)GST_STATE_VOID_PENDING;
+Got message #49 from pad "alsasrc0:src" (stream-status): GstMessageStreamStatus, type=(GstStreamStatusType)GST_STREAM_STATUS_TYPE_ENTER, owner=(GstElement)"\(GstAlsaSrc\)\ alsasrc0", object=(GstTask)"\(GstTask\)\ alsasrc0:src";
+Got message #50 from element "pipeline0" (stream-start): GstMessageStreamStart, group-id=(uint)0;
+Setting pipeline to PLAYING ...
+Got message #53 from element "pipeline0" (new-clock): GstMessageNewClock, clock=(GstClock)"\(GstAudioClock\)\ GstAudioSrcClock";
+New clock: GstAudioSrcClock
+Got message #55 from element "queue1" (state-changed): GstMessageStateChanged, old-state=(GstState)GST_STATE_PAUSED, new-state=(GstState)GST_STATE_PLAYING, pending-state=(GstState)GST_STATE_VOID_PENDING;
+Got message #56 from element "asr" (state-changed): GstMessageStateChanged, old-state=(GstState)GST_STATE_PAUSED, new-state=(GstState)GST_STATE_PLAYING, pending-state=(GstState)GST_STATE_VOID_PENDING;
+Got message #57 from element "capsfilter0" (state-changed): GstMessageStateChanged, old-state=(GstState)GST_STATE_PAUSED, new-state=(GstState)GST_STATE_PLAYING, pending-state=(GstState)GST_STATE_VOID_PENDING;
+Got message #58 from element "audioresample0" (state-changed): GstMessageStateChanged, old-state=(GstState)GST_STATE_PAUSED, new-state=(GstState)GST_STATE_PLAYING, pending-state=(GstState)GST_STATE_VOID_PENDING;
+Got message #59 from element "audioconvert0" (state-changed): GstMessageStateChanged, old-state=(GstState)GST_STATE_PAUSED, new-state=(GstState)GST_STATE_PLAYING, pending-state=(GstState)GST_STATE_VOID_PENDING;
+Got message #60 from element "queue0" (state-changed): GstMessageStateChanged, old-state=(GstState)GST_STATE_PAUSED, new-state=(GstState)GST_STATE_PLAYING, pending-state=(GstState)GST_STATE_VOID_PENDING;
+Got message #61 from element "alsasrc0" (state-changed): GstMessageStateChanged, old-state=(GstState)GST_STATE_PAUSED, new-state=(GstState)GST_STATE_PLAYING, pending-state=(GstState)GST_STATE_VOID_PENDING;
+Got message #62 from object "audiosrcringbuffer0" (stream-status): GstMessageStreamStatus, type=(GstStreamStatusType)GST_STREAM_STATUS_TYPE_ENTER, owner=(GstElement)"\(GstAlsaSrc\)\ alsasrc0", object=(GThread)NULL;
+Got message #69 from element "asr" (element): pocketsphinx, timestamp=(guint64)940000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)SIX;
+Got message #70 from element "asr" (element): pocketsphinx, timestamp=(guint64)980000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)TO;
+Got message #71 from element "asr" (element): pocketsphinx, timestamp=(guint64)1030000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)TURN;
+Got message #72 from element "asr" (element): pocketsphinx, timestamp=(guint64)1270000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)"TURN\ IS";
+Got message #73 from element "asr" (element): pocketsphinx, timestamp=(guint64)1400000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)"TURN\ IS\ IT";
+Got message #74 from element "asr" (element): pocketsphinx, timestamp=(guint64)1500000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)"TURN\ IS\ IT\ GO";
+Got message #75 from element "asr" (element): pocketsphinx, timestamp=(guint64)1640000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)"TURN\ IS\ IT\ TURN";
+Got message #76 from element "asr" (element): pocketsphinx, timestamp=(guint64)18446744073709551615, final=(boolean)true, confidence=(glong)0, hypothesis=(string)"TURN\ IS\ IT\ TURN";
+Got message #77 from element "fakesink0" (state-changed): GstMessageStateChanged, old-state=(GstState)GST_STATE_READY, new-state=(GstState)GST_STATE_PAUSED, pending-state=(GstState)GST_STATE_VOID_PENDING;
+Got message #79 from element "pipeline0" (async-done): GstMessageAsyncDone, running-time=(guint64)18446744073709551615;
+Got message #81 from element "fakesink0" (state-changed): GstMessageStateChanged, old-state=(GstState)GST_STATE_PAUSED, new-state=(GstState)GST_STATE_PLAYING, pending-state=(GstState)GST_STATE_VOID_PENDING;
+Got message #82 from element "pipeline0" (state-changed): GstMessageStateChanged, old-state=(GstState)GST_STATE_PAUSED, new-state=(GstState)GST_STATE_PLAYING, pending-state=(GstState)GST_STATE_VOID_PENDING;
+Got message #83 from element "asr" (element): pocketsphinx, timestamp=(guint64)5320000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)EIGHT;
+Got message #84 from element "asr" (element): pocketsphinx, timestamp=(guint64)5580000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)THE;
+Got message #85 from element "asr" (element): pocketsphinx, timestamp=(guint64)6270000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)PAUSE;
+Got message #86 from element "asr" (element): pocketsphinx, timestamp=(guint64)6290000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)ON;
+Got message #87 from element "asr" (element): pocketsphinx, timestamp=(guint64)6730000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)"ON\ GET";
+Got message #88 from element "asr" (element): pocketsphinx, timestamp=(guint64)18446744073709551615, final=(boolean)true, confidence=(glong)0, hypothesis=(string)GET;
+Got message #89 from element "asr" (element): pocketsphinx, timestamp=(guint64)8870000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)GET;
+Got message #90 from element "asr" (element): pocketsphinx, timestamp=(guint64)9150000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)ONE;
+Got message #91 from element "asr" (element): pocketsphinx, timestamp=(guint64)9450000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)WHAT;
+Got message #92 from element "asr" (element): pocketsphinx, timestamp=(guint64)18446744073709551615, final=(boolean)true, confidence=(glong)0, hypothesis=(string)WHAT;
+Got message #93 from element "asr" (element): pocketsphinx, timestamp=(guint64)11830000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)THE;
+Got message #94 from element "asr" (element): pocketsphinx, timestamp=(guint64)11870000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)TV;
+Got message #95 from element "asr" (element): pocketsphinx, timestamp=(guint64)12070000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)THE;
+Got message #96 from element "asr" (element): pocketsphinx, timestamp=(guint64)12080000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)TV;
+Got message #97 from element "asr" (element): pocketsphinx, timestamp=(guint64)12470000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)THE;
+Got message #98 from element "asr" (element): pocketsphinx, timestamp=(guint64)12650000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)"THE\ WHAT";
+Got message #99 from element "asr" (element): pocketsphinx, timestamp=(guint64)12690000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)"THE\ WHITE";
+Got message #100 from element "asr" (element): pocketsphinx, timestamp=(guint64)12750000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)"THE\ PLAY";
+Got message #101 from element "asr" (element): pocketsphinx, timestamp=(guint64)12770000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)"THE\ WHITE";
+Got message #102 from element "asr" (element): pocketsphinx, timestamp=(guint64)18446744073709551615, final=(boolean)true, confidence=(glong)0, hypothesis=(string)"THE\ WHITE";
+Got message #103 from element "asr" (element): pocketsphinx, timestamp=(guint64)13980000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)EIGHT;
+Got message #104 from element "asr" (element): pocketsphinx, timestamp=(guint64)14040000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)TO;
+Got message #105 from element "asr" (element): pocketsphinx, timestamp=(guint64)14090000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)TURN;
+Got message #106 from element "asr" (element): pocketsphinx, timestamp=(guint64)14120000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)ZERO;
+Got message #107 from element "asr" (element): pocketsphinx, timestamp=(guint64)14140000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)TURN;
+Got message #108 from element "asr" (element): pocketsphinx, timestamp=(guint64)14170000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)ZERO;
+Got message #109 from element "asr" (element): pocketsphinx, timestamp=(guint64)14320000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)SCARLETT;
+Got message #110 from element "asr" (element): pocketsphinx, timestamp=(guint64)18446744073709551615, final=(boolean)true, confidence=(glong)0, hypothesis=(string)SCARLETT;
+Got message #111 from element "asr" (element): pocketsphinx, timestamp=(guint64)19840000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)FOUR;
+Got message #112 from element "asr" (element): pocketsphinx, timestamp=(guint64)19870000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)WHAT;
+Got message #113 from element "asr" (element): pocketsphinx, timestamp=(guint64)19900000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)ONE;
+Got message #114 from element "asr" (element): pocketsphinx, timestamp=(guint64)19910000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)WHAT;
+Got message #115 from element "asr" (element): pocketsphinx, timestamp=(guint64)20220000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)"WHAT\ TIME";
+Got message #116 from element "asr" (element): pocketsphinx, timestamp=(guint64)20230000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)"WHAT\ TIME\ IS";
+Got message #117 from element "asr" (element): pocketsphinx, timestamp=(guint64)20370000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)"WHAT\ TIME\ IS\ IT";
+Got message #118 from element "asr" (element): pocketsphinx, timestamp=(guint64)18446744073709551615, final=(boolean)true, confidence=(glong)0, hypothesis=(string)"WHAT\ TIME\ IS\ IT";
+Got message #119 from element "asr" (element): pocketsphinx, timestamp=(guint64)22940000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)TURN;
+Got message #120 from element "asr" (element): pocketsphinx, timestamp=(guint64)22950000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)FRIZZY;
+Got message #121 from element "asr" (element): pocketsphinx, timestamp=(guint64)22980000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)TURN;
+Got message #122 from element "asr" (element): pocketsphinx, timestamp=(guint64)23050000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)ENTER;
+Got message #123 from element "asr" (element): pocketsphinx, timestamp=(guint64)23070000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)"TURN\ ON";
+Got message #124 from element "asr" (element): pocketsphinx, timestamp=(guint64)23120000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)NINE;
+Got message #125 from element "asr" (element): pocketsphinx, timestamp=(guint64)23480000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)"TURN\ ON\ THE";
+Got message #126 from element "asr" (element): pocketsphinx, timestamp=(guint64)23670000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)"TURN\ ON\ THE\ GET";
+Got message #127 from element "asr" (element): pocketsphinx, timestamp=(guint64)24190000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)"TURN\ ON\ THE\ GET\ ENTER";
+Got message #128 from element "asr" (element): pocketsphinx, timestamp=(guint64)18446744073709551615, final=(boolean)true, confidence=(glong)0, hypothesis=(string)"TURN\ ON\ THE\ GET";
+Got message #129 from element "asr" (element): pocketsphinx, timestamp=(guint64)27970000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)ARE;
+Got message #130 from element "asr" (element): pocketsphinx, timestamp=(guint64)28100000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)PAUSE;
+Got message #131 from element "asr" (element): pocketsphinx, timestamp=(guint64)28110000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)ARE;
+Got message #132 from element "asr" (element): pocketsphinx, timestamp=(guint64)28220000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)PAUSE;
+Got message #133 from element "asr" (element): pocketsphinx, timestamp=(guint64)18446744073709551615, final=(boolean)true, confidence=(glong)0, hypothesis=(string)ARE;
+Got message #134 from element "asr" (element): pocketsphinx, timestamp=(guint64)29150000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)MY;
+Got message #135 from element "asr" (element): pocketsphinx, timestamp=(guint64)29400000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)TURN;
+Got message #136 from element "asr" (element): pocketsphinx, timestamp=(guint64)29510000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)APPLE;
+Got message #137 from element "asr" (element): pocketsphinx, timestamp=(guint64)29880000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)"TURN\ THE\ ON";
+Got message #138 from element "asr" (element): pocketsphinx, timestamp=(guint64)29890000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)"TURN\ THE\ PAUSE";
+Got message #139 from element "asr" (element): pocketsphinx, timestamp=(guint64)29940000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)"TURN\ THE\ ON";
+Got message #140 from element "asr" (element): pocketsphinx, timestamp=(guint64)30020000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)"TURN\ THE\ OFF\ THE";
+Got message #141 from element "asr" (element): pocketsphinx, timestamp=(guint64)30320000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)"TURN\ THE\ OFF\ THE\ GO";
+Got message #142 from element "asr" (element): pocketsphinx, timestamp=(guint64)30360000000, final=(boolean)false, confidence=(glong)0, hypothesis=(string)"TURN\ THE\ OFF\ THE\ FOUR";
+Got message #143 from element "asr" (element): pocketsphinx, timestamp=(guint64)18446744073709551615, final=(boolean)true, confidence=(glong)0, hypothesis=(string)"TURN\ OFF\ THE\ FOUR";
+^Chandling interrupt.
+Got message #144 from element "pipeline0" (application): GstLaunchInterrupt, message=(string)"Pipeline\ interrupted";
+Interrupt: Stopping pipeline ...
+Execution ended after 0:00:33.286680180
+Setting pipeline to PAUSED ...
+Setting pipeline to READY ...
+Setting pipeline to NULL ...
+Freeing pipeline ...
 ```
