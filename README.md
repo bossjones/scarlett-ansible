@@ -66,6 +66,18 @@ Coming soon...
 
 ## Helpful links
 
+- https://gist.github.com/GiorgioNatili/ce5647a79ce88cf73a8a
+- http://cmusphinx.sourceforge.net/wiki/#advanced_user_documentation
+- http://sourceforge.net/p/cmusphinx/discussion/search/?q=Pocketsphinx+listen+for+grammar
+- http://sourceforge.net/p/cmusphinx/discussion/help/thread/a7822390/?limit=25#8f38/f5b8/bc40
+- https://wolfpaulus.com/journal/embedded/raspberrypi2-sr/
+- http://blog.scphillips.com/posts/2013/01/getting-gstreamer-to-work-on-a-raspberry-pi/
+- https://wiki.debian.org/PulseAudio
+
+- https://github.com/spk121/burro-engine
+- http://cmusphinx.sourceforge.net/wiki/download
+- http://cmusphinx.sourceforge.net/wiki/faq#qwhy_my_accuracy_is_poor
+- https://github.com/cmusphinx/pocketsphinx/issues/25
 - https://blogs.gnome.org/uraeus/2011/10/04/tutorial-for-python-gstreamer-and-gtk-3/
 - https://developer.ridgerun.com/wiki/index.php/GStreamer_Debugging
 - https://developer.ridgerun.com/wiki/index.php?title=Embedded_GStreamer_Performance_Tuning
