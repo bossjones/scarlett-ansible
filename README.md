@@ -66,6 +66,8 @@ Coming soon...
 
 ## Helpful links
 
+- http://cmusphinx.sourceforge.net/wiki/installingpythonstuff
+- https://github.com/feanil/raspi-video-sync
 - https://gist.github.com/GiorgioNatili/ce5647a79ce88cf73a8a
 - http://cmusphinx.sourceforge.net/wiki/#advanced_user_documentation
 - http://sourceforge.net/p/cmusphinx/discussion/search/?q=Pocketsphinx+listen+for+grammar
