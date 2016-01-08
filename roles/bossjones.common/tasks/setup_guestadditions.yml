@@ -2,7 +2,7 @@
 ---
 - name: configure install_guest
   copy: src=usr/local/bin/install_guest.sh
-        dest=/tmp/install_guest.sh
+        dest=/usr/local/bin/install_guest.sh
         owner=root
         group=root
         mode=0755
@@ -11,6 +11,6 @@
   - configuration
 
 - name: install guest additions
-  command: "bash /tmp/install_guest.sh"
+  command: "bash /usr/local/bin/install_guest.sh"
   tags:
   - guestadditions
