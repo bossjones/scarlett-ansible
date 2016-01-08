@@ -116,3 +116,42 @@
 # Alternatively, you can make these changes with the GUI tool gstreamer-properties.
 
 # The GStreamer plugin wraps playback, recording and the mixer interface.
+
+- name: configure /etc/asound.conf
+  copy: src=etc/etc/asound.conf
+        dest=/etc/asound.conf
+        owner=root
+        group=root
+        mode=0644
+        backup=yes
+  tags:
+  - alsa
+  - configuration
+  - sound
+  - asound
+
+- name: configure /etc/libao.conf
+  copy: src=etc/etc/libao.conf
+        dest=/etc/libao.conf
+        owner=root
+        group=root
+        mode=0644
+        backup=yes
+  tags:
+  - pulse
+  - alsa
+  - configuration
+  - sound
+  - libao
+
+- name: configure /etc/default/speech-dispatcher
+  copy: src=etc/default/speech-dispatcher
+        dest=/etc/default/speech-dispatcher
+        owner=root
+        group=root
+        mode=0644
+        backup=yes
+  tags:
+  - speech-dispatcher
+  - configuration
+  - sound
