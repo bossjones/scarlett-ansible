@@ -12,6 +12,9 @@ vagrant-provision:
 vagrant-up:
 	VAGRANT_VAGRANTFILE=Vagrantfile-ansible-test vagrant up
 
+vagrant-ssh:
+	VAGRANT_VAGRANTFILE=Vagrantfile-ansible-test vagrant ssh
+
 vagrant-destroy:
 	VAGRANT_VAGRANTFILE=Vagrantfile-ansible-test vagrant destroy
 
