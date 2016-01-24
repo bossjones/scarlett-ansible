@@ -59,6 +59,9 @@
 - name: setup_bash_it
   include: setup_bash_it.yml
 
+- name: debug_packages
+  include: debug_packages.yml
+
   # include: bootstrap.yml
   # include: setup_guestadditions.yml
   # include: setup_sshd.yml
