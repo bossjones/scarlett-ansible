@@ -53,8 +53,8 @@ end
 Vagrant.configure("2")  do |config|
 
   # base information
-  config.vm.box = "scarlettpi-base-ubuntu-14-04"
-  config.vm.box_url = "file:///Users/malcolm/ubuntu_14_04_base.box"
+  config.vm.box = "bossjones/scarlett-base-15-10"
+  # config.vm.box_url = "file:///Users/malcolm/ubuntu_14_04_base.box"
 
   # name
   # CHANGME
