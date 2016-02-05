@@ -21,6 +21,9 @@ vagrant-destroy:
 vagrant-halt:
 	VAGRANT_VAGRANTFILE=Vagrantfile-ansible-test vagrant halt
 
+vagrant-config:
+	VAGRANT_VAGRANTFILE=Vagrantfile-ansible-test vagrant ssh-config
+
 serverspec-diff:
 	cat serverspec_things_to_check_for.txt
 
