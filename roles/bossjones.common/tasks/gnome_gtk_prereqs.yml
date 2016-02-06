@@ -14,3 +14,14 @@
   - gnome
   - packages
   - install_packages
+
+- name: If trusty, install gnome-core-devel
+  apt:
+    name: gnome-core-devel
+    state: present
+  sudo: yes
+  tags:
+  - gnome
+  - packages
+  - install_packages
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'trusty'
