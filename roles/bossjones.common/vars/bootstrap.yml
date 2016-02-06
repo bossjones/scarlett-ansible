@@ -58,7 +58,6 @@ server_packages:
   - libncurses5-dev
   - libpcre3
   - libpcre3-dev
-  - libpcrecpp0
   - libreadline5
   - libssl-dev
   - libssl1.0.0

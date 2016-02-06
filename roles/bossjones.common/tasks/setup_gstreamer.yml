@@ -10,6 +10,7 @@
   tags:
   - gstreamer
   - packages
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'trusty'
 
 - name: Make sure the gstreamer_prereqs packages are installed (Debian)
   apt:

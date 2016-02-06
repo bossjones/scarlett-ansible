@@ -118,7 +118,7 @@
 # The GStreamer plugin wraps playback, recording and the mixer interface.
 
 - name: configure /etc/asound.conf
-  copy: src=etc/etc/asound.conf
+  copy: src=etc/asound.conf
         dest=/etc/asound.conf
         owner=root
         group=root
@@ -131,7 +131,7 @@
   - asound
 
 - name: configure /etc/libao.conf
-  copy: src=etc/etc/libao.conf
+  copy: src=etc/libao.conf
         dest=/etc/libao.conf
         owner=root
         group=root
