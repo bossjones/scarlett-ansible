@@ -1,36 +1,31 @@
 # file: bossjones.common/vars/setup_gstreamer.yml
 ---
-# - name: set gir_version dictionary
-#   gir_version:
-#     trusty: 1.0
-#     wily: 3.0
-#
-# - name: show gir_version
-#   debug: var=gir_version
-#
-# - name: get ansible_distribution_release value
-#   get_ansible_dr: "{{ hostvars['local']['ansible_distribution_release'] }}"
-#
-# - name: show get_ansible_dr
-#   debug: var=get_ansible_dr
+libclutter_gst_pkg_name:
+  trusty: libclutter-gst-dev
+  wily: libclutter-gst-3.0-dev
 
+phonon_backend_gstreamer_pkg_name:
+  trusty: phonon-backend-gstreamer1.0
+  wily: phonon-backend-gstreamer
 
 gir_version:
   trusty: 1.0
   wily: 3.0
 
+debug: var=gir_version
+
 debug:
   var: gir_version
 
 gstreamer_prereqs:
-  - "gir1.2-clutter-{{ gir_version[ansible_distribution_release] }}"
+  - "gir1.2-clutter-1.0"
   - "gir1.2-clutter-gst-{{ gir_version[ansible_distribution_release] }}"
   - gir1.2-gda-5.0
-  - "gir1.2-gst-plugins-base-{{ gir_version[ansible_distribution_release] }}"
+  - "gir1.2-gst-plugins-base-1.0"
   - gir1.2-gstreamer-0.10
-  - "gir1.2-gstreamer-{{ gir_version[ansible_distribution_release] }}"
+  - "gir1.2-gstreamer-1.0"
   - gir1.2-gtk-3.0
-  - "gir1.2-gtkclutter-{{ gir_version[ansible_distribution_release] }}"
+  - "gir1.2-gtkclutter-1.0"
   - gir1.2-gtksource-3.0
   - gir1.2-vte-2.90
   - "gir1.2-webkit-{{ gir_version[ansible_distribution_release] }}"
@@ -76,8 +71,8 @@ gstreamer_prereqs:
   - gstreamer1.0-vaapi
   - gstreamer1.0-vaapi-doc
   - gstreamer1.0-x
-  - libclutter-gst-1.0-dbg
-  - libclutter-gst-dev
+  - "libclutter-gst-{{ gir_version[ansible_distribution_release] }}-dbg"
+  - "{{ libclutter_gst_pkg_name[ansible_distribution_release] }}"
   - libgstreamer-plugins-bad1.0-0
   - libgstreamer-plugins-bad1.0-dev
   - libgstreamer-plugins-base0.10-0
@@ -97,6 +92,6 @@ gstreamer_prereqs:
   - phonon-backend-gstreamer
   - phonon-backend-gstreamer-common
   - phonon-backend-gstreamer-dbg
-  - phonon-backend-gstreamer1.0
-  - phonon-backend-gstreamer1.0-common
-  - phonon-backend-gstreamer1.0-dbg
+  - "{{ phonon_backend_gstreamer_pkg_name[ansible_distribution_release] }}"
+  - "{{ phonon_backend_gstreamer_pkg_name[ansible_distribution_release] }}-common"
+  - "{{ phonon_backend_gstreamer_pkg_name[ansible_distribution_release] }}-dbg"
