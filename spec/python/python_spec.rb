@@ -23,7 +23,6 @@ setup_python = ["libpython2.7",
                "python-nose",
                "python-numpy",
                "python-numpy-dbg",
-               "python-osmgpsmap",
                "python-pyside",
                "python-scipy",
                "python-simplejson",
@@ -43,6 +42,12 @@ setup_python.each { |x|
   end
 }
 
+describe 'python-osmgpsmap is installed', if: os[:release].to_i == 14 do
+  it "installs python-osmgpsmap" do
+    expect(package 'python-osmgpsmap').to be_installed
+  end
+end
+
 describe command('pip freeze'), :sudo => false do
   pip_freeze.each { |x|
       its(:stdout) { should match /.*#{x}.*/ }
@@ -55,5 +60,3 @@ describe '/home/pi/.pythonrc exists' do
     expect(file '/home/pi/.pythonrc').to be_mode('644')
   end
 end
-
-

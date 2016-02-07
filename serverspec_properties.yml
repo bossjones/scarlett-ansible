@@ -4,10 +4,10 @@
 default:
   # tests to run - found in spec/
   :roles:
-  # - python
-  # - espeak
-  # - bootstrap
-  # - build_essentials
+  - python
+  - espeak
+  - bootstrap
+  - build_essentials
   - gstreamer
   # - pocketsphinx
   # - pulseaudio
