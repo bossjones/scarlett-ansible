@@ -36,7 +36,7 @@
   git: repo=https://github.com/bossjones/scarlett-dbus-poc.git
        dest=/home/pi/dev/bossjones-github/scarlett-dbus-poc
        update=no
-       version=feature-fix-dobule
+       version=feature-new-gst-and-pocketsphinx
        refspec=+refs/pull/*:refs/heads/*
   become: pi
   become_user: pi
@@ -87,4 +87,3 @@
 # source: http://stackoverflow.com/questions/21344777/how-to-switch-a-user-per-task-or-set-of-tasks
 # become: yes
 # become_user: some_user
-

@@ -1,5 +1,19 @@
 # file: bossjones.common/tasks/setup_pocketsphinx.yml
 ---
+- name: clone sphinxbase
+  git: repo=https://github.com/cmusphinx/sphinxbase.git
+       dest=/home/pi/dev/bossjones-github/scarlett-dbus-poc/sphinxbase
+       clone=yes
+  become: pi
+  become_user: pi
+
+- name: clone pocketsphinx
+  git: repo=https://github.com/cmusphinx/pocketsphinx.git
+       dest=/home/pi/dev/bossjones-github/scarlett-dbus-poc/pocketsphinx
+       clone=yes
+  become: pi
+  become_user: pi
+
 - name: clone sphinxbase into ~pi/dev/bossjones-github/scarlett-dbus-poc/sphinxbase
   git: repo=https://github.com/cmusphinx/sphinxbase.git
        dest=/home/pi/dev/bossjones-github/scarlett-dbus-poc/sphinxbase
