@@ -11,8 +11,8 @@ default:
   - gstreamer
   # - pocketsphinx
   # - pulseaudio
-  # - scarlett
-  # - scarlett_user
+  - scarlett
+  - scarlett_user
   #############################
   # - gnome
   # - ntp
