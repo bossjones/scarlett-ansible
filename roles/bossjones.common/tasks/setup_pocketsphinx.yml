@@ -1,11 +1,32 @@
 # file: bossjones.common/tasks/setup_pocketsphinx.yml
 ---
+# - name: Check if path exists
+#   stat: path=/etc/monit/conf.d
+#   register: check_path
+#
+# - name: It exists
+#   debug: msg='Yay, the path exists!'
+#   when: check_path.stat.exists
+#
+# - name: It doesn't exist
+#   debug: msg="Boohoo, the path doesn't exist..."
+#   when: check_path.stat.exists == false
+
+- name: Check if sphinxbase exists
+  stat: path=/home/pi/dev/bossjones-github/scarlett-dbus-poc/sphinxbase
+  register: check_path_sphinxbase
+
 - name: clone sphinxbase
   git: repo=https://github.com/cmusphinx/sphinxbase.git
        dest=/home/pi/dev/bossjones-github/scarlett-dbus-poc/sphinxbase
        clone=yes
   become: pi
   become_user: pi
+  when: check_path_sphinxbase.stat.exists == false
+
+- name: Check if pocketsphinx exists
+  stat: path=/home/pi/dev/bossjones-github/scarlett-dbus-poc/pocketsphinx
+  register: check_path_pocketsphinx
 
 - name: clone pocketsphinx
   git: repo=https://github.com/cmusphinx/pocketsphinx.git
@@ -13,6 +34,7 @@
        clone=yes
   become: pi
   become_user: pi
+  when: check_path_pocketsphinx.stat.exists == false
 
 - name: clone sphinxbase into ~pi/dev/bossjones-github/scarlett-dbus-poc/sphinxbase
   git: repo=https://github.com/cmusphinx/sphinxbase.git
