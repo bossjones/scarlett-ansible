@@ -43,3 +43,9 @@ describe command('gconftool-2 -a /system/gstreamer/1.0/default') do
   its(:stdout) { should match /.*audiosink = pulsesink.*/ }
   its(:stdout) { should match /.*audiosrc = pulsesrc.*/ }
 end
+
+describe command('grep -ir "pulse" ~/.gconf/*') do
+  its(:stdout) { should match /.*\/home\/pi\/.gconf\/system\/gstreamer\/1.0\/default\/%gconf.xml:.*<stringvalue>pulsesink<\/stringvalue>.*/ }
+  its(:stdout) { should match /.*\/home\/pi\/.gconf\/system\/gstreamer\/1.0\/default\/%gconf.xml:.*<stringvalue>pulsesrc<\/stringvalue>.*/ }
+  its(:stdout) { should match /.*\/home\/pi\/.gconf\/system\/gstreamer\/1.0\/default\/%gconf.xml:.*<stringvalue>pulsesink<\/stringvalue>.*/ }
+end
