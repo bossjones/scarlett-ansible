@@ -9,7 +9,7 @@ default:
   - bootstrap
   - build_essentials
   - gstreamer
-  # - pocketsphinx
+  - pocketsphinx
   # - pulseaudio
   - scarlett
   - scarlett_user
