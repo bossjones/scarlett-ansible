@@ -10,7 +10,7 @@ default:
   - build_essentials
   - gstreamer
   - pocketsphinx
-  # - pulseaudio
+  - pulseaudio
   - scarlett
   - scarlett_user
   #############################
