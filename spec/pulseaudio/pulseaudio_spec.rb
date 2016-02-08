@@ -52,10 +52,15 @@ setup_pulseaudio.each { |x|
   end
 }
 
-describe command('pactl stat'), :sudo => false do
+describe command('pactl stat'), :sudo => false, if: os[:release].to_i == 14 do
   its(:stdout) { should match /.*Default Source: input.*/ }
   its(:stdout) { should match /.*Default Sink: alsa_output.pci-0000_00_05.0.analog-stereo.*/ }
   its(:stdout) { should_not match /.*Default Source: alsa_input.pci-0000_00_05.0.analog-stereo.*/ }
+end
+
+describe command('pacmd stat'), :sudo => false, if: os[:release].to_i == 15 do
+  its(:stdout) { should match /.*Default source name: input.*/ }
+  its(:stdout) { should match /.*Default sink name: alsa_output.pci-0000_00_05.0.analog-stereo.*/ }
 end
 
 describe command('cat /etc/modprobe.d/alsa-base.conf') do
