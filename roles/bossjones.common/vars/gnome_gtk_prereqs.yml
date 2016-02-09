@@ -184,7 +184,7 @@ gnome_gtk_prereqs:
   - re2c
   - valac
   - "{{ valac_pkg_name[ansible_distribution_release] }}"
-  - valadoc
+  # - valadoc
   - x11proto-xext-dev
   - xmlto
   - zlib1g-dev
@@ -246,7 +246,7 @@ gnome_gtk_prereqs_shortlist:
   - libwebp-dev
   - valac
   - "{{ valac_pkg_name[ansible_distribution_release] }}"
-  - valadoc
+  # - valadoc
   # source: https://wiki.gnome.org/Projects/PyGObject/IntrospectionPorting
   # - pygtkcompat
 

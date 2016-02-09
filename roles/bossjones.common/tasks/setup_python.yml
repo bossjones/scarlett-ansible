@@ -64,6 +64,13 @@
   tags:
   - trusty_only
 
+- name: pip install -I path.py==7.7.1
+  command: "pip install -I path.py==7.7.1"
+  tags:
+  - pip
+  - downgrade
+
+
 # pip install --upgrade setuptools
 
 # - name: pip install --upgrade setuptools
