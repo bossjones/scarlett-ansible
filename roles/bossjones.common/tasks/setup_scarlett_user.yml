@@ -94,6 +94,7 @@
   - pip
   - requirements
 
+# TODO: Get this installed into requirements.txt instead of here !!!!!!!!!!!!
 - name: Install colorlog into the virtualenv
   pip: name=colorlog virtualenv=/home/pi/.virtualenvs/scarlett-dbus-poc
   become: pi
