@@ -4,20 +4,22 @@
 default:
   # tests to run - found in spec/
   :roles:
-  # - gnome
   - python
-  # - ntp
-  # - bash_it
   - espeak
   - bootstrap
   - build_essentials
   - gstreamer
   - pocketsphinx
   - pulseaudio
-  # - ruby
   - scarlett
   - scarlett_user
+  #############################
+  # - gnome
+  # - ntp
+  # - bash_it
+  # - ruby
   # - sshd
+  - system_info
   fake-var: 1.1.14
 
 
@@ -29,4 +31,3 @@ default:
 #   - ubuntu
 #   - jdemo
 #   fake-var: 1.1.14
-

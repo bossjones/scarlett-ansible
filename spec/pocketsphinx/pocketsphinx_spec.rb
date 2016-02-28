@@ -24,12 +24,12 @@ describe 'pocketsphinx_setup' do
     expect(file '/home/pi/dev/bossjones-github/scarlett-dbus-poc/pocketsphinx').to be_grouped_into 'pi'
   end
 
-  it 'creates /home/pi/dev/bossjones-github/scarlett-dbus-poc/py2cairo' do
-    expect(file '/home/pi/dev/bossjones-github/scarlett-dbus-poc/py2cairo').to be_directory
-    expect(file '/home/pi/dev/bossjones-github/scarlett-dbus-poc/py2cairo').to be_mode('755')
-    expect(file '/home/pi/dev/bossjones-github/scarlett-dbus-poc/py2cairo').to be_owned_by 'pi'
-    expect(file '/home/pi/dev/bossjones-github/scarlett-dbus-poc/py2cairo').to be_grouped_into 'pi'
-  end
+  # it 'creates /home/pi/dev/bossjones-github/scarlett-dbus-poc/py2cairo' do
+  #   expect(file '/home/pi/dev/bossjones-github/scarlett-dbus-poc/py2cairo').to be_directory
+  #   expect(file '/home/pi/dev/bossjones-github/scarlett-dbus-poc/py2cairo').to be_mode('755')
+  #   expect(file '/home/pi/dev/bossjones-github/scarlett-dbus-poc/py2cairo').to be_owned_by 'pi'
+  #   expect(file '/home/pi/dev/bossjones-github/scarlett-dbus-poc/py2cairo').to be_grouped_into 'pi'
+  # end
 end
 
 describe "content of #{venv_lib_folder} directory" do

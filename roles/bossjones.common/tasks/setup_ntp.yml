@@ -23,3 +23,6 @@
   service: name=ntp state=running enabled=yes
   tags:
   - service
+
+- name: restart ntp
+  service: name=ntp state=restarted

@@ -91,7 +91,7 @@
 # $ pactl stat
 
 - name: pacmd "load-module module-alsa-source source_name=input device=hw:1"
-  command: 'pacmd "load-module module-alsa-source source_name=input device=hw:1"'
+  command: pacmd "load-module module-alsa-source source_name=input device=hw:1"
   tags:
   - pulseaudio
   become: pi
@@ -99,9 +99,19 @@
   ignore_errors: yes
 
 - name: pacmd "set-default-source input"
-  command: 'pacmd "set-default-source input"'
+  command: pacmd "set-default-source input"
   tags:
   - pulseaudio
+  become: pi
+  become_user: pi
+  ignore_errors: yes
+
+- shell: pacmd "load-module module-alsa-source source_name=input device=hw:1"
+  become: pi
+  become_user: pi
+  ignore_errors: yes
+
+- shell: pacmd "set-default-source input"
   become: pi
   become_user: pi
   ignore_errors: yes
@@ -118,7 +128,7 @@
 # The GStreamer plugin wraps playback, recording and the mixer interface.
 
 - name: configure /etc/asound.conf
-  copy: src=etc/etc/asound.conf
+  copy: src=etc/asound.conf
         dest=/etc/asound.conf
         owner=root
         group=root
@@ -131,7 +141,7 @@
   - asound
 
 - name: configure /etc/libao.conf
-  copy: src=etc/etc/libao.conf
+  copy: src=etc/libao.conf
         dest=/etc/libao.conf
         owner=root
         group=root

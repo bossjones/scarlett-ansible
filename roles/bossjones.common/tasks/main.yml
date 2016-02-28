@@ -62,6 +62,9 @@
 - name: debug_packages
   include: debug_packages.yml
 
+- name: setup_dbus_examples
+  include: setup_dbus_examples.yml
+
   # include: bootstrap.yml
   # include: setup_guestadditions.yml
   # include: setup_sshd.yml

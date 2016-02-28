@@ -2,11 +2,21 @@
 
 require 'spec_helper'
 
+libpcrecpp_pkg_name = ''
+
+describe 'default packages & settings for Ubuntu 14.04', if: os[:release].to_i == 14 do
+  libpcrecpp_pkg_name = 'libpcrecpp0'
+end
+
+describe 'default packages & settings for Ubuntu 15.10', if: os[:release].to_i == 15 do
+  libpcrecpp_pkg_name = 'libpcrecpp0v5'
+end
+
 openssh_packages = ['openssh-server']
 general_prereqs  = ['libssl-dev', 'libreadline-dev', 'wget', 'curl', 'gcc', 'make', 'ca-certificates', 'bash', 'lsof', 'strace', 'nmap', 'htop', 'vim', 'openssl']
 python_prereqs   = ['python-setuptools', 'perl', 'software-properties-common', 'python', 'python-dev']
 helpful_prereqs  = ['nmap', 'screen', 'whois', 'bzr', 'unzip']
-server_packages  = ['aptitude', 'autoconf', 'automake', 'binutils-doc', 'bison', 'build-essential', 'bzr', 'coreutils', 'curl', 'debconf-utils', 'fail2ban', 'flex', 'g++', 'git-core', 'help2man', 'libbz2-dev', 'libc6', 'libcurl4-openssl-dev', 'libevent-dev', 'libmcrypt-dev', 'libncurses5-dev', 'libpcre3', 'libpcre3-dev', 'libpcrecpp0', 'libreadline5', 'libssl-dev', 'libssl1.0.0', 'libtool', 'libxml2', 'libxml2-dev', 'libxslt1-dev', 'libxslt1.1', 'mercurial', 'patch', 'python-dev', 'python-numpy', 'screen', 'software-properties-common', 'ssl-cert', 'subversion', 'sudo', 'swig', 'unattended-upgrades', 'unrar-free', 'unzip', 'uuid-dev', 'uuid-runtime', 'vim-nox', 'wget', 'zlib1g', 'zlib1g-dev', 'zlibc', 'whois']
+server_packages  = ['aptitude', 'autoconf', 'automake', 'binutils-doc', 'bison', 'build-essential', 'bzr', 'coreutils', 'curl', 'debconf-utils', 'fail2ban', 'flex', 'g++', 'git-core', 'help2man', 'libbz2-dev', 'libc6', 'libcurl4-openssl-dev', 'libevent-dev', 'libmcrypt-dev', 'libncurses5-dev', 'libpcre3', 'libpcre3-dev', libpcrecpp_pkg_name, 'libreadline5', 'libssl-dev', 'libssl1.0.0', 'libtool', 'libxml2', 'libxml2-dev', 'libxslt1-dev', 'libxslt1.1', 'mercurial', 'patch', 'python-dev', 'python-numpy', 'screen', 'software-properties-common', 'ssl-cert', 'subversion', 'sudo', 'swig', 'unattended-upgrades', 'unrar-free', 'unzip', 'uuid-dev', 'uuid-runtime', 'vim-nox', 'wget', 'zlib1g', 'zlib1g-dev', 'zlibc', 'whois']
 
 openssh_packages.each { |x|
   describe 'openssh_packages' do

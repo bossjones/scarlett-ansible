@@ -1,5 +1,9 @@
 # file: bossjones.common/vars/bootstrap.yml
 ---
+libpcrecpp_pkg_name:
+  trusty: libpcrecpp0
+  wily: libpcrecpp0v5
+
 openssh_packages:
   - openssh-server
 
@@ -58,7 +62,6 @@ server_packages:
   - libncurses5-dev
   - libpcre3
   - libpcre3-dev
-  - libpcrecpp0
   - libreadline5
   - libssl-dev
   - libssl1.0.0
@@ -88,3 +91,4 @@ server_packages:
   - zlib1g-dev
   - zlibc
   - whois
+  - "{{ libpcrecpp_pkg_name[ansible_distribution_release] }}"

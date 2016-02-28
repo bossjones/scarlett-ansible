@@ -10,6 +10,7 @@
   tags:
   - gstreamer
   - packages
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'trusty'
 
 - name: Make sure the gstreamer_prereqs packages are installed (Debian)
   apt:
@@ -44,6 +45,7 @@
 
 # lets make sure gstreamer is aware of pulse audio
 
+# TODO: CONFIRM THAT THIS ACTUALLY RUNS
 - name: gconftool-2 -t string --set /system/gstreamer/1.0/default/audiosink pulsesink
   command: "gconftool-2 -t string --set /system/gstreamer/1.0/default/audiosink pulsesink"
   become: pi

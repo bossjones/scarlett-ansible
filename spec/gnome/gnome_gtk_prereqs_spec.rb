@@ -56,8 +56,7 @@ gnome_gtk_prereqs_shortlist = ["dbus-x11",
                                "libwebkitgtk-3.0-dev",
                                "libwebp-dev",
                                "valac",
-                               "valac-0.14",
-                               "valadoc"]
+                               "valac-0.14"]
 
 gnome_gtk_prereqs_shortlist.each { |x|
   describe 'gnome_gtk_prereqs_shortlist' do
@@ -67,3 +66,20 @@ gnome_gtk_prereqs_shortlist.each { |x|
   end
 }
 
+describe 'ppa:ricotz/testing installed', if: os[:release].to_i == 15 do
+  it 'has ppa:ricotz/testing' do
+    expect(ppa('ppa:ricotz/testing')).to exist
+  end
+end
+
+describe 'ppa:gnome3-team/gnome3 installed', if: os[:release].to_i == 15 do
+  it 'has ppa:gnome3-team/gnome3' do
+    expect(ppa('ppa:gnome3-team/gnome3')).to exist
+  end
+end
+
+describe 'ppa:gnome3-team/gnome3-staging installed', if: os[:release].to_i == 15 do
+  it 'has ppa:gnome3-team/gnome3-staging' do
+    expect(ppa('ppa:gnome3-team/gnome3-staging')).to exist
+  end
+end

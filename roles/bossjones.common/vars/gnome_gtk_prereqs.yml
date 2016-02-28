@@ -1,5 +1,13 @@
 # file: bossjones.common/vars/gnome_gtk_prereqs.yml
 ---
+valac_pkg_name:
+  trusty: valac-0.14
+  wily: valac-0.28
+
+libclutter_gst_pkg_name:
+  trusty: libclutter-gst-dev
+  wily: libclutter-gst-3.0-dev
+
 gnome_gtk_prereqs:
   - bison
   - bogofilter-bdb
@@ -11,7 +19,6 @@ gnome_gtk_prereqs:
   - gettext
   - glade
   - gnome-common
-  - gnome-core-devel
   - gnome-devel
   - gnome-doc-utils
   - gnome-pkg-tools
@@ -40,7 +47,7 @@ gnome_gtk_prereqs:
   - libclutter-1.0-doc
   - libclutter-gst-1.0-0
   - libclutter-gst-1.0-dbg
-  - libclutter-gst-dev
+  - "{{ libclutter_gst_pkg_name[ansible_distribution_release] }}"
   - libclutter-gtk-1.0-dev
   - libcups2
   - libcups2-dev
@@ -176,8 +183,8 @@ gnome_gtk_prereqs:
   - libzvbi-dev
   - re2c
   - valac
-  - valac-0.14
-  - valadoc
+  - "{{ valac_pkg_name[ansible_distribution_release] }}"
+  # - valadoc
   - x11proto-xext-dev
   - xmlto
   - zlib1g-dev
@@ -191,7 +198,6 @@ gnome_gtk_prereqs_shortlist:
   - gettext
   - glade
   - gnome-common
-  - gnome-core-devel
   - gnome-devel
   - gnome-doc-utils
   - gnome-pkg-tools
@@ -239,8 +245,8 @@ gnome_gtk_prereqs_shortlist:
   - libwebkitgtk-3.0-dev
   - libwebp-dev
   - valac
-  - valac-0.14
-  - valadoc
+  - "{{ valac_pkg_name[ansible_distribution_release] }}"
+  # - valadoc
   # source: https://wiki.gnome.org/Projects/PyGObject/IntrospectionPorting
   # - pygtkcompat
 
@@ -378,7 +384,6 @@ gnome_gtk_prereqs_shortlist:
 # anjuta
 # devhelp
 # glade
-# gnome-core-devel
 # gnome-devel
 # libasound2-plugins
 # libclutter-1.0-dev
@@ -403,7 +408,7 @@ gnome_gtk_prereqs_shortlist:
 # libclutter-1.0-dev
 # libclutter-gst-1.0-0
 # libclutter-gst-1.0-dbg
-# libclutter-gst-dev
+# "{{ libclutter_gst_pkg_name[ansible_distribution_release] }}"
 # libclutter-gtk-1.0-dev
 # libgdamm5.0-dev
 # libgdk-pixbuf2.0-dev
@@ -462,7 +467,7 @@ gnome_gtk_prereqs_shortlist:
 # libcdio-dev
 # libcdparanoia-dev
 # libclutter-gst-1.0-dbg
-# libclutter-gst-dev
+# "{{ libclutter_gst_pkg_name[ansible_distribution_release] }}"
 # libcups2
 # libcups2-dev
 # libcupsdriver1

@@ -11,8 +11,16 @@
   with_items: setup_python
   sudo: yes
 
-- name: install pip
-  easy_install: name=pip
+# easy_install pip==1.2.1
+
+- name: easy_install pip==1.2.1
+  command: "easy_install pip==1.2.1"
+  tags:
+  - pip
+  - easy_install
+
+# - name: install pip
+#   easy_install: name=pip
 
 - name: install virtualenv
   pip: name=virtualenv
@@ -30,9 +38,9 @@
   pip: name=numpy
        state=present
 
-- name: pip install requests[security]
-  pip: name=requests[security]
-       state=present
+# - name: pip install requests[security]
+#   pip: name=requests[security]
+#        state=present
 
 # pip install --upgrade pip
 
@@ -46,6 +54,22 @@
   tags:
   - pythonrc
   - configuration
+
+- name: install python-osmgpsmap if Trusty
+  apt:
+    name: python-osmgpsmap
+    state: present
+  sudo: yes
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'trusty'
+  tags:
+  - trusty_only
+
+- name: pip install -I path.py==7.7.1
+  command: "pip install -I path.py==7.7.1"
+  tags:
+  - pip
+  - downgrade
+
 
 # pip install --upgrade setuptools
 

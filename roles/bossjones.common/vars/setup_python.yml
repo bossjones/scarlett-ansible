@@ -24,7 +24,6 @@ setup_python:
   - python-nose
   - python-numpy
   - python-numpy-dbg
-  - python-osmgpsmap
   - python-pyside
   - python-scipy
   - python-simplejson

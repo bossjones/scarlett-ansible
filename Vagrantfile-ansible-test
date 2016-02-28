@@ -53,8 +53,10 @@ end
 Vagrant.configure("2")  do |config|
 
   # base information
-  config.vm.box = "scarlettpi-base-ubuntu-14-04"
-  config.vm.box_url = "file:///Users/malcolm/ubuntu_14_04_base.box"
+  config.vm.box = "bossjones/scarlett-base-15-10"
+  config.vm.box_check_update = true
+  config.vm.box_url = "file:///Users/malcolm/dev/ubuntu1510/scarlett-ubuntu-15-10a.box"
+  # /Users/malcolm/dev/ubuntu1510/scarlett-ubuntu-15-10.box
 
   # name
   # CHANGME
@@ -71,7 +73,7 @@ Vagrant.configure("2")  do |config|
   config.ssh.username = "pi"
   config.ssh.host = "127.0.0.1"
   config.ssh.guest_port = "2222"
-  config.ssh.private_key_path = "/Users/malcolm/.ssh/id_rsa_ssh"
+  config.ssh.private_key_path = "/Users/malcolm/.ssh/id_rsa"
   config.ssh.forward_agent = true
   config.ssh.forward_x11 = true
   config.ssh.insert_key = false

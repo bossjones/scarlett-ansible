@@ -32,6 +32,6 @@ cd $MAIN_DIR/sphinxbase && \
 ./autogen.sh --prefix=$VIRT_ROOT && \
 ./configure --prefix=$VIRT_ROOT && \
 make clean all && \
-make check && \
+# make check && \
 make install && \
 cd $MAIN_DIR

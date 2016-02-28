@@ -24,7 +24,5 @@ namespace :serverspec do
       print "target - #{key}\n\n"
       t.pattern = 'spec/{' + properties[key][:roles].join(',') + '}/*_spec.rb'
     end
- end
+   end
 end
-
-

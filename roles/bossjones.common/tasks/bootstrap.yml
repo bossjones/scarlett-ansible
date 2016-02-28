@@ -67,6 +67,7 @@
 - name: Add git-core repo PPA
   apt_repository: repo='ppa:git-core/ppa' state=present update_cache=yes
   sudo: yes
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'trusty'
 
 - name: Install git packages via apt
   apt: pkg={{ item }} state=latest
