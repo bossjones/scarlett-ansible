@@ -60,3 +60,5 @@ target/
 real_scarlett_configuration_files/
 .vagrant
 Gemfile.lock
+.DS_Store
+scarlett_ansible.box
