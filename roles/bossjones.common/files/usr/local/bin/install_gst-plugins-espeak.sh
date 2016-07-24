@@ -19,8 +19,8 @@ export LD_LIBRARY_PATH=$VIRT_ROOT/lib
 export GST_PLUGIN_PATH=$VIRT_ROOT/lib/gstreamer-$GSTREAMER
 
 cd $MAIN_DIR && \
-curl -L "http://download.sugarlabs.org/sources/honey/gst-plugins-espeak/gst-plugins-espeak-0.4.0.tar.gz" > gst-plugins-espeak-0.4.0.tar.gz && \
-tar xvf gst-plugins-espeak-0.4.0.tar.gz && \
+curl -L "https://github.com/bossjones/bossjones-gst-plugins-espeak-0-4-0/archive/v0.4.1.tar.gz" > gst-plugins-espeak-0.4.0.tar.gz && \
+tar xvf gst-plugins-espeak-0.4.0.tar.gz -C gst-plugins-espeak-0.4.0 && \
 cd gst-plugins-espeak-0.4.0 && \
 ./configure --prefix=$VIRT_ROOT && \
 make && \
