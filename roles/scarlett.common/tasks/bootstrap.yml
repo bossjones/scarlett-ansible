@@ -92,3 +92,12 @@
   - x11vnc
   # source: https://wiki.archlinux.org/index.php/Preload
   # - preload
+
+# /usr/install
+- name: create /usr/install
+  file: path=/usr/install
+        state=directory
+        mode=0755
+        recurse=yes
+        owner=pi
+        group=pi

@@ -75,11 +75,11 @@
   - pulseaudio
 
 - name: configure alsa-info.sh
-  template: src="{{ role_path }}/templates/usr/local/bin/{{ item }}.j2"
-            dest=/tmp/{{ item }}
-            owner=pi
-            group=pi
-            mode=0755
+  copy: src="{{ role_path }}/files/usr/local/bin/{{ item }}"
+        dest=/usr/install/{{ item }}
+        owner=pi
+        group=pi
+        mode=0755
   with_items:
   - alsa-info.sh
   tags:
