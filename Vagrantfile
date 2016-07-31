@@ -112,12 +112,12 @@ Vagrant.configure("2")  do |config|
     vb.customize ["modifyvm", :id, "--usb", "on"]
   end
 
-  # config.vm.provision 'ansible' do |ansible|
-  #     ansible.playbook = 'test.yml'
-  #     ansible.verbose = "v"
-  #     ansible.sudo = true
-  #     ansible.host_key_checking = false
-  #     ansible.limit = 'all'
-  #   end
+  config.vm.provision 'ansible' do |ansible|
+    ansible.playbook = 'provision_1604.yml'
+    ansible.verbose = 'v'
+    ansible.sudo = true
+    ansible.host_key_checking = false
+    ansible.limit = 'all'
+  end
 
 end

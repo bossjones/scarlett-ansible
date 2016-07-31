@@ -3,6 +3,7 @@
 libpcrecpp_pkg_name:
   trusty: libpcrecpp0
   wily: libpcrecpp0v5
+  xenial: libpcrecpp0v5
 
 openssh_packages:
   - openssh-server

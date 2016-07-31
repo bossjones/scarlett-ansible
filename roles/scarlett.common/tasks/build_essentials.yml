@@ -2,7 +2,7 @@
 ---
 
 - name: Read the family variables
-  include_vars: "{{ansible_os_family}}.yml"
+  include_vars: "{{ ansible_os_family }}.yml"
 
 - name: Make sure the packages are installed (Debian)
   apt:
@@ -10,7 +10,7 @@
     state: present
   with_items: buildessential_packages
   when: ansible_os_family == "Debian"
-  sudo: yes
+  become: true
   tags:
   - build_essentials
   - packages
