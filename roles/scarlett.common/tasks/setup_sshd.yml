@@ -1,0 +1,39 @@
+# file: bossjones.common/tasks/setup_sshd.yml
+---
+
+- name: Read the setup_sshd variables
+  include_vars: "setup_sshd.yml"
+
+- name: configure sudoers
+  copy: src=etc/sudoers
+        dest=/etc/sudoers
+        validate='visudo -cf %s'
+        owner=root
+        group=root
+        mode=00600
+        backup=yes
+  tags:
+  - sudoers
+  - configuration
+
+- name: configure ssh
+  copy: src=etc/ssh/{{ item }}
+        dest=/etc/ssh/{{ item }}
+        validate='/usr/sbin/sshd -t -f %s'
+        owner=root
+        group=root
+        mode=00644
+        backup=yes
+  with_items:
+  - sshd_config
+  tags:
+  - ssh
+  - configuration
+  notify: restart sshd
+
+- name: enable sshd
+  service: name={{ sshd_service_name }} state=running enabled=yes
+  tags: service
+
+- name: restart sshd
+  service: name={{ sshd_service_name }} state=restarted

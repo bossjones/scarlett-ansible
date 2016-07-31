@@ -1,0 +1,11 @@
+# file: bossjones.common/tasks/setup_nodejs.yml
+# NOTE: Not required currently. Used to be used for redis-commander + scarlett brain
+---
+- name: Add nodejs repository
+  apt_repository: repo='ppa:chris-lea/node.js'
+                  state=present
+                  update_cache=yes
+
+- name: Install Nodejs
+  apt: pkg=nodejs
+       state=present

@@ -872,7 +872,7 @@ gconftool -t string --set /system/gstreamer/0.10/default/audiosink pulsesink
 gconftool -t string --set /system/gstreamer/0.10/default/audiosrc pulsesrc
 ```
 
-*Source:* 
+*Source:*
 - http://www.alsa-project.org/main/index.php/Asoundrc
 
 ```
@@ -971,7 +971,7 @@ UPGRADING FROM POCKETSPHINX 0.8 -> 5prealpha
 # other sound frameworks ( Gstreamer ) + how to configure it
 # testing alsa works correctly w/ arecord and aplay
 # testing pulseaduio works with parecord and paplay
-# pocketsphinx install 
+# pocketsphinx install
 # finally running pocketsphinx_continuous
 
 # TERMS
@@ -1257,4 +1257,14 @@ Setting pipeline to PAUSED ...
 Setting pipeline to READY ...
 Setting pipeline to NULL ...
 Freeing pipeline ...
+```
+
+
+### vagrant package --base "f5fba22c-929b-4a55-bb1c-c5a3d0f26b8d" --output ubuntu_1604_desktop_base.box
+
+```
+ |2.1.7|  using virtualenv: packer-ubuntu-1604  Malcolms-MBP-3 in ~
+○ → vagrant package --base "f5fba22c-929b-4a55-bb1c-c5a3d0f26b8d" --output ubuntu_1604_desktop_base.box
+==> f5fba22c-929b-4a55-bb1c-c5a3d0f26b8d: Exporting VM...
+==> f5fba22c-929b-4a55-bb1c-c5a3d0f26b8d: Compressing package to: /Users/malcolm/ubuntu_1604_desktop_base.box
 ```

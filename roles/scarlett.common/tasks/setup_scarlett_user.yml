@@ -1,0 +1,116 @@
+# file: bossjones.common/tasks/setup_scarlett_user.yml
+---
+- name: Create Pi Group
+  group: name=pi
+         gid=1000
+         state=present
+
+- name: Create vboxusers Group
+  group: name=vboxusers
+         state=present
+         system=yes
+
+- name: Create Pi User
+  user: name=pi
+        comment='Scarlett User Pi'
+        shell=/bin/bash
+        home=/home/pi
+        group=pi
+        uid=1000
+        password=$6$UoXP1mRrk$S4k6yMNQkcX38ZP5OqEo7WaXm7ahly9qTEyYVDRP2kHBfh4ToShZHVcPYjKmYiGslDuiv7dmS/3.9sbZ5Z75u/
+        state=present
+        groups=adm,cdrom,sudo,dip,plugdev,lpadmin,sambashare,pulse,pulse-access,tty,audio,vboxusers
+
+# NOTE: missing group dailout
+
+# Leaving this here because we need the folder structure in place to setup pocketsphinx
+- name: Create ~pi/dev and ~pi/dev/bossjones-github/scarlett-dbus-poc folders
+  file: path=/home/pi/dev/bossjones-github/scarlett-dbus-poc
+        state=directory
+        mode=0755
+        recurse=yes
+        owner=pi
+        group=pi
+
+- name: clone scarlett-dbus-poc into /home/pi/dev/bossjones-github/scarlett-dbus-poc
+  git: repo=https://github.com/bossjones/scarlett-dbus-poc.git
+       dest=/home/pi/dev/bossjones-github/scarlett-dbus-poc
+       update=no
+       version=feature-new-gst-and-pocketsphinx
+       refspec=+refs/pull/*:refs/heads/*
+  become: pi
+  become_user: pi
+
+- name: clone scarlett into /home/pi/dev/bossjones-github/scarlett
+  git: repo=https://github.com/bossjones/scarlett.git
+       dest=/home/pi/dev/bossjones-github/scarlett
+       update=no
+       version=master
+       refspec=+refs/pull/*:refs/heads/*
+  become: pi
+  become_user: pi
+
+- name: clone scarlett-gstreamer-pocketsphinx-demo into /home/pi/dev/bossjones-github/scarlett-gstreamer-pocketsphinx-demo
+  git: repo=https://github.com/bossjones/scarlett-gstreamer-pocketsphinx-demo.git
+       dest=/home/pi/dev/bossjones-github/scarlett-gstreamer-pocketsphinx-demo
+       update=no
+       version=master
+       refspec=+refs/pull/*:refs/heads/*
+  become: pi
+  become_user: pi
+
+- name: configure .pythonrc
+  copy: src=home/pi/pythonrc
+        dest=/home/pi/.pythonrc
+        owner=pi
+        group=pi
+        mode=0644
+        backup=yes
+  tags:
+  - pythonrc
+  - configuration
+
+- name: Install scarlett requirements.txt into the virtualenv
+  pip: requirements=/home/pi/dev/bossjones-github/scarlett/{{ item }} virtualenv=/home/pi/.virtualenvs/scarlett-dbus-poc
+  with_items:
+  - requirements.txt
+  - requirements_plugins.txt
+  - requirements_dev.txt
+  become: pi
+  become_user: pi
+  tags:
+  - python
+  - pip
+  - requirements
+
+# TODO: Make sure we downgrade path.py to v7.7.1, this is untested
+# SOURCE: http://stackoverflow.com/questions/32252122/installing-ipython-importerror-cannot-import-name-path
+- name: Install scarlett requirements.txt into the virtualenv
+  pip: name=path.py version=7.7.1 virtualenv=/home/pi/.virtualenvs/scarlett-dbus-poc extra_args='-I'
+  become: pi
+  become_user: pi
+  tags:
+  - python
+  - pip
+  - requirements
+
+# TODO: Get this installed into requirements.txt instead of here !!!!!!!!!!!!
+- name: Install colorlog into the virtualenv
+  pip: name=colorlog virtualenv=/home/pi/.virtualenvs/scarlett-dbus-poc
+  become: pi
+  become_user: pi
+  tags:
+  - python
+  - pip
+  - requirements
+
+# - name: pip install -I path.py==7.7.1
+#   command: "pip install -I path.py==7.7.1"
+#   tags:
+#   - pip
+#   - downgrade
+
+# use this to run scripts as a particular user
+# source: http://stackoverflow.com/questions/21344777/how-to-switch-a-user-per-task-or-set-of-tasks
+# become: yes
+# become_user: some_user

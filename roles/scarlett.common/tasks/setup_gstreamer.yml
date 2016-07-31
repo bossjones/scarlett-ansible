@@ -1,0 +1,109 @@
+# file: bossjones.common/tasks/setup_gstreamer.yml
+---
+
+- name: Read the setup_python variables
+  include_vars: "setup_gstreamer.yml"
+
+- name: Add gstreamer-developers repo PPA
+  apt_repository: repo='ppa:gstreamer-developers/ppa' state=present update_cache=yes
+  sudo: yes
+  tags:
+  - gstreamer
+  - packages
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'trusty'
+
+- name: Make sure the gstreamer_prereqs packages are installed (Debian)
+  apt:
+    name: "{{item}}"
+    state: present
+  with_items: gstreamer_prereqs
+  sudo: yes
+  tags:
+  - gstreamer
+  - packages
+  - install_packages
+
+- name: install build-deps for gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly gstreamer1.0-plugins-ugly
+  apt: pkg={{ item }} state=build-dep
+  with_items:
+  - gstreamer1.0-plugins-base
+  - gstreamer1.0-plugins-good
+  - gstreamer1.0-plugins-ugly
+  tags:
+  - gstreamer
+  - packages
+  - install_build-dep
+
+- name: Install gnome-media packages via apt
+  apt: pkg={{ item }} state=latest
+  with_items:
+  - gnome-media
+  sudo: yes
+  tags:
+  - gstreamer
+  - gnome
+
+# lets make sure gstreamer is aware of pulse audio
+
+# TODO: CONFIRM THAT THIS ACTUALLY RUNS
+- name: gconftool-2 -t string --set /system/gstreamer/1.0/default/audiosink pulsesink
+  command: "gconftool-2 -t string --set /system/gstreamer/1.0/default/audiosink pulsesink"
+  become: pi
+  become_user: pi
+
+- name: gconftool-2 -t string --set /system/gstreamer/1.0/default/audiosrc pulsesrc
+  command: "gconftool-2 -t string --set /system/gstreamer/1.0/default/audiosrc pulsesrc"
+  become: pi
+  become_user: pi
+
+- name: gconftool-2 -t string --set /system/gstreamer/1.0/default/musicaudiosink pulsesink
+  command: "gconftool-2 -t string --set /system/gstreamer/1.0/default/musicaudiosink pulsesink"
+  become: pi
+  become_user: pi
+
+
+# TODO: WE NEED TO RUN THIS
+# source: https://projects.gnome.org/gconf/
+# This sets Gstreamer to use pulse audio by default when running in custom applications ( eg scarlett )
+# gconftool-2 -t string --set /system/gstreamer/1.0/default/audiosink pulsesink
+# gconftool-2 -t string --set /system/gstreamer/1.0/default/audiosrc pulsesrc
+
+# The following extra packages will be installed:
+#   gnome-control-center gnome-control-center-data gnome-settings-daemon
+#   gstreamer0.10-gconf libgnome-media-profiles-3.0-0 libgoa-backend-1.0-1
+# The following NEW packages will be installed:
+#   gnome-control-center gnome-control-center-data gnome-media
+#   gnome-settings-daemon gstreamer0.10-gconf libgnome-media-profiles-3.0-0
+#   libgoa-backend-1.0-1
+
+##### WORK THIS IN #
+##### WORK THIS IN #
+##### WORK THIS IN # # Need to configure gstreamer to use pulseaudio
+##### WORK THIS IN # # Looking here: https://wiki.archlinux.org/index.php/PulseAudio
+##### WORK THIS IN #
+##### WORK THIS IN # $ gconftool-2 -t string --set /system/gstreamer/0.10/default/audiosink pulsesink
+##### WORK THIS IN # $ gconftool-2 -t string --set /system/gstreamer/0.10/default/audiosrc pulsesrc
+##### WORK THIS IN #
+##### WORK THIS IN # # and another just in case:
+##### WORK THIS IN #
+##### WORK THIS IN # $ gconftool-2 -t string --set /system/gstreamer/0.10/default/musicaudiosink pulsesink
+##### WORK THIS IN #
+##### WORK THIS IN # # check the keys are there:
+##### WORK THIS IN #
+##### WORK THIS IN # $ gconftool-2 -a /system/gstreamer/0.10/default
+##### WORK THIS IN # musicaudiosink_description = Default
+##### WORK THIS IN # audiosrc = pulsesrc
+##### WORK THIS IN # audiosrc_description = Default
+##### WORK THIS IN # chataudiosink_description = Default
+##### WORK THIS IN # musicaudiosink = pulsesink
+##### WORK THIS IN # audiosink_description = Default
+##### WORK THIS IN # visualization = goom
+##### WORK THIS IN # videosrc = v4l2src
+##### WORK THIS IN # audiosink = pulsesink
+##### WORK THIS IN # chataudiosink = autoaudiosink
+##### WORK THIS IN # videosink = autovideosink
+##### WORK THIS IN #
+##### WORK THIS IN # # Still not working
+##### WORK THIS IN # # Then I realise I don't have pulseaudio itself installed...
+##### WORK THIS IN #
+##### WORK THIS IN # $ sudo apt-get install pulseaudio

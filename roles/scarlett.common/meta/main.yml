@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  author: Malcolm Jones
+  company: Tony Dark Industries
+  license: BSD
+  min_ansible_version: 1.4
+
+  platforms:
+  - name: Ubuntu
+    versions:
+    - all
+  - name: Debian
+    versions:
+    - all
+  categories:
+  - system
+
+dependencies: []
