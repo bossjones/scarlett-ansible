@@ -23,11 +23,11 @@
 # - name: guest additions
 #   include: setup_guestadditions.yml
 
-# - name: setup_sshd
-#   include: setup_sshd.yml
-#
-# - name: setup_ntp
-#   include: setup_ntp.yml
+- name: setup_sshd
+  include: setup_sshd.yml
+
+- name: setup_ntp
+  include: setup_ntp.yml
 #
 # - name: setup_pulseaudio
 #   include: setup_pulseaudio.yml
