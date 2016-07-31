@@ -26,12 +26,12 @@
   - packages
 
 - name: configure pulseaudio
-  copy: src=etc/pulse/{{ item }}
-        dest=/etc/pulse/{{ item }}
-        owner=root
-        group=root
-        mode=0644
-        backup=yes
+  template: src="{{ role_path }}/templates/etc/pulse/{{ item }}.j2"
+            dest=/etc/pulse/{{ item }}
+            owner=root
+            group=root
+            mode=0644
+            backup=yes
   with_items:
   - client.conf
   - daemon.conf
@@ -46,12 +46,12 @@
 # NOTE: This fixes 14.04 ALC892 Low sound issue
 # Source: http://askubuntu.com/questions/456425/alc892-low-sound-issue-fixed-with-changing-alsa-config-why-does-it-work
 - name: configure /etc/modprobe.d/alsa-base.conf
-  copy: src=etc/modprobe.d/alsa-base.conf
-        dest=/etc/modprobe.d/alsa-base.conf
-        owner=root
-        group=root
-        mode=0644
-        backup=yes
+  template: src="{{ role_path }}/templates/etc/modprobe.d/alsa-base.conf.j2"
+            dest=/etc/modprobe.d/alsa-base.conf
+            owner=root
+            group=root
+            mode=0644
+            backup=yes
   tags:
   - alsa
   - configuration
@@ -61,12 +61,12 @@
 # this file has the following change:
 # sudo sed -i "s,DISALLOW_MODULE_LOADING=1,DISALLOW_MODULE_LOADING=0,g" /etc/default/pulseaudio
 - name: configure /etc/init/pulseaudio.conf
-  copy: src=etc/init/pulseaudio.conf
-        dest=/etc/init/pulseaudio.conf
-        owner=root
-        group=root
-        mode=0644
-        backup=yes
+  template: src="{{ role_path }}/templates/etc/init/pulseaudio.conf.j2"
+            dest=/etc/init/pulseaudio.conf
+            owner=root
+            group=root
+            mode=0644
+            backup=yes
   tags:
   - pulse
   - configuration
@@ -74,11 +74,11 @@
   - pulseaudio
 
 - name: configure alsa-info.sh
-  copy: src=usr/local/bin/{{ item }}
-        dest=/tmp/{{ item }}
-        owner=pi
-        group=pi
-        mode=0755
+  template: src="{{ role_path }}/templates/usr/local/bin/{{ item }}.j2"
+            dest=/tmp/{{ item }}
+            owner=pi
+            group=pi
+            mode=0755
   with_items:
   - alsa-info.sh
   tags:
@@ -128,12 +128,12 @@
 # The GStreamer plugin wraps playback, recording and the mixer interface.
 
 - name: configure /etc/asound.conf
-  copy: src=etc/asound.conf
-        dest=/etc/asound.conf
-        owner=root
-        group=root
-        mode=0644
-        backup=yes
+  template: src="{{ role_path }}/templates/etc/asound.conf.j2"
+            dest=/etc/asound.conf
+            owner=root
+            group=root
+            mode=0644
+            backup=yes
   tags:
   - alsa
   - configuration
@@ -141,12 +141,12 @@
   - asound
 
 - name: configure /etc/libao.conf
-  copy: src=etc/libao.conf
-        dest=/etc/libao.conf
-        owner=root
-        group=root
-        mode=0644
-        backup=yes
+  template: src="{{ role_path }}/templates/etc/libao.conf.j2"
+            dest=/etc/libao.conf
+            owner=root
+            group=root
+            mode=0644
+            backup=yes
   tags:
   - pulse
   - alsa
@@ -155,12 +155,12 @@
   - libao
 
 - name: configure /etc/default/speech-dispatcher
-  copy: src=etc/default/speech-dispatcher
-        dest=/etc/default/speech-dispatcher
-        owner=root
-        group=root
-        mode=0644
-        backup=yes
+  template: src="{{ role_path }}/templates/etc/default/speech-dispatcher.j2"
+            dest=/etc/default/speech-dispatcher
+            owner=root
+            group=root
+            mode=0644
+            backup=yes
   tags:
   - speech-dispatcher
   - configuration

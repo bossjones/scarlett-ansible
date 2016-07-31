@@ -75,3 +75,20 @@
   - git
   - bash-completion
   become: true
+
+- name: install viewer packages
+  apt: name={{ item }}
+       state=latest
+       update_cache=yes
+  with_items:
+  - xinetd
+  - libnotify-bin
+  # Zenity is a rewrite of gdialog,
+  # the GNOME port of dialog which allows you to display dialog boxes
+  # from the commandline and shell scripts.
+  - zenity
+  - udev
+  - libnss3
+  - x11vnc
+  # source: https://wiki.archlinux.org/index.php/Preload
+  # - preload
