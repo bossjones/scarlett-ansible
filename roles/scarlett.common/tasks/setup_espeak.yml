@@ -9,7 +9,7 @@
     name: "{{item}}"
     state: present
   with_items: setup_espeak
-  sudo: yes
+  become: true
   tags:
   - espeak
   - packages

@@ -1,7 +1,7 @@
 ---
 - name: Add ppa:brightbox/ruby-ng repo PPA
   apt_repository: repo='ppa:brightbox/ruby-ng' state=present update_cache=yes
-  sudo: yes
+  become: true
   tags:
   - ruby
   - packages
@@ -13,7 +13,7 @@
   with_items:
   - ruby2.2
   - ruby2.2-dev
-  sudo: yes
+  become: true
   tags:
   - ruby
   - packages

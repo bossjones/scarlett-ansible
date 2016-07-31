@@ -10,7 +10,7 @@
     state: present
   with_items: buildessential_packages
   when: ansible_os_family == "Debian"
-  sudo: yes
+  become: true
   tags:
   - build_essentials
   - packages

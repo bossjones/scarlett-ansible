@@ -9,7 +9,7 @@
     name: "{{item}}"
     state: present
   with_items: setup_python
-  sudo: yes
+  become: true
 
 # easy_install pip==1.2.1
 
@@ -59,7 +59,7 @@
   apt:
     name: python-osmgpsmap
     state: present
-  sudo: yes
+  become: true
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'trusty'
   tags:
   - trusty_only
@@ -78,4 +78,4 @@
 #   tags:
 #   - pip
 #   - setuptools
-#   sudo: yes
+#   become: true

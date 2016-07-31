@@ -3,7 +3,7 @@
 
 - name: Update apt
   apt: update_cache=yes
-  sudo: yes
+  become: true
 
 - name: setup motd
   copy: src=etc/motd

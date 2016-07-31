@@ -131,4 +131,4 @@
 
 - name: ldconfig after compiling
   command: "ldconfig"
-  sudo: yes
+  become: true

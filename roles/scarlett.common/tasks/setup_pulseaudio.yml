@@ -1,4 +1,4 @@
-# file: bossjones.common/tasks/setup_pulseaudio.yml
+# file: scarlett.common/tasks/setup_pulseaudio.yml
 ---
 
 - name: Read the setup_pulseaudio variables
@@ -8,8 +8,8 @@
   apt:
     name: "{{item}}"
     state: present
-  with_items: sound_libs
-  sudo: yes
+  with_items: "{{sound_libs}}"
+  become: true
   tags:
   - audio
   - packages
@@ -18,8 +18,8 @@
   apt:
     name: "{{item}}"
     state: present
-  with_items: setup_pulseaudio
-  sudo: yes
+  with_items: "{{setup_pulseaudio}}"
+  become: true
   tags:
   - pulse
   - pulseaudio

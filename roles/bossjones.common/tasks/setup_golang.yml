@@ -3,7 +3,7 @@
 ---
 - name: Add golang repository
   apt_repository: repo='ppa:gophers/go' state=present update_cache=yes
-  sudo: yes
+  become: true
   tags:
   - golang
   - packages
