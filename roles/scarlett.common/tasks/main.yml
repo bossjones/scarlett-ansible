@@ -28,9 +28,9 @@
 
 - name: setup_ntp
   include: setup_ntp.yml
-#
-# - name: setup_pulseaudio
-#   include: setup_pulseaudio.yml
+
+- name: setup_pulseaudio
+  include: setup_pulseaudio.yml
 #
 # - name: setup_espeak
 #   include: setup_espeak.yml

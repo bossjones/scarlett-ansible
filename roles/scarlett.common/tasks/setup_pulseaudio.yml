@@ -60,6 +60,7 @@
 # Disallow module loading after startup. This is a security feature since it disallows additional module loading during runtime and on user request.
 # this file has the following change:
 # sudo sed -i "s,DISALLOW_MODULE_LOADING=1,DISALLOW_MODULE_LOADING=0,g" /etc/default/pulseaudio
+# source: http://manpages.ubuntu.com/manpages/xenial/man5/pulse-daemon.conf.5.html
 - name: configure /etc/init/pulseaudio.conf
   template: src="{{ role_path }}/templates/etc/init/pulseaudio.conf.j2"
             dest=/etc/init/pulseaudio.conf
