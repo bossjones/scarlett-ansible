@@ -31,13 +31,13 @@
 
 - name: setup_pulseaudio
   include: setup_pulseaudio.yml
-#
-# - name: setup_espeak
-#   include: setup_espeak.yml
-#
-# - name: setup_gstreamer
-#   include: setup_gstreamer.yml
-#
+
+- name: setup_espeak
+  include: setup_espeak.yml
+
+- name: setup_gstreamer
+  include: setup_gstreamer.yml
+
 # - name: gnome_gtk_prereqs
 #   include: gnome_gtk_prereqs.yml
 #

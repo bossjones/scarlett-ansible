@@ -16,8 +16,23 @@
   apt:
     name: "{{item}}"
     state: present
-  with_items: gstreamer_prereqs
+  with_items: "{{gstreamer_prereqs}}"
   become: true
+  tags:
+  - gstreamer
+  - packages
+  - install_packages
+
+- name: Install gnonlin
+  apt:
+    name: "{{item}}"
+    state: present
+  with_items:
+  - gstreamer1.0-gnonlin
+  - gstreamer1.0-gnonlin-dbg
+  - gstreamer1.0-gnonlin-doc
+  become: true
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release != 'xenial'
   tags:
   - gstreamer
   - packages
@@ -25,6 +40,7 @@
 
 - name: install build-deps for gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly gstreamer1.0-plugins-ugly
   apt: pkg={{ item }} state=build-dep
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release != 'xenial'
   with_items:
   - gstreamer1.0-plugins-base
   - gstreamer1.0-plugins-good
@@ -36,6 +52,7 @@
 
 - name: Install gnome-media packages via apt
   apt: pkg={{ item }} state=latest
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release != 'xenial'
   with_items:
   - gnome-media
   become: true
