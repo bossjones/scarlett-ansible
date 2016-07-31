@@ -1,6 +1,12 @@
 ---
 - hosts: all
-  any_errors_fatal: true
   become: true
-  tasks:
-    - include: 'roles/scarlett.common/tasks/main.yml'
+  any_errors_fatal: true
+  roles:
+    - scarlett.common
+
+# - hosts: all
+#   any_errors_fatal: true
+#   become: true
+#   tasks:
+#     - include: 'roles/scarlett.common/tasks/main.yml'

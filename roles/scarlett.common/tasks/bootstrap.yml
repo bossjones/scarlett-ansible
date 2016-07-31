@@ -11,14 +11,14 @@
         owner=root
         group=root
 
-- name: Disable multiarch support for ubuntu 14.04
+- name: Disable multiarch support for ubuntu
   command: dpkg --remove-architecture i386
 
 - name: Install aptitude packages via apt
   apt: pkg={{ item }} state=present
   with_items:
   - aptitude
-  sudo: yes
+  become: true
 
 - name: Run Aptitude Upgrade
   apt: update_cache=yes force=yes upgrade=yes
@@ -30,43 +30,43 @@
   apt:
     name: "{{item}}"
     state: latest
-  with_items: server_packages
-  sudo: yes
+  with_items: "{{ server_packages }}"
+  become: true
 
-- name: reconfigure locales
-  command: dpkg-reconfigure locales
+# - name: reconfigure locales
+#   command: dpkg-reconfigure locales
 
 - name: Make sure the general_prereqs packages are installed (Debian)
   apt:
     name: "{{item}}"
     state: latest
-  with_items: general_prereqs
-  sudo: yes
+  with_items: "{{general_prereqs}}"
+  become: true
 
 - name: Make sure the openssh_packages packages are installed (Debian)
   apt:
     name: "{{item}}"
     state: latest
-  with_items: openssh_packages
-  sudo: yes
+  with_items: "{{openssh_packages}}"
+  become: true
 
 - name: Make sure the general_prereqs packages are installed (Debian)
   apt:
     name: "{{item}}"
     state: latest
-  with_items: general_prereqs
-  sudo: yes
+  with_items: "{{general_prereqs}}"
+  become: true
 
 - name: Make sure the python_prereqs packages are installed (Debian)
   apt:
     name: "{{item}}"
     state: latest
-  with_items: python_prereqs
-  sudo: yes
+  with_items: "{{python_prereqs}}"
+  become: true
 
 - name: Add git-core repo PPA
   apt_repository: repo='ppa:git-core/ppa' state=present update_cache=yes
-  sudo: yes
+  become: true
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'trusty'
 
 - name: Install git packages via apt
@@ -74,4 +74,4 @@
   with_items:
   - git
   - bash-completion
-  sudo: yes
+  become: true

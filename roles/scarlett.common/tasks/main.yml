@@ -6,11 +6,11 @@
   become: true
 
 - name: setup motd
-  copy: src=etc/motd
-        dest=/etc/motd
-        owner=root
-        group=root
-        mode=0644
+  template: src="{{ role_path }}/templates/etc/motd.j2"
+            dest=/etc/motd
+            owner=root
+            group=root
+            mode=0644
   tags:
   - motd
 

@@ -13,9 +13,9 @@ def usbfilter_exists(vendor_id, product_id)
   #       complicated to work with (due to variable names including
   #       the numeric filter index) so we don't use it here.
   #
-  machine_id_filepath = ".vagrant/machines/default/virtualbox/id"
+  machine_id_filepath = '.vagrant/machines/default/virtualbox/id'
 
-  if not File.exists? machine_id_filepath
+  unless File.exist? machine_id_filepath
     # VM hasn't been created yet.
     return false
   end
@@ -23,10 +23,10 @@ def usbfilter_exists(vendor_id, product_id)
   # VBoxManage showvminfo $(<.vagrant/machines/default/virtualbox/id)
   vm_info = `VBoxManage showvminfo $(<#{machine_id_filepath})`
   filter_match = "VendorId:         #{vendor_id}\nProductId:        #{product_id}\n"
-  return vm_info.include? filter_match
+  vm_info.include? filter_match
 end
 
-def better_usbfilter_add(vb, vendor_id, product_id, filter_name, revision, manufacturer, product, remote)
+def better_usbfilter_add(vb, vendor_id, product_id, filter_name, _revision, _manufacturer, _product, _remote)
   #
   # This is a workaround for the fact VirtualBox doesn't provide
   # a way for preventing duplicate USB filters from being added.
@@ -35,51 +35,49 @@ def better_usbfilter_add(vb, vendor_id, product_id, filter_name, revision, manuf
   #       times on each Vagrantfile parsing.
   #
 
-  if not usbfilter_exists(vendor_id, product_id)
-    vb.customize ["usbfilter", "add", "0",
-                  "--target", :id,
-                  "--name", filter_name,
-                  "--vendorid", vendor_id,
-                  "--productid", product_id
-                  # ,
-                  # "--revision", revision,
-                  # "--manufacturer", manufacturer,
-                  # "--product", product,
-                  # "--remote", remote
-                  ]
+  unless usbfilter_exists(vendor_id, product_id)
+    vb.customize ['usbfilter', 'add', '0',
+                  '--target', :id,
+                  '--name', filter_name,
+                  '--vendorid', vendor_id,
+                  '--productid', product_id]
+    # ,
+    # "--revision", revision,
+    # "--manufacturer", manufacturer,
+    # "--product", product,
+    # "--remote", remote
   end
 end
 
-Vagrant.configure("2")  do |config|
-
+Vagrant.configure('2') do |config|
   # base information
-  config.vm.box = "bossjones/scarlett-ubuntu-1604"
+  config.vm.box = 'bossjones/scarlett-ubuntu-1604'
   config.vm.box_check_update = true
-  config.vm.box_url = "file:///Users/malcolm/ubuntu_1604_desktop_base.box"
-  config.vm.define "scarlett-ansible-1604"
+  config.vm.box_url = 'file:///Users/malcolm/ubuntu_1604_desktop_base.box'
+  config.vm.define 'scarlett-ansible-1604'
   # /Users/malcolm/dev/ubuntu1510/scarlett-ubuntu-15-10.box
 
   # name
   # CHANGME
-  config.vm.hostname = "scarlett-ansible-1604.local"
+  config.vm.hostname = 'scarlett-ansible-1604.local'
   config.vm.boot_timeout = 400
 
   # networking
-  config.vm.network "public_network", :bridge => 'en0: Wi-Fi (AirPort)'
+  config.vm.network 'public_network', bridge: 'en0: Wi-Fi (AirPort)'
   # config.vm.network "forwarded_port", guest: 19360, host: 1936
   # config.vm.network "forwarded_port", guest: 139, host: 1139
   # config.vm.network "forwarded_port", guest: 8081, host: 8881
   # config.vm.network "forwarded_port", guest: 2376, host: 2376
 
-  config.ssh.username = "pi"
-  config.ssh.host = "127.0.0.1"
-  config.ssh.guest_port = "2222"
-  config.ssh.private_key_path = "/Users/malcolm/.ssh/id_rsa"
+  config.ssh.username = 'pi'
+  config.ssh.host = '127.0.0.1'
+  config.ssh.guest_port = '2222'
+  config.ssh.private_key_path = '/Users/malcolm/.ssh/id_rsa'
   config.ssh.forward_agent = true
   config.ssh.forward_x11 = true
   config.ssh.insert_key = false
-  #config.ssh.pty = true
-  #config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
+  # config.ssh.pty = true
+  # config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
 
   # config.vm.provision "shell", path: "./bootstrap/start_anaconda.sh"
 
@@ -108,8 +106,7 @@ Vagrant.configure("2")  do |config|
     # Address:            p=0x013c;v=0x0d8c;s=0x000141866d4a64b4;l=0x14200000
     # Current State:      Unavailable
 
-
-    vb.customize ["modifyvm", :id, "--usb", "on"]
+    vb.customize ['modifyvm', :id, '--usb', 'on']
   end
 
   config.vm.provision 'ansible' do |ansible|
@@ -119,5 +116,4 @@ Vagrant.configure("2")  do |config|
     ansible.host_key_checking = false
     ansible.limit = 'all'
   end
-
 end
