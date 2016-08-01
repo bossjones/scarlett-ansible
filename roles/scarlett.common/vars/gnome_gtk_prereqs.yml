@@ -3,10 +3,12 @@
 valac_pkg_name:
   trusty: valac-0.14
   wily: valac-0.28
+  xenial: libvala-0.30-0
 
 libclutter_gst_pkg_name:
   trusty: libclutter-gst-dev
   wily: libclutter-gst-3.0-dev
+  xenial: libclutter-gst-3.0-dev
 
 gnome_gtk_prereqs:
   - bison
@@ -229,7 +231,7 @@ gnome_gtk_prereqs_shortlist:
   - libpng-dev
   - libpulse-dev
   - libpython2.7
-  - libpython3.4
+  - libpython3*
   - libsndfile-dev
   - libsndfile1-dev
   - libsoundtouch-dev

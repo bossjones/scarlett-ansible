@@ -38,7 +38,7 @@
   apt:
     name: "{{item}}"
     state: present
-  with_items: gnome_gtk_prereqs_shortlist
+  with_items: "{{gnome_gtk_prereqs_shortlist}}"
   become: true
   tags:
   - gnome

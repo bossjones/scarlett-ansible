@@ -1,8 +1,13 @@
 # file: bossjones.common/vars/setup_python.yml
 ---
+python_three_version:
+  trusty: 3.2
+  wily: 3.4
+  xenial: 3.5
+
 setup_python:
   - libpython2.7
-  - libpython3.4
+  - "libpython{{ python_three_version[ansible_distribution_release] }}"
   - python
   - python-argparse
   - python-cairo-dev
