@@ -40,10 +40,10 @@
 
 - name: gnome_gtk_prereqs
   include: gnome_gtk_prereqs.yml
-#
-# - name: setup_python
-#   include: setup_python.yml
-#
+
+- name: setup_python
+  include: setup_python.yml
+
 # - name: setup_scarlett_user
 #   include: setup_scarlett_user.yml
 #

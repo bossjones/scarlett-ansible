@@ -28,25 +28,43 @@
   tags:
   - pip
   - easy_install
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'trusty'
 
-# - name: install pip
-#   easy_install: name=pip
+
+- name: setuptools==26.0.0 and pip==8.1.2
+  command: "wget https://bootstrap.pypa.io/ez_setup.py -O - | sudo python3 && curl -O https://bootstrap.pypa.io/get-pip.py && python3 get-pip.py"
+  tags:
+  - pip
+  - easy_install
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'xenial'
+
+# root@ubuntu:~# ls -lta /usr/local/bin/ | grep pip
+# -rwxr-xr-x  1 root root  205 Aug 21 16:43 pip
+# -rwxr-xr-x  1 root root  205 Aug 21 16:43 pip3
+# -rwxr-xr-x  1 root root  205 Aug 21 16:43 pip3.5
+# -rwxr-xr-x  1 root root  283 Aug 21 12:37 pip2
+# -rwxr-xr-x  1 root root  287 Aug 21 12:37 pip2.7
+# root@ubuntu:~#
 
 - name: install virtualenv
   pip: name=virtualenv
        state=present
+       executable=pip-3
 
 - name: install virtualenvwrapper
   pip: name=virtualenvwrapper
        state=present
+       executable=pip-3
 
 - name: install ipython
   pip: name=ipython
        state=present
+       executable=pip-3
 
 - name: install numpy
   pip: name=numpy
        state=present
+       executable=pip-3
 
 # - name: pip install requests[security]
 #   pip: name=requests[security]
@@ -74,8 +92,8 @@
   tags:
   - trusty_only
 
-- name: pip install -I path.py==7.7.1
-  command: "pip install -I path.py==7.7.1"
+- name: pip3 install -I path.py==7.7.1
+  command: "pip3 install -I path.py==7.7.1"
   tags:
   - pip
   - downgrade

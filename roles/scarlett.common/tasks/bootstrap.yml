@@ -5,7 +5,7 @@
   include_vars: "bootstrap.yml"
 
 - name: make apt use ipv4 instead of ipv6
-  lineinfile: dest=/etc/gai.conf regexp=''^#precedence ::ffff:0:0/96  100' line='precedence ::ffff:0:0/96  100'
+  lineinfile: dest=/etc/gai.conf regexp='^#precedence ::ffff:0:0/96  100' line='precedence ::ffff:0:0/96  100'
 
 - name: update system locales
   copy: src=etc/profile.d/locales.sh
