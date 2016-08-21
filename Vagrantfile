@@ -51,10 +51,17 @@ end
 
 Vagrant.configure('2') do |config|
   # base information
-  config.vm.box = 'bossjones/scarlett-ubuntu-1604'
+  # scarlett-1604-packer
+ #  config.vm.box = 'bossjones/scarlett-ubuntu-1604'
+ #  config.vm.box_check_update = true
+ #  config.vm.box_url = 'file:///Users/malcolm/ubuntu_1604_desktop_base.box'
+ #  config.vm.define 'scarlett-ansible-1604'
+
+  config.vm.box = 'bossjones/scarlett-1604-packer'
   config.vm.box_check_update = true
-  config.vm.box_url = 'file:///Users/malcolm/ubuntu_1604_desktop_base.box'
-  config.vm.define 'scarlett-ansible-1604'
+  config.vm.box_url = 'file:///Users/malcolm/dev/bossjones/scarlett-packer/ubuntu-16.04-amd64-virtualbox.box'
+  config.vm.define 'scarlett-1604-packer'
+ 
   # /Users/malcolm/dev/ubuntu1510/scarlett-ubuntu-15-10.box
 
   # name
@@ -72,7 +79,8 @@ Vagrant.configure('2') do |config|
   config.ssh.username = 'pi'
   config.ssh.host = '127.0.0.1'
   config.ssh.guest_port = '2222'
-  config.ssh.private_key_path = '/Users/malcolm/.ssh/id_rsa'
+  # config.ssh.private_key_path = '/Users/malcolm/.ssh/id_rsa'
+  config.ssh.private_key_path = './keys/vagrant_id_rsa'
   config.ssh.forward_agent = true
   config.ssh.forward_x11 = true
   config.ssh.insert_key = false
@@ -84,7 +92,7 @@ Vagrant.configure('2') do |config|
   config.vm.provider :virtualbox do |vb|
     # Don't boot with headless mode
     vb.gui = true
-    vb.name = 'scarlett-ansible-1604'
+    vb.name = 'scarlett-ansible-1604-packer'
 
     # user modifiable memory/cpu settings
     vb.memory = 2048
