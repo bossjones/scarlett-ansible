@@ -66,3 +66,4 @@ setup_pulseaudio:
   - libvorbis-dev
   - libasound2-dev
   - libjack-dev
+  - alsamixergui
