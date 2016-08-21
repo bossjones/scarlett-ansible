@@ -19,8 +19,8 @@ setup_python:
   - python3-distutils-extra
   - python3-gi
   - python3-gi-cairo
-  - python3-gi-dev
-  - python3-gobject
+  # - python3-gi-dev
+  - python-gobject
   - python-gobject-dev
   - python3-gst-1.0*
   - python-gtk2

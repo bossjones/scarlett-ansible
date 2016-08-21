@@ -8,7 +8,7 @@
   apt:
     name: "{{item}}"
     state: present
-  with_items: setup_python
+  with_items: "{{setup_python}}"
   become: true
 
 # easy_install pip==1.2.1
@@ -31,8 +31,16 @@
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'trusty'
 
 
+- name: download ez_setup.py
+  get_url: url=https://bootstrap.pypa.io/ez_setup.py dest=/usr/install/ez_setup.py  mode=0644
+
+- name: download get-pip.py
+  get_url: url=https://bootstrap.pypa.io/get-pip.py dest=/usr/install/get-pip.py  mode=0644
+
 - name: setuptools==26.0.0 and pip==8.1.2
-  command: "wget https://bootstrap.pypa.io/ez_setup.py -O - | sudo python3 && curl -O https://bootstrap.pypa.io/get-pip.py && python3 get-pip.py"
+  command: "python3 /usr/install/ez_setup.py && python3 /usr/install/get-pip.py"
+  args:
+    chdir: /root
   tags:
   - pip
   - easy_install
@@ -49,22 +57,22 @@
 - name: install virtualenv
   pip: name=virtualenv
        state=present
-       executable=pip-3
+       executable=pip3
 
 - name: install virtualenvwrapper
   pip: name=virtualenvwrapper
        state=present
-       executable=pip-3
+       executable=pip3
 
 - name: install ipython
   pip: name=ipython
        state=present
-       executable=pip-3
+       executable=pip3
 
 - name: install numpy
   pip: name=numpy
        state=present
-       executable=pip-3
+       executable=pip3
 
 # - name: pip install requests[security]
 #   pip: name=requests[security]
