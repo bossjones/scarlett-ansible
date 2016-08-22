@@ -6,9 +6,3 @@
     - scarlett.common
   vars_files:
     - "./roles/scarlett.common/vars/main.yml"
-
-# - hosts: all
-#   any_errors_fatal: true
-#   become: true
-#   tasks:
-#     - include: 'roles/scarlett.common/tasks/main.yml'

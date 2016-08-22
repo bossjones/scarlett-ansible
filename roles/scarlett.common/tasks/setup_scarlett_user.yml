@@ -1,7 +1,8 @@
 # file: bossjones.common/tasks/setup_scarlett_user.yml
 ---
+
 - name: Create Pi Group
-  group: name=pi
+  group: name="{{base_vars.USER}}"
          gid=1000
          state=present
 
@@ -11,11 +12,11 @@
          system=yes
 
 - name: Create Pi User
-  user: name=pi
+  user: name="{{base_vars.USER}}"
         comment='Scarlett User Pi'
         shell=/bin/bash
-        home=/home/pi
-        group=pi
+        home="/home/{{base_vars.USER}}"
+        group="{{base_vars.USER}}"
         uid=1000
         password=$6$UoXP1mRrk$S4k6yMNQkcX38ZP5OqEo7WaXm7ahly9qTEyYVDRP2kHBfh4ToShZHVcPYjKmYiGslDuiv7dmS/3.9sbZ5Z75u/
         state=present
@@ -24,7 +25,7 @@
 # NOTE: missing group dailout
 
 - name: Create ~pi/dev and ~pi/dev/bossjones-github/scarlett_os folders
-  file: path=/home/pi/dev/bossjones-github/scarlett_os
+  file: path="{{virtualenv_vars.MAIN_DIR}}"
         state=directory
         mode=0755
         recurse=yes
@@ -78,9 +79,16 @@
   become_user: pi
 
 - name: Install scarlett requirements.txt into the virtualenv scarlett_os
-  pip: requirements=/home/pi/dev/bossjones-github/scarlett_os/{{ item }}
-       virtualenv=/home/pi/.virtualenvs/scarlett_os
-       executable=/usr/local/bin/pip3
+  shell: |
+    export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+    export WORKON_HOME={{ virtualenv_vars.VIRT_ROOT }}
+    source /usr/local/bin/virtualenvwrapper.sh
+    cd {{virtualenv_vars.MAIN_DIR}}
+    {{ virtualenv_vars.VIRT_ROOT }}/bin/pip3 install -r {{ virtualenv_vars.MAIN_DIR }}/{{ item }}
+  args:
+    executable: /bin/bash
+  # args:
+  #   chdir: "{{virtualenv_vars.MAIN_DIR}}"
   with_items:
   - requirements.txt
   - requirements_dev.txt
@@ -94,10 +102,7 @@
 # TODO: Make sure we downgrade path.py to v7.7.1, this is untested
 # SOURCE: http://stackoverflow.com/questions/32252122/installing-ipython-importerror-cannot-import-name-path
 - name: downgrade path.py to v7.7.1 in virtualenv scarlett_os
-  pip: name=path.py version=7.7.1
-       virtualenv=/home/pi/.virtualenvs/scarlett_os
-       extra_args='-I'
-       executable=/usr/local/bin/pip3
+  command: "{{ virtualenv_vars.VIRT_ROOT }}/bin/pip3 install -I path.py==7.7.1"
   become: pi
   become_user: pi
   tags:
@@ -107,9 +112,7 @@
 
 # TODO: Get this installed into requirements.txt instead of here !!!!!!!!!!!!
 - name: Install colorlog into the virtualenv
-  pip: name=colorlog
-       virtualenv=/home/pi/.virtualenvs/scarlett_os
-       executable=/usr/local/bin/pip3
+  command: "{{ virtualenv_vars.VIRT_ROOT }}/bin/pip3 install colorlog"
   become: pi
   become_user: pi
   tags:
@@ -126,43 +129,43 @@
   become: pi
   become_user: pi
 
-- name: Install scarlett requirements.txt into the virtualenv scarlett-dbus-poc pip3
-  pip: requirements=/home/pi/dev/bossjones-github/scarlett/{{ item }}
-       virtualenv=/home/pi/.virtualenvs/scarlett-dbus-poc
-       executable=/usr/local/bin/pip3
-  with_items:
-  - requirements.txt
-  - requirements_plugins.txt
-  - requirements_dev.txt
-  become: pi
-  become_user: pi
-  tags:
-  - python
-  - pip
-  - requirements
+# COMMENTING THIS OUT FOR NOW- name: Install scarlett requirements.txt into the virtualenv scarlett-dbus-poc pip3
+# COMMENTING THIS OUT FOR NOW  pip: requirements=/home/pi/dev/bossjones-github/scarlett/{{ item }}
+# COMMENTING THIS OUT FOR NOW       virtualenv=/home/pi/.virtualenvs/scarlett-dbus-poc
+# COMMENTING THIS OUT FOR NOW       executable=/usr/local/bin/pip3
+# COMMENTING THIS OUT FOR NOW  with_items:
+# COMMENTING THIS OUT FOR NOW  - requirements.txt
+# COMMENTING THIS OUT FOR NOW  - requirements_plugins.txt
+# COMMENTING THIS OUT FOR NOW  - requirements_dev.txt
+# COMMENTING THIS OUT FOR NOW  become: pi
+# COMMENTING THIS OUT FOR NOW  become_user: pi
+# COMMENTING THIS OUT FOR NOW  tags:
+# COMMENTING THIS OUT FOR NOW  - python
+# COMMENTING THIS OUT FOR NOW  - pip
+# COMMENTING THIS OUT FOR NOW  - requirements
 
 # TODO: Make sure we downgrade path.py to v7.7.1, this is untested
 # SOURCE: http://stackoverflow.com/questions/32252122/installing-ipython-importerror-cannot-import-name-path
-- name: Install scarlett requirements.txt into the virtualenv scarlett-dbus-poc
-  pip: name=path.py version=7.7.1
-       virtualenv=/home/pi/.virtualenvs/scarlett-dbus-poc
-       extra_args='-I'
-       executable=/usr/local/bin/pip3
-  become: pi
-  become_user: pi
-  tags:
-  - python
-  - pip
-  - requirements
-
-# TODO: Get this installed into requirements.txt instead of here !!!!!!!!!!!!
-- name: Install colorlog into the virtualenv
-  pip: name=colorlog
-       virtualenv=/home/pi/.virtualenvs/scarlett-dbus-poc
-       executable=/usr/local/bin/pip3
-  become: pi
-  become_user: pi
-  tags:
-  - python
-  - pip
-  - requirements
+# COMMENTING THIS OUT FOR NOW # - name: Install scarlett requirements.txt into the virtualenv scarlett-dbus-poc
+# COMMENTING THIS OUT FOR NOW #   pip: name=path.py version=7.7.1
+# COMMENTING THIS OUT FOR NOW #        virtualenv=/home/pi/.virtualenvs/scarlett-dbus-poc
+# COMMENTING THIS OUT FOR NOW #        extra_args='-I'
+# COMMENTING THIS OUT FOR NOW #        executable=/usr/local/bin/pip3
+# COMMENTING THIS OUT FOR NOW #   become: pi
+# COMMENTING THIS OUT FOR NOW #   become_user: pi
+# COMMENTING THIS OUT FOR NOW #   tags:
+# COMMENTING THIS OUT FOR NOW #   - python
+# COMMENTING THIS OUT FOR NOW #   - pip
+# COMMENTING THIS OUT FOR NOW #   - requirements
+# COMMENTING THIS OUT FOR NOW #
+# COMMENTING THIS OUT FOR NOW # # TODO: Get this installed into requirements.txt instead of here !!!!!!!!!!!!
+# COMMENTING THIS OUT FOR NOW # - name: Install colorlog into the virtualenv
+# COMMENTING THIS OUT FOR NOW #   pip: name=colorlog
+# COMMENTING THIS OUT FOR NOW #        virtualenv=/home/pi/.virtualenvs/scarlett-dbus-poc
+# COMMENTING THIS OUT FOR NOW #        executable=/usr/local/bin/pip3
+# COMMENTING THIS OUT FOR NOW #   become: pi
+# COMMENTING THIS OUT FOR NOW #   become_user: pi
+# COMMENTING THIS OUT FOR NOW #   tags:
+# COMMENTING THIS OUT FOR NOW #   - python
+# COMMENTING THIS OUT FOR NOW #   - pip
+# COMMENTING THIS OUT FOR NOW #   - requirements

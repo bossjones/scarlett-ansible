@@ -3,20 +3,23 @@
 base_vars:
   GSTREAMER: '1.0'
   USER: 'pi'
-  base_vars.USER_HOME: '/home/pi'
+  USER_HOME: '/home/pi'
   LANGUAGE_ID: 1473
   GITHUB_BRANCH: "master"
   GITHUB_REPO_NAME: "scarlett_os"
   GITHUB_REPO_ORG: "bossjones"
 
-
-secondary_vars:
-  MAIN_DIR: "{{ base_vars.base_vars.USER_HOME }}/dev/bossjones-github/{{ base_vars.GITHUB_REPO_NAME }}"
+virtualenv_vars:
+  MAIN_DIR: "{{ base_vars.USER_HOME }}/dev/bossjones-github/{{ base_vars.GITHUB_REPO_NAME }}"
   VIRT_ROOT: "{{ base_vars.USER_HOME }}/.virtualenvs/{{ base_vars.GITHUB_REPO_NAME }}"
-  PKG_CONFIG_PATH: "{{ base_vars.VIRT_ROOT }}/lib/pkgconfig"
-  SCARLETT_CONFIG: "{{ MAIN_DIR }}/tests/fixtures/.scarlett"
-  SCARLETT_HMM: "{{ MAIN_DIR }}/.virtualenvs/{{ base_vars.GITHUB_REPO_NAME }}/share/pocketsphinx/model/en-us/en-us"
-  SCARLETT_LM: "{{ MAIN_DIR }}/tests/fixtures/lm/{{ base_vars.LANGUAGE_ID }}.lm"
-  SCARLETT_DICT: "{{ MAIN_DIR }}/tests/fixtures/dict/{{ base_vars.LANGUAGE_ID }}.dic"
-  LD_LIBRARY_PATH: "{{ VIRT_ROOT }}/lib"
-  GST_PLUGIN_PATH: "{{ VIRT_ROOT }}/lib/gstreamer-{{ GSTREAMER }}"
+
+build_vars:
+  PKG_CONFIG_PATH: "{{ virtualenv_vars.VIRT_ROOT }}/lib/pkgconfig"
+  LD_LIBRARY_PATH: "{{ virtualenv_vars.VIRT_ROOT }}/lib"
+  GST_PLUGIN_PATH: "{{ virtualenv_vars.VIRT_ROOT }}/lib/gstreamer-{{ base_vars.GSTREAMER }}"
+
+scarlett_vars:
+  SCARLETT_CONFIG: "{{ virtualenv_vars.MAIN_DIR }}/tests/fixtures/.scarlett"
+  SCARLETT_HMM: "{{ virtualenv_vars.MAIN_DIR }}/.virtualenvs/{{ base_vars.GITHUB_REPO_NAME }}/share/pocketsphinx/model/en-us/en-us"
+  SCARLETT_LM: "{{ virtualenv_vars.MAIN_DIR }}/tests/fixtures/lm/{{ base_vars.LANGUAGE_ID }}.lm"
+  SCARLETT_DICT: "{{ virtualenv_vars.MAIN_DIR }}/tests/fixtures/dict/{{ base_vars.LANGUAGE_ID }}.dic"

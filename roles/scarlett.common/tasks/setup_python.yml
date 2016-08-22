@@ -39,6 +39,7 @@
 
 - name: setuptools==26.0.0 and pip==8.1.2
   command: "python3 /usr/install/ez_setup.py && python3 /usr/install/get-pip.py"
+  become: true
   args:
     chdir: /root
   tags:
@@ -54,15 +55,13 @@
 # -rwxr-xr-x  1 root root  287 Aug 21 12:37 pip2.7
 # root@ubuntu:~#
 
-- name: install virtualenv
-  pip: name=virtualenv
-       state=present
+- name: Install virtualenv and virtualenvwrapper
+  become: true
+  pip: name={{ item }}
        executable=pip3
-
-- name: install virtualenvwrapper
-  pip: name=virtualenvwrapper
-       state=present
-       executable=pip3
+  with_items:
+  - virtualenv
+  - virtualenvwrapper
 
 - name: install ipython
   pip: name=ipython
@@ -73,12 +72,6 @@
   pip: name=numpy
        state=present
        executable=pip3
-
-# - name: pip install requests[security]
-#   pip: name=requests[security]
-#        state=present
-
-# pip install --upgrade pip
 
 - name: configure pythonrc
   copy: src=home/pi/pythonrc
@@ -106,12 +99,64 @@
   - pip
   - downgrade
 
+- name: Update .bashrc with virtualenvwrapper
+  lineinfile:
+    backup=yes
+    create=true
+    dest=~/.bashrc
+    insertafter=EOF
+    line={{ item }}
+    state=present
+  become: pi
+  become_user: pi
+  with_items:
+  - export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+  - export WORKON_HOME={{ virtualenv_vars.VIRT_ROOT }}
+  - source /usr/local/bin/virtualenvwrapper.sh
 
-# pip install --upgrade setuptools
+#
+# - name: Run 'mkvirtualenv base_vars.GITHUB_REPO_NAME'
+#   shell: >
+#     executable=/bin/bash
+#     source /usr/local/bin/virtualenvwrapper.sh && mkvirtualenv --system-site-packages {{ base_vars.GITHUB_REPO_NAME }}
+#   register: run_cmd
+#   become: pi
+#   become_user: pi
 
-# - name: pip install --upgrade setuptools
-#   command: pip install --upgrade setuptools
-#   tags:
-#   - pip
-#   - setuptools
-#   become: true
+- name: Create a new Python virtual environment
+  shell: |
+    export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+    export WORKON_HOME={{ virtualenv_vars.VIRT_ROOT }}
+    source /usr/local/bin/virtualenvwrapper.sh
+    mkvirtualenv --system-site-packages {{ base_vars.GITHUB_REPO_NAME }}
+  register: run_cmd
+  become: pi
+  become_user: pi
+  args:
+    executable: /bin/bash
+
+- debug: var=run_cmd.stdout_lines
+
+- name: configure virtualenv_vars.VIRT_ROOT/bin/postactivate
+  copy: src=home/pi/postactivate
+        dest="{{ virtualenv_vars.VIRT_ROOT }}/bin/postactivate"
+        owner=pi
+        group=pi
+        mode=0644
+        backup=no
+  tags:
+  - virtualenv
+  - configuration
+  - python
+
+- name: configure virtualenv_vars.VIRT_ROOT/bin/postdeactivate
+  copy: src=home/pi/postdeactivate
+        dest="{{ virtualenv_vars.VIRT_ROOT }}/bin/postdeactivate"
+        owner=pi
+        group=pi
+        mode=0644
+        backup=no
+  tags:
+  - virtualenv
+  - configuration
+  - python
