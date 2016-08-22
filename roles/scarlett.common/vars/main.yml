@@ -1,18 +1,22 @@
 # file: scarlett.common/vars/main.yml
 ---
-vars:
+base_vars:
   GSTREAMER: '1.0'
   USER: 'pi'
-  USER_HOME: "/home/{{USER_HOME}}"
+  base_vars.USER_HOME: '/home/pi'
   LANGUAGE_ID: 1473
-  GITHUB_REPO_NAME: "scarlett-dbus-poc"
+  GITHUB_BRANCH: "master"
+  GITHUB_REPO_NAME: "scarlett_os"
   GITHUB_REPO_ORG: "bossjones"
-  MAIN_DIR: "{{ USER_HOME }}/dev/bossjones-github/{{ GITHUB_REPO_NAME }}"
-  VIRT_ROOT: "{{ USER_HOME }}/.virtualenvs/{{ GITHUB_REPO_NAME }}"
-  PKG_CONFIG_PATH: "{{ VIRT_ROOT }}/lib/pkgconfig"
+
+
+secondary_vars:
+  MAIN_DIR: "{{ base_vars.base_vars.USER_HOME }}/dev/bossjones-github/{{ base_vars.GITHUB_REPO_NAME }}"
+  VIRT_ROOT: "{{ base_vars.USER_HOME }}/.virtualenvs/{{ base_vars.GITHUB_REPO_NAME }}"
+  PKG_CONFIG_PATH: "{{ base_vars.VIRT_ROOT }}/lib/pkgconfig"
   SCARLETT_CONFIG: "{{ MAIN_DIR }}/tests/fixtures/.scarlett"
-  SCARLETT_HMM: "{{ MAIN_DIR }}/.virtualenvs/{{ GITHUB_REPO_NAME }}/share/pocketsphinx/model/en-us/en-us"
-  SCARLETT_LM: "{{ MAIN_DIR }}/tests/fixtures/lm/{{ LANGUAGE_ID }}.lm"
-  SCARLETT_DICT: "{{ MAIN_DIR }}/tests/fixtures/dict/{{ LANGUAGE_ID }}.dic"
+  SCARLETT_HMM: "{{ MAIN_DIR }}/.virtualenvs/{{ base_vars.GITHUB_REPO_NAME }}/share/pocketsphinx/model/en-us/en-us"
+  SCARLETT_LM: "{{ MAIN_DIR }}/tests/fixtures/lm/{{ base_vars.LANGUAGE_ID }}.lm"
+  SCARLETT_DICT: "{{ MAIN_DIR }}/tests/fixtures/dict/{{ base_vars.LANGUAGE_ID }}.dic"
   LD_LIBRARY_PATH: "{{ VIRT_ROOT }}/lib"
   GST_PLUGIN_PATH: "{{ VIRT_ROOT }}/lib/gstreamer-{{ GSTREAMER }}"

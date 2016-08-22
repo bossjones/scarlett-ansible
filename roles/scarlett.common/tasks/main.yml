@@ -44,8 +44,8 @@
 - name: setup_python
   include: setup_python.yml
 
-# - name: setup_scarlett_user
-#   include: setup_scarlett_user.yml
+- name: setup_scarlett_user
+  include: setup_scarlett_user.yml
 #
 # - name: setup_scarlett
 #   include: setup_scarlett.yml
