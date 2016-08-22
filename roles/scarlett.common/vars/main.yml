@@ -1,6 +1,7 @@
 # file: scarlett.common/vars/main.yml
 ---
 base_vars:
+  PYTHON_VERSION: '3.5'
   GSTREAMER: '1.0'
   USER: 'pi'
   USER_HOME: '/home/pi'

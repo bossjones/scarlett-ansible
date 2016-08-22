@@ -50,9 +50,9 @@
 # - name: setup_scarlett
 #   include: setup_scarlett.yml
 #
-# - name: setup_pocketsphinx
-#   include: setup_pocketsphinx.yml
-#
+- name: setup_pocketsphinx
+  include: setup_pocketsphinx.yml
+
 # - name: setup_rbenv
 #   include: setup_rbenv.yml
 #

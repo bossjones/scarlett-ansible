@@ -6,33 +6,39 @@
 
 # SOURCE: https://launchpad.net/~ricotz/+archive/ubuntu/testing
 - name: Add ppa:ricotz/testing repo PPA on wily
-  apt_repository: repo='ppa:ricotz/testing' state=present update_cache=yes
+  apt_repository: repo='ppa:ricotz/testing'
+                  state=present
+                  update_cache=yes
   become: true
   tags:
   - gnome
   - bleeding_edge
   - packages
-  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'wily'
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'wily' or ansible_distribution_release == 'xenial'
 
 # SOURCE: https://launchpad.net/~gnome3-team/+archive/ubuntu/gnome3
 - name: Add ppa:gnome3-team/gnome3 repo PPA on wily
-  apt_repository: repo='ppa:gnome3-team/gnome3' state=present update_cache=yes
+  apt_repository: repo='ppa:gnome3-team/gnome3'
+                  state=present
+                  update_cache=yes
   become: true
   tags:
   - gnome
   - bleeding_edge
   - packages
-  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'wily'
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'wily' or ansible_distribution_release == 'xenial'
 
 # SOURCE: https://launchpad.net/~gnome3-team/+archive/ubuntu/gnome3-staging
 - name: Add ppa:gnome3-team/gnome3-staging repo PPA on wily
-  apt_repository: repo='ppa:gnome3-team/gnome3-staging' state=present update_cache=yes
+  apt_repository: repo='ppa:gnome3-team/gnome3-staging'
+                  state=present
+                  update_cache=yes
   become: true
   tags:
   - gnome
   - bleeding_edge
   - packages
-  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'wily'
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'wily' or ansible_distribution_release == 'xenial'
 
 - name: Make sure the gnome_gtk_prereqs_shortlist packages are installed (Debian)
   apt:

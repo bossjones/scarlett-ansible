@@ -104,3 +104,15 @@
         recurse=yes
         owner=pi
         group=pi
+
+
+- name: Environment variables for scarlett builds
+  template: src="{{ role_path }}/templates/usr/local/bin/{{ item }}.j2"
+            dest=/usr/install/{{ item }}
+            owner=pi
+            group=pi
+            mode=0755
+  with_items:
+  - build_environment_variables.sh
+  tags:
+  - shellscripts

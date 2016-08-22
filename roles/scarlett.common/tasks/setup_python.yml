@@ -138,24 +138,28 @@
 - debug: var=run_cmd.stdout_lines
 
 - name: configure virtualenv_vars.VIRT_ROOT/bin/postactivate
-  copy: src=home/pi/postactivate
-        dest="{{ virtualenv_vars.VIRT_ROOT }}/bin/postactivate"
-        owner=pi
-        group=pi
-        mode=0644
-        backup=no
+  template: src="{{ role_path }}/templates/home/pi/{{ item }}.j2"
+            dest="{{ virtualenv_vars.VIRT_ROOT }}/bin/{{ item }}"
+            owner=pi
+            group=pi
+            mode=0644
+            backup=no
+  with_items:
+  - postactivate
   tags:
   - virtualenv
   - configuration
   - python
 
 - name: configure virtualenv_vars.VIRT_ROOT/bin/postdeactivate
-  copy: src=home/pi/postdeactivate
-        dest="{{ virtualenv_vars.VIRT_ROOT }}/bin/postdeactivate"
-        owner=pi
-        group=pi
-        mode=0644
-        backup=no
+  template: src="{{ role_path }}/templates/home/pi/{{ item }}.j2"
+            dest="{{ virtualenv_vars.VIRT_ROOT }}/bin/{{ item }}"
+            owner=pi
+            group=pi
+            mode=0644
+            backup=no
+  with_items:
+  - postdeactivate
   tags:
   - virtualenv
   - configuration
