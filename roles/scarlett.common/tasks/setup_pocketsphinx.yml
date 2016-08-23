@@ -70,7 +70,7 @@
 
 - name: configure py2cairo pygobject glib gst-python
   template: src="{{ role_path }}/templates/usr/local/bin/{{ item }}.j2"
-            dest=/tmp/{{ item }}
+            dest=/usr/local/bin/{{ item }}
             owner=pi
             group=pi
             mode=0755
@@ -85,7 +85,7 @@
   - shellscripts
 
 - name: compile py2cairo pygobject glib gst-python
-  command: /tmp/{{ item }}
+  command: /usr/local/bin/{{ item }}
   with_items:
   - install_gst-plugins-espeak.sh
   - create_symlinks_virtualenv.sh

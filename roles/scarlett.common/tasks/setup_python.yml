@@ -142,7 +142,7 @@
             dest="{{ virtualenv_vars.VIRT_ROOT }}/bin/{{ item }}"
             owner=pi
             group=pi
-            mode=0644
+            mode=0755
             backup=no
   with_items:
   - postactivate
@@ -156,7 +156,7 @@
             dest="{{ virtualenv_vars.VIRT_ROOT }}/bin/{{ item }}"
             owner=pi
             group=pi
-            mode=0644
+            mode=0755
             backup=no
   with_items:
   - postdeactivate
