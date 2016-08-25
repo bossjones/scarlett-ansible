@@ -62,22 +62,21 @@
 
 # lets make sure gstreamer is aware of pulse audio
 
-# TODO: CONFIRM THAT THIS ACTUALLY RUNS
-- name: gconftool-2 -t string --set /system/gstreamer/1.0/default/audiosink pulsesink
-  command: "gconftool-2 -t string --set /system/gstreamer/1.0/default/audiosink pulsesink"
-  become: pi
-  become_user: pi
-
-- name: gconftool-2 -t string --set /system/gstreamer/1.0/default/audiosrc pulsesrc
-  command: "gconftool-2 -t string --set /system/gstreamer/1.0/default/audiosrc pulsesrc"
-  become: pi
-  become_user: pi
-
-- name: gconftool-2 -t string --set /system/gstreamer/1.0/default/musicaudiosink pulsesink
-  command: "gconftool-2 -t string --set /system/gstreamer/1.0/default/musicaudiosink pulsesink"
-  become: pi
-  become_user: pi
-
+# OLD WAY OF DOING THIS 8/25/2016 # # TODO: CONFIRM THAT THIS ACTUALLY RUNS
+# OLD WAY OF DOING THIS 8/25/2016 # # - name: gconftool-2 -t string --set /system/gstreamer/1.0/default/audiosink pulsesink
+# OLD WAY OF DOING THIS 8/25/2016 # #   command: "gconftool-2 -t string --set /system/gstreamer/1.0/default/audiosink pulsesink"
+# OLD WAY OF DOING THIS 8/25/2016 # #   become: pi
+# OLD WAY OF DOING THIS 8/25/2016 # #   become_user: pi
+# OLD WAY OF DOING THIS 8/25/2016 # #
+# OLD WAY OF DOING THIS 8/25/2016 # # - name: gconftool-2 -t string --set /system/gstreamer/1.0/default/audiosrc pulsesrc
+# OLD WAY OF DOING THIS 8/25/2016 # #   command: "gconftool-2 -t string --set /system/gstreamer/1.0/default/audiosrc pulsesrc"
+# OLD WAY OF DOING THIS 8/25/2016 # #   become: pi
+# OLD WAY OF DOING THIS 8/25/2016 # #   become_user: pi
+# OLD WAY OF DOING THIS 8/25/2016 # #
+# OLD WAY OF DOING THIS 8/25/2016 # # - name: gconftool-2 -t string --set /system/gstreamer/1.0/default/musicaudiosink pulsesink
+# OLD WAY OF DOING THIS 8/25/2016 # #   command: "gconftool-2 -t string --set /system/gstreamer/1.0/default/musicaudiosink pulsesink"
+# OLD WAY OF DOING THIS 8/25/2016 # #   become: pi
+# OLD WAY OF DOING THIS 8/25/2016 # #   become_user: pi
 
 # TODO: WE NEED TO RUN THIS
 # source: https://projects.gnome.org/gconf/

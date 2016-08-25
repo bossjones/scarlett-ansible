@@ -58,6 +58,9 @@
 
 - name: setup_bash_it
   include: setup_bash_it.yml
+
+- name: post_audio_configuration
+  include: post_audio_configuration.yml
 #
 # - name: debug_packages
 #   include: debug_packages.yml

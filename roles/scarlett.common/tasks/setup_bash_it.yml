@@ -18,45 +18,45 @@
         group="{{base_vars.USER}}"
 
 - name: configure devops.theme.bash
-  copy: src="home/{{base_vars.USER}}/bash_it/themes/devops/devops.theme.bash"
-        dest="/home/{{base_vars.USER}}/.bash_it/themes/devops/devops.theme.bash"
-        owner="{{base_vars.USER}}"
-        group="{{base_vars.USER}}"
-        mode=0644
-        backup=yes
+  template: src="home/{{base_vars.USER}}/bash_it/themes/devops/devops.theme.bash.j2"
+            dest="/home/{{base_vars.USER}}/.bash_it/themes/devops/devops.theme.bash"
+            owner="{{base_vars.USER}}"
+            group="{{base_vars.USER}}"
+            mode=0644
+            backup=yes
   tags:
   - bash_it
   - configuration
 
 - name: configure bash_profile
-  copy: src="home/{{base_vars.USER}}/bash_profile"
-        dest="/home/{{base_vars.USER}}/.bash_profile"
-        owner="{{base_vars.USER}}"
-        group="{{base_vars.USER}}"
-        mode=0644
-        backup=yes
+  template: src="home/{{base_vars.USER}}/bash_profile.j2"
+            dest="/home/{{base_vars.USER}}/.bash_profile"
+            owner="{{base_vars.USER}}"
+            group="{{base_vars.USER}}"
+            mode=0644
+            backup=yes
   tags:
   - bash_profile
   - configuration
 
 - name: configure bashrc
-  copy: src="home/{{base_vars.USER}}/bashrc"
-        dest="/home/{{base_vars.USER}}/.bashrc"
-        owner="{{base_vars.USER}}"
-        group="{{base_vars.USER}}"
-        mode=0644
-        backup=yes
+  template: src="home/{{base_vars.USER}}/bashrc.j2"
+            dest="/home/{{base_vars.USER}}/.bashrc"
+            owner="{{base_vars.USER}}"
+            group="{{base_vars.USER}}"
+            mode=0644
+            backup=yes
   tags:
   - bashrc
   - configuration
 
 - name: configure .scarlett_aliases
-  copy: src="home/{{base_vars.USER}}/scarlett_aliases"
-        dest="/home/{{base_vars.USER}}/.scarlett_aliases"
-        owner="{{base_vars.USER}}"
-        group="{{base_vars.USER}}"
-        mode=0644
-        backup=yes
+  template: src="home/{{base_vars.USER}}/scarlett_aliases.j2"
+            dest="/home/{{base_vars.USER}}/.scarlett_aliases"
+            owner="{{base_vars.USER}}"
+            group="{{base_vars.USER}}"
+            mode=0644
+            backup=yes
   tags:
   - scarlett_aliases
   - configuration

@@ -29,9 +29,9 @@ export SCM_CHECK=true
 unset MAILCHECK
 
 # virtualenv
-export WORKON_HOME=$HOME/.virtualenvs
+export WORKON_HOME={{ virtualenv_vars.VIRT_ROOT }}
 export PROJECT_HOME=$HOME/dev
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python{{ base_vars.PYTHON_VERSION_MAJOR }}
 export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
 export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
 source /usr/local/bin/virtualenvwrapper.sh
