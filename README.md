@@ -1,5 +1,12 @@
 # scarlett-ansible
 
+# Audio on ubuntu 16.04 links
+https://help.ubuntu.com/community/SoundTroubleshootingProcedure
+http://askubuntu.com/questions/774458/installed-lubuntu-16-04-version-no-audio-now
+https://musescore.org/en/node/107601
+https://ubuntuforums.org/showthread.php?t=2321631
+
+
 ## Description
 
 The purpose of this repository is to provision a server with all required Scarlett dependencies via ansible. When finished, we can then verify that everything is in place correctly by using serverspec as a integration testing framework. This repo will also serve as a brain dump for any installation issues we come across while attempting to get GTK+3, Gstreamer 1.0, PyGi, Pocketsphinx 5prealpha, PulseAudio, Alsa and Python to play nicely together. As you can see from the list of dependices, there are A LOT of things to take into consideration when configuring this system properly ... the fact that I did not create this earlier baffles my mind!
