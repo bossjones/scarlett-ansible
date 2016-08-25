@@ -47,17 +47,17 @@
 - name: setup_scarlett_user
   include: setup_scarlett_user.yml
 #
-# - name: setup_scarlett
-#   include: setup_scarlett.yml
+- name: setup_scarlett
+  include: setup_scarlett.yml
 #
 - name: setup_pocketsphinx
   include: setup_pocketsphinx.yml
 
-# - name: setup_rbenv
-#   include: setup_rbenv.yml
-#
-# - name: setup_bash_it
-#   include: setup_bash_it.yml
+- name: setup_rbenv
+  include: setup_rbenv.yml
+
+- name: setup_bash_it
+  include: setup_bash_it.yml
 #
 # - name: debug_packages
 #   include: debug_packages.yml

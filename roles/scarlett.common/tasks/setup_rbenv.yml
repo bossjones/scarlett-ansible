@@ -23,10 +23,10 @@
   gem: name=bundler state=present
 
 - name: configure .gemrc
-  copy: src=home/pi/gemrc
-        dest=/home/pi/.gemrc
-        owner=pi
-        group=pi
+  copy: src="home/{{base_vars.USER}}/gemrc"
+        dest="/home/{{base_vars.USER}}/.gemrc"
+        owner="{{base_vars.USER}}"
+        group="{{base_vars.USER}}"
         mode=0644
         backup=yes
   tags:
