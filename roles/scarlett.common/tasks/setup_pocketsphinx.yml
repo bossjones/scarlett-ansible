@@ -89,8 +89,8 @@
   with_items:
   - install_gst-plugins-espeak.sh
   - create_symlinks_virtualenv.sh
-  - install_sphinxbase.sh
-  - install_pocketsphinx.sh
+  # - install_sphinxbase.sh
+  # - install_pocketsphinx.sh
   tags:
   - pocketsphinx
   - sphinxbase
