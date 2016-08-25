@@ -61,7 +61,7 @@ Vagrant.configure('2') do |config|
   config.vm.box_check_update = true
   config.vm.box_url = 'file:///Users/malcolm/dev/bossjones/scarlett-packer/ubuntu-16.04-amd64-virtualbox.box'
   config.vm.define 'scarlett-1604-packer'
- 
+
   # /Users/malcolm/dev/ubuntu1510/scarlett-ubuntu-15-10.box
 
   # name
@@ -115,6 +115,7 @@ Vagrant.configure('2') do |config|
     # Current State:      Unavailable
 
     vb.customize ['modifyvm', :id, '--usb', 'on']
+    vb.customize ['modifyvm', :id, '--audio', 'coreaudio', '--audiocontroller', 'ac97' ]
   end
 
   config.vm.provision 'ansible' do |ansible|
