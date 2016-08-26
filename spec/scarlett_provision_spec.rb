@@ -3,7 +3,6 @@
 require 'spec_helper'
 # require 'yaml'
 
-
 # describe 'python files installed' do
 
 #   it 'installed cloud-init' do
