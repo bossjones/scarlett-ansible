@@ -42,9 +42,9 @@ RVM_THEME_PROMPT_SUFFIX="|"
 function prompt_command() {
     #PS1="${bold_cyan}$(scm_char)${green}$(scm_prompt_info)${purple}$(ruby_version_prompt) ${yellow}\h ${reset_color}in ${green}\w ${reset_color}\n${green}→${reset_color} "
     if [[ $VIRTUAL_PROMPT_ENABLED == 1 ]]; then
-      PS1="\n${yellow}$(ruby_version_prompt) ${blue}$(virtual_prompt_info) ${purple}\h ${reset_color}in ${green}\w\n${bold_cyan}$(scm_char)${green}$(scm_prompt_info) ${green}→${reset_color} "
+      PS1="\n${yellow}$(ruby_version_prompt) ${blue}$(virtual_prompt_info) ${purple}\u@\H ${reset_color}in ${green}\w\n${bold_cyan}$(scm_char)${green}$(scm_prompt_info) ${green}→${reset_color} "
     else
-      PS1="\n${yellow}$(ruby_version_prompt) ${purple}\h ${reset_color}in ${green}\w\n${bold_cyan}$(scm_char)${green}$(scm_prompt_info) ${green}→${reset_color} "
+      PS1="\n${yellow}$(ruby_version_prompt) ${purple}\u@\H ${reset_color}in ${green}\w\n${bold_cyan}$(scm_char)${green}$(scm_prompt_info) ${green}→${reset_color} "
     fi
 }
 
