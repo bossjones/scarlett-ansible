@@ -5,10 +5,10 @@ scarlett-1604-packer:
   # tests to run - found in spec/
   :roles:
   - python
-  # - espeak
-  # - bootstrap
-  # - build_essentials
-  # - gstreamer
+  - espeak
+  - bootstrap
+  - build_essentials
+  - gstreamer
   # - pocketsphinx
   # - pulseaudio
   # - scarlett
