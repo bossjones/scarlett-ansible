@@ -5,14 +5,14 @@ scarlett-1604-packer:
   # tests to run - found in spec/
   :roles:
   - python
-  - espeak
-  - bootstrap
-  - build_essentials
-  - gstreamer
-  - pocketsphinx
-  - pulseaudio
-  - scarlett
-  - scarlett_user
+  # - espeak
+  # - bootstrap
+  # - build_essentials
+  # - gstreamer
+  # - pocketsphinx
+  # - pulseaudio
+  # - scarlett
+  # - scarlett_user
   #############################
   # - gnome
   # - ntp
@@ -21,13 +21,3 @@ scarlett-1604-packer:
   # - sshd
   - system_info
   fake-var: 1.1.14
-
-
-# # second vagrant host
-# #jdemo-test-1:
-# 192.168.56.161:
-#   # tests to run - found in spec/
-#   :roles:
-#   - ubuntu
-#   - jdemo
-#   fake-var: 1.1.14
