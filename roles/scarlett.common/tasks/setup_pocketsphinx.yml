@@ -68,6 +68,26 @@
   become: "{{base_vars.USER}}"
   become_user: "{{base_vars.USER}}"
 
+# - name: python3-gi symlink gi
+#   copy: src="{{ item.src }}"
+#         dest="{{ item.dest }}"
+#         owner="{{base_vars.USER}}"
+#         group="{{base_vars.USER}}"
+#         directory_mode=yes
+#         remote_src=yes
+#   with_items:
+#     - { src: '/usr/lib/python3/dist-packages/gi', dest: "/usr/lib/python{{ base_vars.PYTHON_VERSION_MAJOR }}/dist-packages/gi" }
+
+- name: python3-gi symlink gi
+  shell: |
+    cd {{virtualenv_vars.MAIN_DIR}}/lib/python3/site-packages/
+    ln -sf /usr/lib/python3/dist-packages/gi
+  register: symlink_python3_gi
+  become: pi
+  become_user: pi
+  args:
+    executable: /bin/bash
+
 - name: configure py2cairo pygobject glib gst-python
   template: src="{{ role_path }}/templates/usr/local/bin/{{ item }}.j2"
             dest=/usr/local/bin/{{ item }}
@@ -76,7 +96,7 @@
             mode=0755
   with_items:
   - install_gst-plugins-espeak.sh
-  - create_symlinks_virtualenv.sh
+  # - create_symlinks_virtualenv.sh
   - install_sphinxbase.sh
   - install_pocketsphinx.sh
   tags:
@@ -88,7 +108,7 @@
   command: /usr/local/bin/{{ item }}
   with_items:
   - install_gst-plugins-espeak.sh
-  - create_symlinks_virtualenv.sh
+  # - create_symlinks_virtualenv.sh
   - install_sphinxbase.sh
   - install_pocketsphinx.sh
   tags:

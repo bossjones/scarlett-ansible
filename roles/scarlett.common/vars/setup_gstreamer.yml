@@ -113,3 +113,4 @@ gstreamer_prereqs:
   - "{{ phonon_backend_gstreamer_pkg_name[ansible_distribution_release] }}"
   - "{{ phonon_backend_gstreamer_pkg_name[ansible_distribution_release] }}-common"
   - "{{ phonon_backend_gstreamer_pkg_name[ansible_distribution_release] }}-dbg"
+  - gstreamer1.0*

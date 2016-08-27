@@ -9,10 +9,10 @@ scarlett-1604-packer:
   - bootstrap
   - build_essentials
   - gstreamer
-  # - pocketsphinx
-  # - pulseaudio
-  # - scarlett
-  # - scarlett_user
+  - pocketsphinx
+  - pulseaudio
+  - scarlett
+  - scarlett_user
   #############################
   # - gnome
   # - ntp

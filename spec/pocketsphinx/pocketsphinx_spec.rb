@@ -45,18 +45,18 @@ venv_lib_folder = "/home/#{user}/.virtualenvs/#{repo_name}/lib"
 venv_lib_gstreamer_folder = "/home/#{user}/.virtualenvs/#{repo_name}/lib/gstreamer-#{gstreamer_version}"
 
 describe 'pocketsphinx_setup' do
-  it 'creates /home/#{user}/dev/bossjones-github/#{repo_name}/sphinxbase' do
-    expect(file('/home/#{user}/dev/bossjones-github/#{repo_name}/sphinxbase')).to be_directory
-    expect(file('/home/#{user}/dev/bossjones-github/#{repo_name}/sphinxbase')).to be_mode('755')
-    expect(file('/home/#{user}/dev/bossjones-github/#{repo_name}/sphinxbase')).to be_owned_by user.to_s
-    expect(file('/home/#{user}/dev/bossjones-github/#{repo_name}/sphinxbase')).to be_grouped_into user.to_s
+  it "creates /home/#{user}/dev/bossjones-github/#{repo_name}/sphinxbase" do
+    expect(file("/home/#{user}/dev/bossjones-github/#{repo_name}/sphinxbase")).to be_directory
+    expect(file("/home/#{user}/dev/bossjones-github/#{repo_name}/sphinxbase")).to be_mode('755')
+    expect(file("/home/#{user}/dev/bossjones-github/#{repo_name}/sphinxbase")).to be_owned_by user.to_s
+    expect(file("/home/#{user}/dev/bossjones-github/#{repo_name}/sphinxbase")).to be_grouped_into user.to_s
   end
 
   it 'creates /home/#{user}/dev/bossjones-github/#{repo_name}/pocketsphinx' do
-    expect(file('/home/#{user}/dev/bossjones-github/#{repo_name}/pocketsphinx')).to be_directory
-    expect(file('/home/#{user}/dev/bossjones-github/#{repo_name}/pocketsphinx')).to be_mode('755')
-    expect(file('/home/#{user}/dev/bossjones-github/#{repo_name}/pocketsphinx')).to be_owned_by user.to_s
-    expect(file('/home/#{user}/dev/bossjones-github/#{repo_name}/pocketsphinx')).to be_grouped_into user.to_s
+    expect(file("/home/#{user}/dev/bossjones-github/#{repo_name}/pocketsphinx")).to be_directory
+    expect(file("/home/#{user}/dev/bossjones-github/#{repo_name}/pocketsphinx")).to be_mode('755')
+    expect(file("/home/#{user}/dev/bossjones-github/#{repo_name}/pocketsphinx")).to be_owned_by user.to_s
+    expect(file("/home/#{user}/dev/bossjones-github/#{repo_name}/pocketsphinx")).to be_grouped_into user.to_s
   end
 end
 

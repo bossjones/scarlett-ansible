@@ -39,3 +39,17 @@
   become_user: pi
   args:
     executable: /bin/bash
+
+# source: http://askubuntu.com/questions/97936/terminal-command-to-set-audio-volume
+- name: amixer -D pulse sset Master 100%
+  shell: |
+    export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+    export WORKON_HOME={{ virtualenv_vars.VIRT_ROOT }}
+    source /usr/local/bin/virtualenvwrapper.sh
+    workon {{ base_vars.GITHUB_REPO_NAME }}
+    amixer -D pulse sset Master 100%
+  register: set_sound_level
+  become: pi
+  become_user: pi
+  args:
+    executable: /bin/bash
