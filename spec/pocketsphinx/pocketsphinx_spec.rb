@@ -97,7 +97,7 @@ end
 # __init__.py _pocketsphinx.a _pocketsphinx.la* pocketsphinx.py _pocketsphinx.so _pocketsphinx.so.0 _pocketsphinx.so.0.0.0*
 
 describe "content of #{venv_site_pkgs_pocketsphinx_folder} directory" do
-  %w(__init__.py _pocketsphinx.a _pocketsphinx.la* pocketsphinx.py _pocketsphinx.so _pocketsphinx.so.0 _pocketsphinx.so.0.0.0*).each do |pkg|
+  %w(__init__.py _pocketsphinx.a pocketsphinx.py _pocketsphinx.so _pocketsphinx.so.0).each do |pkg|
     it "expect directory #{venv_site_pkgs_pocketsphinx_folder}/#{pkg}" do
       expect(file("#{venv_site_pkgs_pocketsphinx_folder}/#{pkg}")).to exist
     end
@@ -111,7 +111,7 @@ describe "content of #{venv_site_pkgs_pocketsphinx_folder} directory" do
 end
 
 describe "content of #{venv_site_pkgs_sphinxbase_folder} directory" do
-  %w(__init__.pyo __init__.pyc __init__.py _sphinxbase.a _sphinxbase.la _sphinxbase.so.0.0.0 sphinxbase.pyo sphinxbase.pyc sphinxbase.py).each do |pkg|
+  %w(__init__.py _sphinxbase.a _sphinxbase.la _sphinxbase.so.0.0.0 sphinxbase.py).each do |pkg|
     it "expect directory #{venv_site_pkgs_sphinxbase_folder}/#{pkg}" do
       expect(file("#{venv_site_pkgs_sphinxbase_folder}/#{pkg}")).to exist
     end
