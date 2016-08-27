@@ -87,15 +87,17 @@ describe "content of #{venv_site_pkgs_folder} directory" do
     end
   end
 
-  %w(pygst.py pygst.pth gobject glib gstoption.so pygst.pyc gst-1.0 cairo).each do |pkg|
+  %w(gi).each do |pkg|
     it "expect directory #{venv_site_pkgs_folder}/#{pkg}" do
       expect(file("#{venv_site_pkgs_folder}/#{pkg}")).to be_linked_to("/usr/lib/python#{python_version}/dist-packages/#{pkg}")
     end
   end
 end
 
+# __init__.py _pocketsphinx.a _pocketsphinx.la* pocketsphinx.py _pocketsphinx.so _pocketsphinx.so.0 _pocketsphinx.so.0.0.0*
+
 describe "content of #{venv_site_pkgs_pocketsphinx_folder} directory" do
-  %w(__init__.pyo __init__.pyc __init__.py _pocketsphinx.a _pocketsphinx.la _pocketsphinx.so.0.0.0 pocketsphinx.pyo pocketsphinx.pyc pocketsphinx.py).each do |pkg|
+  %w(__init__.py _pocketsphinx.a _pocketsphinx.la* pocketsphinx.py _pocketsphinx.so _pocketsphinx.so.0 _pocketsphinx.so.0.0.0*).each do |pkg|
     it "expect directory #{venv_site_pkgs_pocketsphinx_folder}/#{pkg}" do
       expect(file("#{venv_site_pkgs_pocketsphinx_folder}/#{pkg}")).to exist
     end

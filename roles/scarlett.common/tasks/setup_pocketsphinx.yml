@@ -80,7 +80,7 @@
 
 - name: python3-gi symlink gi
   shell: |
-    cd {{virtualenv_vars.MAIN_DIR}}/lib/python3/site-packages/
+    cd {{virtualenv_vars.VIRT_ROOT}}/lib/python3.5/site-packages/
     ln -sf /usr/lib/python3/dist-packages/gi
   register: symlink_python3_gi
   become: pi
