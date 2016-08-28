@@ -74,7 +74,14 @@ Vagrant.configure('2') do |config|
   # config.vm.network "forwarded_port", guest: 19360, host: 1936
   # config.vm.network "forwarded_port", guest: 139, host: 1139
   # config.vm.network "forwarded_port", guest: 8081, host: 8881
-  # config.vm.network "forwarded_port", guest: 2376, host: 2376
+  config.vm.network "forwarded_port", guest: 2376, host: 2376, host_ip: "127.0.0.1"
+
+  # config.vm.network :forwarded_port,
+  #   guest: 22,
+  #   host: 2222,
+  #   host_ip: "127.0.0.1",
+  #   id: "ssh",
+  #   auto_correct: true
 
   config.ssh.username = 'pi'
   config.ssh.host = '127.0.0.1'

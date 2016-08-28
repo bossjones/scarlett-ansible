@@ -53,3 +53,11 @@
   become_user: pi
   args:
     executable: /bin/bash
+
+- name: ufw allow 2376
+  shell: |
+    sudo ufw allow 2376
+  register: allow_docker_port
+  become: true
+  args:
+    executable: /bin/bash
