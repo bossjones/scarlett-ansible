@@ -1275,3 +1275,131 @@ Freeing pipeline ...
 ==> f5fba22c-929b-4a55-bb1c-c5a3d0f26b8d: Exporting VM...
 ==> f5fba22c-929b-4a55-bb1c-c5a3d0f26b8d: Compressing package to: /Users/malcolm/ubuntu_1604_desktop_base.box
 ```
+
+# Environment variables for resize script
+
+```
+± |featutre-1604 U:2 ?:1 ✗| → env | grep CD_TO
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → export CD_TO=~/dev/bossjones/scarlett-ansible
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → export USERDIR=$PWD
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → export VDMK_FILE=packer-ubuntu-16.04-amd64-disk1.vmdk
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → export VAGRANT_VMNAME=scarlett-base-16-04
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → export VDI_FILENAME=scarlett_50gb.vdi
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → env | grep CD_TO
+CD_TO=/Users/malcolm/dev/bossjones/scarlett-ansible
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → env | grep USERDIR
+USERDIR=/Users/malcolm/dev/bossjones/scarlett-ansible
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → env | grep VDMK_FILE
+VDMK_FILE=packer-ubuntu-16.04-amd64-disk1.vmdk
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → env | grep VAGRANT_VMNAME
+VAGRANT_VMNAME=scarlett-base-16-04
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → env | grep VDI_FILENAME
+VDI_FILENAME=scarlett_50gb.vdi
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → env | grep VMNAME
+VAGRANT_VMNAME=scarlett-base-16-04
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → cd $CD_TO
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → export VMNAME=$(grep "  vb.name" Vagrantfile | cut -d\' -f2)
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → env | grep VMNAME
+VMNAME=scarlett-ansible-1604-packer2
+VAGRANT_VMNAME=scarlett-base-16-04
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → env | grep VM_PATH
+NVM_PATH=/Users/malcolm/.nvm/versions/node/v5.9.0/lib/node
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → export VM_PATH="$HOME/VirtualBox VMs/$VMNAME"
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → env | grep VM_PATH
+NVM_PATH=/Users/malcolm/.nvm/versions/node/v5.9.0/lib/node
+VM_PATH=/Users/malcolm/VirtualBox VMs/scarlett-ansible-1604-packer2
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| →
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → vagrant up --no-provision
+Bringing machine 'scarlett-1604-packer2' up with 'virtualbox' provider...
+==> scarlett-1604-packer2: Importing base box 'bossjones/scarlett-1604-packer'...
+==> scarlett-1604-packer2: Matching MAC address for NAT networking...
+==> scarlett-1604-packer2: Setting the name of the VM: scarlett-ansible-1604-packer2
+==> scarlett-1604-packer2: Clearing any previously set network interfaces...
+==> scarlett-1604-packer2: Preparing network interfaces based on configuration...
+    scarlett-1604-packer2: Adapter 1: nat
+    scarlett-1604-packer2: Adapter 2: bridged
+==> scarlett-1604-packer2: Forwarding ports...
+    scarlett-1604-packer2: 2376 (guest) => 2376 (host) (adapter 1)
+    scarlett-1604-packer2: 22 (guest) => 2222 (host) (adapter 1)
+==> scarlett-1604-packer2: Running 'pre-boot' VM customizations...
+==> scarlett-1604-packer2: Booting VM...
+==> scarlett-1604-packer2: Waiting for machine to boot. This may take a few minutes...
+    scarlett-1604-packer2: SSH address: 127.0.0.1:2222
+    scarlett-1604-packer2: SSH username: pi
+    scarlett-1604-packer2: SSH auth method: private key
+==> scarlett-1604-packer2: Machine booted and ready!
+==> scarlett-1604-packer2: Checking for guest additions in VM...
+==> scarlett-1604-packer2: Setting hostname...
+==> scarlett-1604-packer2: Configuring and enabling network interfaces...
+The following SSH command responded with a non-zero exit status.
+Vagrant assumes that this means the command failed!
+
+/sbin/ifdown eth1 2> /dev/null
+
+Stdout from the command:
+
+
+
+Stderr from the command:
+
+mesg: ttyname failed: Inappropriate ioctl for device
+
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:3 ?:1 ✗| → vagrant halt
+==> scarlett-1604-packer2: Attempting graceful shutdown of VM...
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:3 ?:1 ✗| → cd "$VM_PATH"
+
+ |2.1.7|   Malcolms-MBP-3 in ~/VirtualBox VMs/scarlett-ansible-1604-packer2
+○ → ls -lta
+total 11968688
+drwx------   6 malcolm  staff         204 Sep 10 14:17 .
+-rw-------   1 malcolm  staff  6127943680 Sep 10 14:17 packer-ubuntu-16.04-amd64-disk1.vmdk
+-rw-------   1 malcolm  staff        8560 Sep 10 14:17 scarlett-ansible-1604-packer2.vbox
+-rw-------   1 malcolm  staff        8560 Sep 10 14:17 scarlett-ansible-1604-packer2.vbox-prev
+drwx------   3 malcolm  staff         102 Sep 10 14:14 Logs
+drwx------  12 malcolm  staff         408 Sep 10 14:14 ..
+
+ |2.1.7|   Malcolms-MBP-3 in ~/VirtualBox VMs/scarlett-ansible-1604-packer2
+○ →
+```
