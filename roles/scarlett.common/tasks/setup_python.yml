@@ -38,7 +38,17 @@
   get_url: url=https://bootstrap.pypa.io/get-pip.py dest=/usr/install/get-pip.py  mode=0644
 
 - name: setuptools==26.0.0 and pip==8.1.2
-  command: "python3 /usr/install/ez_setup.py && python3 /usr/install/get-pip.py"
+  command: "python3 /usr/install/ez_setup.py"
+  become: true
+  args:
+    chdir: /root
+  tags:
+  - pip
+  - easy_install
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'xenial'
+
+- name: pip==8.1.2
+  command: "python3 /usr/install/get-pip.py"
   become: true
   args:
     chdir: /root
@@ -111,7 +121,7 @@
   become_user: pi
   with_items:
   - export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-  - export WORKON_HOME={{ virtualenv_vars.VIRT_ROOT }}
+  - export WORKON_HOME={{ virtualenv_vars.WORKON_HOME }}
   - source /usr/local/bin/virtualenvwrapper.sh
 
 #
@@ -126,7 +136,7 @@
 - name: Create a new Python virtual environment
   shell: |
     export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-    export WORKON_HOME={{ virtualenv_vars.VIRT_ROOT }}
+    export WORKON_HOME={{ virtualenv_vars.WORKON_HOME }}
     source /usr/local/bin/virtualenvwrapper.sh
     mkvirtualenv --system-site-packages {{ base_vars.GITHUB_REPO_NAME }}
   register: run_cmd
@@ -150,6 +160,17 @@
   - virtualenv
   - configuration
   - python
+
+# /home/pi/.virtualenvs/scarlett_os/scarlett_os/bin/python
+# /home/pi/.virtualenvs/scarlett_os/bin
+
+# TASK [scarlett.common : Update .bashrc with virtualenvwrapper] *****************
+# ok: [scarlett-ansible-manual1604-2] => (item=export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3) => {"backup": "", "changed": false, "item": "export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3", "msg": ""}
+# ok: [scarlett-ansible-manual1604-2] => (item=export WORKON_HOME=/home/pi/.virtualenvs/scarlett_os) => {"backup": "", "changed": false, "item": "export WORKON_HOME=/home/pi/.virtualenvs/scarlett_os", "msg": ""}
+# ok: [scarlett-ansible-manual1604-2] => (item=source /usr/local/bin/virtualenvwrapper.sh) => {"backup": "", "changed": false, "item": "source /usr/local/bin/virtualenvwrapper.sh", "msg": ""}
+#
+# TASK [scarlett.common : Create a new Python virtual environment] ***************
+# changed: [scarlett-ansible-manual1604-2] => {"changed": true, "cmd": "export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3\n export WORKON_HOME=/home/pi/.virtualenvs/scarlett_os\n source /usr/local/bin/virtualenvwrapper.sh\n mkvirtualenv --system-site-packages scarlett_os", "delta": "0:00:08.458621", "end": "2016-09-11 19:13:22.243851", "rc": 0, "start": "2016-09-11 19:13:13.785230", "stderr": "", "stdout": "Using base prefix '/usr'\nNew python executable in /home/pi/.virtualenvs/scarlett_os/scarlett_os/bin/python3\nNot overwriting existing python script /home/pi/.virtualenvs/scarlett_os/scarlett_os/bin/python (you must use /home/pi/.virtualenvs/scarlett_os/scarlett_os/bin/python3)\nInstalling setuptools, pip, wheel...done.", "stdout_lines": ["Using base prefix '/usr'", "New python executable in /home/pi/.virtualenvs/scarlett_os/scarlett_os/bin/python3", "Not overwriting existing python script /home/pi/.virtualenvs/scarlett_os/scarlett_os/bin/python (you must use /home/pi/.virtualenvs/scarlett_os/scarlett_os/bin/python3)", "Installing setuptools, pip, wheel...done."], "warnings": []}
 
 - name: configure virtualenv_vars.VIRT_ROOT/bin/postdeactivate
   template: src="{{ role_path }}/templates/home/pi/{{ item }}.j2"

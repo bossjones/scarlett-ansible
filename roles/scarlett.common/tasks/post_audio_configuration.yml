@@ -4,7 +4,7 @@
 - name: gconftool-2 -t string --set /system/gstreamer/1.0/default/audiosink pulsesink
   shell: |
     export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-    export WORKON_HOME={{ virtualenv_vars.VIRT_ROOT }}
+    export WORKON_HOME={{ virtualenv_vars.WORKON_HOME }}
     source /usr/local/bin/virtualenvwrapper.sh
     workon {{ base_vars.GITHUB_REPO_NAME }}
     gconftool-2 -t string --set /system/gstreamer/1.0/default/audiosink pulsesink
@@ -17,7 +17,7 @@
 - name: gconftool-2 -t string --set /system/gstreamer/1.0/default/audiosrc pulsesrc
   shell: |
     export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-    export WORKON_HOME={{ virtualenv_vars.VIRT_ROOT }}
+    export WORKON_HOME={{ virtualenv_vars.WORKON_HOME }}
     source /usr/local/bin/virtualenvwrapper.sh
     workon {{ base_vars.GITHUB_REPO_NAME }}
     gconftool-2 -t string --set /system/gstreamer/1.0/default/audiosrc pulsesrc
@@ -30,7 +30,7 @@
 - name: gconftool-2 -t string --set /system/gstreamer/1.0/default/musicaudiosink pulsesink
   shell: |
     export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-    export WORKON_HOME={{ virtualenv_vars.VIRT_ROOT }}
+    export WORKON_HOME={{ virtualenv_vars.WORKON_HOME }}
     source /usr/local/bin/virtualenvwrapper.sh
     workon {{ base_vars.GITHUB_REPO_NAME }}
     gconftool-2 -t string --set /system/gstreamer/1.0/default/musicaudiosink pulsesink
@@ -44,7 +44,7 @@
 - name: amixer -D pulse sset Master 100%
   shell: |
     export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-    export WORKON_HOME={{ virtualenv_vars.VIRT_ROOT }}
+    export WORKON_HOME={{ virtualenv_vars.WORKON_HOME }}
     source /usr/local/bin/virtualenvwrapper.sh
     workon {{ base_vars.GITHUB_REPO_NAME }}
     amixer -D pulse sset Master 100%
@@ -56,7 +56,7 @@
 
 - name: ufw allow 2376
   shell: |
-    sudo ufw allow 2376
+    ufw allow 2376
   register: allow_docker_port
   become: true
   args:

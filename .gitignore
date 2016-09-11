@@ -63,3 +63,4 @@ Gemfile.lock
 .DS_Store
 scarlett_ansible.box
 *.retry
+*.box

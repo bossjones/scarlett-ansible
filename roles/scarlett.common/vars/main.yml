@@ -14,6 +14,7 @@ base_vars:
 virtualenv_vars:
   MAIN_DIR: "{{ base_vars.USER_HOME }}/dev/bossjones-github/{{ base_vars.GITHUB_REPO_NAME }}"
   VIRT_ROOT: "{{ base_vars.USER_HOME }}/.virtualenvs/{{ base_vars.GITHUB_REPO_NAME }}"
+  WORKON_HOME: "{{ base_vars.USER_HOME }}/.virtualenvs"
 
 build_vars:
   PKG_CONFIG_PATH: "{{ virtualenv_vars.VIRT_ROOT }}/lib/pkgconfig"
