@@ -1402,4 +1402,333 @@ drwx------  12 malcolm  staff         408 Sep 10 14:14 ..
 
  |2.1.7|   Malcolms-MBP-3 in ~/VirtualBox VMs/scarlett-ansible-1604-packer2
 ○ →
+
+
+
+
+UUID:           b5bb12c1-4e9d-4d4f-9dea-e5a88601e3ad
+Parent UUID:    base
+State:          inaccessible
+Type:           normal (base)
+Location:       /Users/malcolm/VirtualBox VMs/scarlett-ansible-1604-packer2/out.vdi
+Storage format: VDI
+Capacity:       56320 MBytes
+Encryption:     disabled
+
+UUID:           2a845830-55d1-4181-8b0f-ba274b524db1
+Parent UUID:    base
+State:          inaccessible
+Type:           normal (base)
+Location:       /Users/malcolm/VirtualBox VMs/scarlett-ansible-1604-packer2/box-disk1_50gb.vmdk
+Storage format: VMDK
+Capacity:       56320 MBytes
+Encryption:     disabled
+
+UUID:           c33810ce-a153-44d9-bd51-f66af6a2fc82
+Parent UUID:    base
+State:          inaccessible
+Type:           normal (base)
+Location:       /Users/malcolm/VirtualBox VMs/scarlett-ansible-1604-packer2/scarlett_50gb.vdi
+Storage format: VDI
+Capacity:       56320 MBytes
+Encryption:     disabled
+
+UUID:           1683a1b1-e82c-4f8a-bcd6-1b706565179e
+Parent UUID:    base
+State:          created
+Type:           normal (base)
+Location:       /Users/malcolm/VirtualBox VMs/scarlett-ansible-1604-packer2/packer-ubuntu-16.04-amd64-disk1.vmdk
+Storage format: VMDK
+Capacity:       20000 MBytes
+Encryption:     disabled
+```
+
+The trick to fixing this was here:
+
+https://coderwall.com/p/8m--dq/purge-deleted-hard-disks-from-virtual-box
+
+```
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:1 ✗| → vagrant halt
+==> scarlett-1604-packer2: Attempting graceful shutdown of VM...
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:1 ✗| → cd "$VM_PATH"
+
+ |2.1.7|   Malcolms-MBP-3 in ~/VirtualBox VMs/scarlett-ansible-1604-packer2
+○ → ll
+total 11979568
+drwx------   6 malcolm  staff         204 Sep 10 14:41 .
+drwx------  12 malcolm  staff         408 Sep 10 14:40 ..
+drwx------   3 malcolm  staff         102 Sep 10 14:40 Logs
+-rw-------   1 malcolm  staff  6133514240 Sep 10 14:41 packer-ubuntu-16.04-amd64-disk1.vmdk
+-rw-------   1 malcolm  staff        8560 Sep 10 14:41 scarlett-ansible-1604-packer2.vbox
+-rw-------   1 malcolm  staff        8560 Sep 10 14:41 scarlett-ansible-1604-packer2.vbox-prev
+
+ |2.1.7|   Malcolms-MBP-3 in ~/VirtualBox VMs/scarlett-ansible-1604-packer2
+○ → VBoxManage clonehd $VDMK_FILE ${VDI_FILENAME} --format VDI
+0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100%
+Clone medium created in format 'VDI'. UUID: a392e58b-04fe-48ea-9ed4-e199654b503e
+
+ |2.1.7|   Malcolms-MBP-3 in ~/VirtualBox VMs/scarlett-ansible-1604-packer2
+○ → VBoxManage modifyhd ${VDI_FILENAME} --resizebyte 59055800320
+0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100%
+
+ |2.1.7|   Malcolms-MBP-3 in ~/VirtualBox VMs/scarlett-ansible-1604-packer2
+○ → VBoxManage clonehd ${VDI_FILENAME} box-disk1_50gb.vmdk --format VMDK
+0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100%
+Clone medium created in format 'VMDK'. UUID: 0158b89a-f0c9-4f1f-b097-c207e034a9bb
+
+ |2.1.7|   Malcolms-MBP-3 in ~/VirtualBox VMs/scarlett-ansible-1604-packer2
+○ →
+
+ VBoxManage showvminfo "scarlett-ansible-1604-packer2"
+
+
+ ○ → VBoxManage showvminfo "scarlett-ansible-1604-packer2"
+Name:            scarlett-ansible-1604-packer2
+Groups:          /
+Guest OS:        Ubuntu (64-bit)
+UUID:            5d9fbcf5-2022-4e82-88dc-a93c4688b52a
+Config file:     /Users/malcolm/VirtualBox VMs/scarlett-ansible-1604-packer2/scarlett-ansible-1604-packer2.vbox
+Snapshot folder: /Users/malcolm/VirtualBox VMs/scarlett-ansible-1604-packer2/Snapshots
+Log folder:      /Users/malcolm/VirtualBox VMs/scarlett-ansible-1604-packer2/Logs
+Hardware UUID:   5d9fbcf5-2022-4e82-88dc-a93c4688b52a
+Memory size:     2048MB
+Page Fusion:     off
+VRAM size:       8MB
+CPU exec cap:    100%
+HPET:            off
+Chipset:         piix3
+Firmware:        BIOS
+Number of CPUs:  2
+PAE:             on
+Long Mode:       on
+CPUID Portability Level: 0
+CPUID overrides: None
+Boot menu mode:  message and menu
+Boot Device (1): HardDisk
+Boot Device (2): DVD
+Boot Device (3): Not Assigned
+Boot Device (4): Not Assigned
+ACPI:            on
+IOAPIC:          on
+Time offset:     0ms
+RTC:             UTC
+Hardw. virt.ext: on
+Nested Paging:   on
+Large Pages:     on
+VT-x VPID:       on
+VT-x unr. exec.: on
+Paravirt. Provider: Default
+State:           powered off (since 2016-09-10T18:41:35.261000000)
+Monitor count:   1
+3D Acceleration: off
+2D Video Acceleration: off
+Teleporter Enabled: off
+Teleporter Port: 0
+Teleporter Address:
+Teleporter Password:
+Tracing Enabled: off
+Allow Tracing to Access VM: off
+Tracing Configuration:
+Autostart Enabled: off
+Autostart Delay: 0
+Default Frontend:
+Storage Controller Name (0):            IDE Controller
+Storage Controller Type (0):            PIIX4
+Storage Controller Instance Number (0): 0
+Storage Controller Max Port Count (0):  2
+Storage Controller Port Count (0):      2
+Storage Controller Bootable (0):        on
+IDE Controller (0, 0): /Users/malcolm/VirtualBox VMs/scarlett-ansible-1604-packer2/packer-ubuntu-16.04-amd64-disk1.vmdk (UUID: c36a7d63-db73-461c-b05d-093917e19e19)
+NIC 1:           MAC: 0800279C7307, Attachment: NAT, Cable connected: on, Trace: off (file: none), Type: 82540EM, Reported speed: 0 Mbps, Boot priority: 0, Promisc Policy: deny, Bandwidth group: none
+NIC 1 Settings:  MTU: 0, Socket (send: 64, receive: 64), TCP Window (send:64, receive: 64)
+NIC 1 Rule(0):   name = ssh, protocol = tcp, host ip = 127.0.0.1, host port = 2222, guest ip = , guest port = 22
+NIC 1 Rule(1):   name = tcp2376, protocol = tcp, host ip = 127.0.0.1, host port = 2376, guest ip = , guest port = 2376
+NIC 2:           MAC: 080027CF00AC, Attachment: Bridged Interface 'en0: Wi-Fi (AirPort)', Cable connected: on, Trace: off (file: none), Type: 82540EM, Reported speed: 0 Mbps, Boot priority: 0, Promisc Policy: deny, Bandwidth group: none
+NIC 3:           disabled
+NIC 4:           disabled
+NIC 5:           disabled
+NIC 6:           disabled
+NIC 7:           disabled
+NIC 8:           disabled
+Pointing Device: PS/2 Mouse
+Keyboard Device: PS/2 Keyboard
+UART 1:          disabled
+UART 2:          disabled
+LPT 1:           disabled
+LPT 2:           disabled
+Audio:           enabled (Driver: CoreAudio, Controller: AC97, Codec: STAC9700)
+Clipboard Mode:  disabled
+Drag and drop Mode: disabled
+VRDE:            enabled (Address 127.0.0.1, Ports 5993, MultiConn: off, ReuseSingleConn: off, Authentication type: null)
+Video redirection: disabled
+VRDE property: TCP/Ports  = "5993"
+VRDE property: TCP/Address = "127.0.0.1"
+VRDE property: VideoChannel/Enabled = <not set>
+VRDE property: VideoChannel/Quality = <not set>
+VRDE property: VideoChannel/DownscaleProtection = <not set>
+VRDE property: Client/DisableDisplay = <not set>
+VRDE property: Client/DisableInput = <not set>
+VRDE property: Client/DisableAudio = <not set>
+VRDE property: Client/DisableUSB = <not set>
+VRDE property: Client/DisableClipboard = <not set>
+VRDE property: Client/DisableUpstreamAudio = <not set>
+VRDE property: Client/DisableRDPDR = <not set>
+VRDE property: H3DRedirect/Enabled = <not set>
+VRDE property: Security/Method = <not set>
+VRDE property: Security/ServerCertificate = <not set>
+VRDE property: Security/ServerPrivateKey = <not set>
+VRDE property: Security/CACertificate = <not set>
+VRDE property: Audio/RateCorrectionMode = <not set>
+VRDE property: Audio/LogPath = <not set>
+USB:             enabled
+EHCI:            disabled
+XHCI:            disabled
+
+USB Device Filters:
+
+<none>
+
+Bandwidth groups:  <none>
+
+Shared folders:
+
+Name: 'vagrant', Host path: '/Users/malcolm/dev/bossjones/scarlett-ansible' (machine mapping), writable
+
+Video capturing:    not active
+Capture screens:    0
+Capture file:       /Users/malcolm/VirtualBox VMs/scarlett-ansible-1604-packer2/scarlett-ansible-1604-packer2.webm
+Capture dimensions: 1024x768
+Capture rate:       512 kbps
+Capture FPS:        25
+
+Guest:
+
+Configured memory balloon size:      0 MB
+```
+```
+○ → VBoxManage showvminfo "$VMNAME"
+Name:            scarlett-ansible-1604-packer2
+Groups:          /
+Guest OS:        Ubuntu (64-bit)
+UUID:            5d9fbcf5-2022-4e82-88dc-a93c4688b52a
+Config file:     /Users/malcolm/VirtualBox VMs/scarlett-ansible-1604-packer2/scarlett-ansible-1604-packer2.vbox
+Snapshot folder: /Users/malcolm/VirtualBox VMs/scarlett-ansible-1604-packer2/Snapshots
+Log folder:      /Users/malcolm/VirtualBox VMs/scarlett-ansible-1604-packer2/Logs
+Hardware UUID:   5d9fbcf5-2022-4e82-88dc-a93c4688b52a
+Memory size:     2048MB
+Page Fusion:     off
+VRAM size:       8MB
+CPU exec cap:    100%
+HPET:            off
+Chipset:         piix3
+Firmware:        BIOS
+Number of CPUs:  2
+PAE:             on
+Long Mode:       on
+CPUID Portability Level: 0
+CPUID overrides: None
+Boot menu mode:  message and menu
+Boot Device (1): HardDisk
+Boot Device (2): DVD
+Boot Device (3): Not Assigned
+Boot Device (4): Not Assigned
+ACPI:            on
+IOAPIC:          on
+Time offset:     0ms
+RTC:             UTC
+Hardw. virt.ext: on
+Nested Paging:   on
+Large Pages:     on
+VT-x VPID:       on
+VT-x unr. exec.: on
+Paravirt. Provider: Default
+State:           powered off (since 2016-09-10T18:41:35.261000000)
+Monitor count:   1
+3D Acceleration: off
+2D Video Acceleration: off
+Teleporter Enabled: off
+Teleporter Port: 0
+Teleporter Address:
+Teleporter Password:
+Tracing Enabled: off
+Allow Tracing to Access VM: off
+Tracing Configuration:
+Autostart Enabled: off
+Autostart Delay: 0
+Default Frontend:
+Storage Controller Name (0):            IDE Controller
+Storage Controller Type (0):            PIIX4
+Storage Controller Instance Number (0): 0
+Storage Controller Max Port Count (0):  2
+Storage Controller Port Count (0):      2
+Storage Controller Bootable (0):        on
+IDE Controller (0, 0): /Users/malcolm/VirtualBox VMs/scarlett-ansible-1604-packer2/packer-ubuntu-16.04-amd64-disk1.vmdk (UUID: c36a7d63-db73-461c-b05d-093917e19e19)
+NIC 1:           MAC: 0800279C7307, Attachment: NAT, Cable connected: on, Trace: off (file: none), Type: 82540EM, Reported speed: 0 Mbps, Boot priority: 0, Promisc Policy: deny, Bandwidth group: none
+NIC 1 Settings:  MTU: 0, Socket (send: 64, receive: 64), TCP Window (send:64, receive: 64)
+NIC 1 Rule(0):   name = ssh, protocol = tcp, host ip = 127.0.0.1, host port = 2222, guest ip = , guest port = 22
+NIC 1 Rule(1):   name = tcp2376, protocol = tcp, host ip = 127.0.0.1, host port = 2376, guest ip = , guest port = 2376
+NIC 2:           MAC: 080027CF00AC, Attachment: Bridged Interface 'en0: Wi-Fi (AirPort)', Cable connected: on, Trace: off (file: none), Type: 82540EM, Reported speed: 0 Mbps, Boot priority: 0, Promisc Policy: deny, Bandwidth group: none
+NIC 3:           disabled
+NIC 4:           disabled
+NIC 5:           disabled
+NIC 6:           disabled
+NIC 7:           disabled
+NIC 8:           disabled
+Pointing Device: PS/2 Mouse
+Keyboard Device: PS/2 Keyboard
+UART 1:          disabled
+UART 2:          disabled
+LPT 1:           disabled
+LPT 2:           disabled
+Audio:           enabled (Driver: CoreAudio, Controller: AC97, Codec: STAC9700)
+Clipboard Mode:  disabled
+Drag and drop Mode: disabled
+VRDE:            enabled (Address 127.0.0.1, Ports 5993, MultiConn: off, ReuseSingleConn: off, Authentication type: null)
+Video redirection: disabled
+VRDE property: TCP/Ports  = "5993"
+VRDE property: TCP/Address = "127.0.0.1"
+VRDE property: VideoChannel/Enabled = <not set>
+VRDE property: VideoChannel/Quality = <not set>
+VRDE property: VideoChannel/DownscaleProtection = <not set>
+VRDE property: Client/DisableDisplay = <not set>
+VRDE property: Client/DisableInput = <not set>
+VRDE property: Client/DisableAudio = <not set>
+VRDE property: Client/DisableUSB = <not set>
+VRDE property: Client/DisableClipboard = <not set>
+VRDE property: Client/DisableUpstreamAudio = <not set>
+VRDE property: Client/DisableRDPDR = <not set>
+VRDE property: H3DRedirect/Enabled = <not set>
+VRDE property: Security/Method = <not set>
+VRDE property: Security/ServerCertificate = <not set>
+VRDE property: Security/ServerPrivateKey = <not set>
+VRDE property: Security/CACertificate = <not set>
+VRDE property: Audio/RateCorrectionMode = <not set>
+VRDE property: Audio/LogPath = <not set>
+USB:             enabled
+EHCI:            disabled
+XHCI:            disabled
+
+USB Device Filters:
+
+<none>
+
+Bandwidth groups:  <none>
+
+Shared folders:
+
+Name: 'vagrant', Host path: '/Users/malcolm/dev/bossjones/scarlett-ansible' (machine mapping), writable
+
+Video capturing:    not active
+Capture screens:    0
+Capture file:       /Users/malcolm/VirtualBox VMs/scarlett-ansible-1604-packer2/scarlett-ansible-1604-packer2.webm
+Capture dimensions: 1024x768
+Capture rate:       512 kbps
+Capture FPS:        25
+
+Guest:
+
+Configured memory balloon size:      0 MB
 ```

@@ -57,16 +57,16 @@ Vagrant.configure('2') do |config|
  #  config.vm.box_url = 'file:///Users/malcolm/ubuntu_1604_desktop_base.box'
  #  config.vm.define 'scarlett-ansible-1604'
 
-  config.vm.box = 'bossjones/scarlett-1604-packer'
+  config.vm.box = 'bossjones/scarlett-ansible-manual1604'
   config.vm.box_check_update = true
-  config.vm.box_url = 'file:///Users/malcolm/dev/bossjones/scarlett-packer/ubuntu-16.04-amd64-virtualbox.box'
-  config.vm.define 'scarlett-1604-packer'
+  config.vm.box_url = 'file:///Users/malcolm/dev/bossjones/scarlett-ansible/scarlett-ansible-manual1604.box'
+  config.vm.define 'scarlett-ansible-manual1604-2'
 
   # /Users/malcolm/dev/ubuntu1510/scarlett-ubuntu-15-10.box
 
   # name
   # CHANGME
-  config.vm.hostname = 'scarlett-ansible-1604.local'
+  config.vm.hostname = 'scarlett-ansible-manual1604-2.local'
   config.vm.boot_timeout = 400
 
   # networking
@@ -99,10 +99,10 @@ Vagrant.configure('2') do |config|
   config.vm.provider :virtualbox do |vb|
     # Don't boot with headless mode
     vb.gui = true
-    vb.name = 'scarlett-ansible-1604-packer'
+    vb.name = 'scarlett-ansible-manual1604-2'
 
     # user modifiable memory/cpu settings
-    vb.memory = 2048
+    vb.memory = 6096
     vb.cpus = 2
 
     # NOTE: Not working for some reason
