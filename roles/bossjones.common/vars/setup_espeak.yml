@@ -1,8 +1,0 @@
-# file: bossjones.common/vars/setup_espeak.yml
----
-setup_espeak:
-  - espeak
-  - libespeak-dev
-  - python-espeak
-  - espeak-data
-  - espeak-dbg

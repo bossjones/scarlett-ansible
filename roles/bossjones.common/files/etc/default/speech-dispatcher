@@ -1,5 +1,0 @@
-# Defaults for the speech-dispatcher initscript, from speech-dispatcher
-
-# NOTE: if sound isn't working try this: http://itsfoss.com/fix-sound-ubuntu-1304-quick-tip/
-# Set to yes to start system wide Speech Dispatcher
-RUN=no

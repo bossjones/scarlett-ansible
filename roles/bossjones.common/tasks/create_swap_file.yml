@@ -1,9 +1,0 @@
-# file: bossjones.common/tasks/create_swap_file.yml
----
-- name: create swap file
-  script: scripts/create_swapfile.sh
-
-- name: Activate swapfile on reboots
-  lineinfile: dest=/etc/fstab backup=yes
-    line='/swapfile swap swap defaults 0 0'
-    regexp='/swapfile swap swap defaults 0 0'
