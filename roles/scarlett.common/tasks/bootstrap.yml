@@ -1,0 +1,121 @@
+# file: bossjones.common/tasks/bootstrap.yml
+---
+
+- name: Read the bootstrap variables
+  include_vars: "bootstrap.yml"
+
+- name: make apt use ipv4 instead of ipv6
+  lineinfile: dest=/etc/gai.conf regexp='^#precedence ::ffff:0:0/96  100' line='precedence ::ffff:0:0/96  100'
+
+- name: update system locales
+  copy: src=etc/profile.d/locales.sh
+        dest=/etc/profile.d/locales.sh
+        mode=0755
+        owner=root
+        group=root
+
+- name: Disable multiarch support for ubuntu
+  command: dpkg --remove-architecture i386
+
+- name: update cache again
+  apt: update_cache=yes
+
+- name: Install aptitude packages via apt
+  apt: pkg={{ item }} state=present
+  with_items:
+  - aptitude
+  become: true
+
+- name: Run Aptitude Upgrade
+  apt: update_cache=yes force=yes upgrade=yes
+
+- name: install kernel headers
+  apt: pkg=linux-headers-{{ ansible_kernel }}
+
+- name: Make sure the server_packages packages are installed (Debian)
+  apt:
+    name: "{{item}}"
+    state: latest
+  with_items: "{{ server_packages }}"
+  become: true
+
+# - name: reconfigure locales
+#   command: dpkg-reconfigure locales
+
+- name: Make sure the general_prereqs packages are installed (Debian)
+  apt:
+    name: "{{item}}"
+    state: latest
+  with_items: "{{general_prereqs}}"
+  become: true
+
+- name: Make sure the openssh_packages packages are installed (Debian)
+  apt:
+    name: "{{item}}"
+    state: latest
+  with_items: "{{openssh_packages}}"
+  become: true
+
+- name: Make sure the general_prereqs packages are installed (Debian)
+  apt:
+    name: "{{item}}"
+    state: latest
+  with_items: "{{general_prereqs}}"
+  become: true
+
+- name: Make sure the python_prereqs packages are installed (Debian)
+  apt:
+    name: "{{item}}"
+    state: latest
+  with_items: "{{python_prereqs}}"
+  become: true
+
+- name: Add git-core repo PPA
+  apt_repository: repo='ppa:git-core/ppa' state=present update_cache=yes
+  become: true
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'trusty'
+
+- name: Install git packages via apt
+  apt: pkg={{ item }} state=latest
+  with_items:
+  - git
+  - bash-completion
+  become: true
+
+- name: install viewer packages
+  apt: name={{ item }}
+       state=latest
+       update_cache=yes
+  with_items:
+  - xinetd
+  - libnotify-bin
+  # Zenity is a rewrite of gdialog,
+  # the GNOME port of dialog which allows you to display dialog boxes
+  # from the commandline and shell scripts.
+  - zenity
+  - udev
+  - libnss3
+  - x11vnc
+  # source: https://wiki.archlinux.org/index.php/Preload
+  # - preload
+
+# /usr/install
+- name: create /usr/install
+  file: path=/usr/install
+        state=directory
+        mode=0755
+        recurse=yes
+        owner=pi
+        group=pi
+
+
+- name: Environment variables for scarlett builds
+  template: src="{{ role_path }}/templates/usr/local/bin/{{ item }}.j2"
+            dest=/usr/install/{{ item }}
+            owner=pi
+            group=pi
+            mode=0755
+  with_items:
+  - build_environment_variables.sh
+  tags:
+  - shellscripts

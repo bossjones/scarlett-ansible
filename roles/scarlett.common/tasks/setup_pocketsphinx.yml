@@ -1,0 +1,125 @@
+# file: bossjones.common/tasks/setup_pocketsphinx.yml
+---
+
+- name: Check if sphinxbase exists
+  stat: path="{{virtualenv_vars.MAIN_DIR}}/sphinxbase"
+  register: check_path_sphinxbase
+
+- name: clone sphinxbase
+  git: repo=https://github.com/cmusphinx/sphinxbase.git
+       dest="{{virtualenv_vars.MAIN_DIR}}/sphinxbase"
+       clone=yes
+  become: "{{base_vars.USER}}"
+  become_user: "{{base_vars.USER}}"
+  when: check_path_sphinxbase.stat.exists == false
+
+- name: Check if pocketsphinx exists
+  stat: path="{{virtualenv_vars.MAIN_DIR}}/pocketsphinx"
+  register: check_path_pocketsphinx
+
+- name: clone pocketsphinx
+  git: repo=https://github.com/cmusphinx/pocketsphinx.git
+       dest="{{virtualenv_vars.MAIN_DIR}}/pocketsphinx"
+       clone=yes
+  become: "{{base_vars.USER}}"
+  become_user: "{{base_vars.USER}}"
+  when: check_path_pocketsphinx.stat.exists == false
+
+- name: clone sphinxbase into ~pi/dev/bossjones-github/scarlett-dbus-poc/sphinxbase
+  git: repo=https://github.com/cmusphinx/sphinxbase.git
+       dest="{{virtualenv_vars.MAIN_DIR}}/sphinxbase"
+       clone=no
+       update=yes
+       force=yes
+       version=74370799d5b53afc5b5b94a22f5eff9cb9907b97
+  become: "{{base_vars.USER}}"
+  become_user: "{{base_vars.USER}}"
+
+- name: clone pocketsphinx into ~pi/dev/bossjones-github/scarlett-dbus-poc/pocketsphinx
+  git: repo=https://github.com/cmusphinx/pocketsphinx.git
+       dest="{{virtualenv_vars.MAIN_DIR}}/pocketsphinx"
+       clone=no
+       update=yes
+       force=yes
+       version=68ef5dc6d48d791a747026cd43cc6940a9e19f69
+  become: "{{base_vars.USER}}"
+  become_user: "{{base_vars.USER}}"
+
+- command: "cd {{virtualenv_vars.MAIN_DIR}}/pocketsphinx && git branch"
+  register: pocketsphinx_result
+  ignore_errors: true
+
+- command: "cd {{virtualenv_vars.MAIN_DIR}}/sphinxbase && git branch"
+  register: sphinxbase_result
+  ignore_errors: true
+
+- shell: echo "Sphinxbase branch = '{{ sphinxbase_result }}'"
+  when: sphinxbase_result is defined
+
+- shell: echo "Pocketsphinx branch = '{{ pocketsphinx_result }}'"
+  when: pocketsphinx_result is defined
+
+- name: clone py2cairo into ~pi/dev/bossjones-github/scarlett-dbus-poc/py2cairo
+  git: repo=git://git.cairographics.org/git/py2cairo
+       dest="{{virtualenv_vars.MAIN_DIR}}/py2cairo"
+       clone=no
+       update=no
+       accept_hostkey=true
+  become: "{{base_vars.USER}}"
+  become_user: "{{base_vars.USER}}"
+
+# - name: python3-gi symlink gi
+#   copy: src="{{ item.src }}"
+#         dest="{{ item.dest }}"
+#         owner="{{base_vars.USER}}"
+#         group="{{base_vars.USER}}"
+#         directory_mode=yes
+#         remote_src=yes
+#   with_items:
+#     - { src: '/usr/lib/python3/dist-packages/gi', dest: "/usr/lib/python{{ base_vars.PYTHON_VERSION_MAJOR }}/dist-packages/gi" }
+
+- name: python3-gi symlink gi
+  shell: |
+    cd {{virtualenv_vars.VIRT_ROOT}}/lib/python3.5/site-packages/
+    ln -sf /usr/lib/python3/dist-packages/gi
+  register: symlink_python3_gi
+  become: pi
+  become_user: pi
+  args:
+    executable: /bin/bash
+
+- name: configure py2cairo pygobject glib gst-python
+  template: src="{{ role_path }}/templates/usr/local/bin/{{ item }}.j2"
+            dest=/usr/local/bin/{{ item }}
+            owner=pi
+            group=pi
+            mode=0755
+  with_items:
+  - install_gst-plugins-espeak.sh
+  # - create_symlinks_virtualenv.sh
+  - install_sphinxbase.sh
+  - install_pocketsphinx.sh
+  tags:
+  - pocketsphinx
+  - sphinxbase
+  - shellscripts
+
+- name: compile py2cairo pygobject glib gst-python
+  command: /usr/local/bin/{{ item }}
+  with_items:
+  - install_gst-plugins-espeak.sh
+  # - create_symlinks_virtualenv.sh
+  - install_sphinxbase.sh
+  - install_pocketsphinx.sh
+  tags:
+  - pocketsphinx
+  - sphinxbase
+  - compile
+  - cmusphinx
+  become: "{{base_vars.USER}}"
+  become_user: "{{base_vars.USER}}"
+  ignore_errors: yes
+
+- name: ldconfig after compiling
+  command: "ldconfig"
+  become: true

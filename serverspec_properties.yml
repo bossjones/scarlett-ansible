@@ -1,7 +1,7 @@
 # source: https://github.com/serverspec/serverspec-integration-test/tree/6d5d04b302b09f7cc6268a945da135ef5283aa96
 #vagrant serverspec:
 # BOSSJONES: Note this is called default since that's what vagrant named it
-default:
+scarlett-ansible-manual1604-2:
   # tests to run - found in spec/
   :roles:
   - python
@@ -21,13 +21,3 @@ default:
   # - sshd
   - system_info
   fake-var: 1.1.14
-
-
-# # second vagrant host
-# #jdemo-test-1:
-# 192.168.56.161:
-#   # tests to run - found in spec/
-#   :roles:
-#   - ubuntu
-#   - jdemo
-#   fake-var: 1.1.14

@@ -1,5 +1,12 @@
 # scarlett-ansible
 
+# Audio on ubuntu 16.04 links
+https://help.ubuntu.com/community/SoundTroubleshootingProcedure
+http://askubuntu.com/questions/774458/installed-lubuntu-16-04-version-no-audio-now
+https://musescore.org/en/node/107601
+https://ubuntuforums.org/showthread.php?t=2321631
+
+
 ## Description
 
 The purpose of this repository is to provision a server with all required Scarlett dependencies via ansible. When finished, we can then verify that everything is in place correctly by using serverspec as a integration testing framework. This repo will also serve as a brain dump for any installation issues we come across while attempting to get GTK+3, Gstreamer 1.0, PyGi, Pocketsphinx 5prealpha, PulseAudio, Alsa and Python to play nicely together. As you can see from the list of dependices, there are A LOT of things to take into consideration when configuring this system properly ... the fact that I did not create this earlier baffles my mind!
@@ -872,7 +879,7 @@ gconftool -t string --set /system/gstreamer/0.10/default/audiosink pulsesink
 gconftool -t string --set /system/gstreamer/0.10/default/audiosrc pulsesrc
 ```
 
-*Source:* 
+*Source:*
 - http://www.alsa-project.org/main/index.php/Asoundrc
 
 ```
@@ -971,7 +978,7 @@ UPGRADING FROM POCKETSPHINX 0.8 -> 5prealpha
 # other sound frameworks ( Gstreamer ) + how to configure it
 # testing alsa works correctly w/ arecord and aplay
 # testing pulseaduio works with parecord and paplay
-# pocketsphinx install 
+# pocketsphinx install
 # finally running pocketsphinx_continuous
 
 # TERMS
@@ -1257,4 +1264,471 @@ Setting pipeline to PAUSED ...
 Setting pipeline to READY ...
 Setting pipeline to NULL ...
 Freeing pipeline ...
+```
+
+
+### vagrant package --base "f5fba22c-929b-4a55-bb1c-c5a3d0f26b8d" --output ubuntu_1604_desktop_base.box
+
+```
+ |2.1.7|  using virtualenv: packer-ubuntu-1604  Malcolms-MBP-3 in ~
+○ → vagrant package --base "f5fba22c-929b-4a55-bb1c-c5a3d0f26b8d" --output ubuntu_1604_desktop_base.box
+==> f5fba22c-929b-4a55-bb1c-c5a3d0f26b8d: Exporting VM...
+==> f5fba22c-929b-4a55-bb1c-c5a3d0f26b8d: Compressing package to: /Users/malcolm/ubuntu_1604_desktop_base.box
+```
+
+# Environment variables for resize script
+
+```
+± |featutre-1604 U:2 ?:1 ✗| → env | grep CD_TO
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → export CD_TO=~/dev/bossjones/scarlett-ansible
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → export USERDIR=$PWD
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → export VDMK_FILE=packer-ubuntu-16.04-amd64-disk1.vmdk
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → export VAGRANT_VMNAME=scarlett-base-16-04
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → export VDI_FILENAME=scarlett_50gb.vdi
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → env | grep CD_TO
+CD_TO=/Users/malcolm/dev/bossjones/scarlett-ansible
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → env | grep USERDIR
+USERDIR=/Users/malcolm/dev/bossjones/scarlett-ansible
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → env | grep VDMK_FILE
+VDMK_FILE=packer-ubuntu-16.04-amd64-disk1.vmdk
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → env | grep VAGRANT_VMNAME
+VAGRANT_VMNAME=scarlett-base-16-04
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → env | grep VDI_FILENAME
+VDI_FILENAME=scarlett_50gb.vdi
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → env | grep VMNAME
+VAGRANT_VMNAME=scarlett-base-16-04
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → cd $CD_TO
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → export VMNAME=$(grep "  vb.name" Vagrantfile | cut -d\' -f2)
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → env | grep VMNAME
+VMNAME=scarlett-ansible-1604-packer2
+VAGRANT_VMNAME=scarlett-base-16-04
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → env | grep VM_PATH
+NVM_PATH=/Users/malcolm/.nvm/versions/node/v5.9.0/lib/node
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → export VM_PATH="$HOME/VirtualBox VMs/$VMNAME"
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → env | grep VM_PATH
+NVM_PATH=/Users/malcolm/.nvm/versions/node/v5.9.0/lib/node
+VM_PATH=/Users/malcolm/VirtualBox VMs/scarlett-ansible-1604-packer2
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| →
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:2 ?:1 ✗| → vagrant up --no-provision
+Bringing machine 'scarlett-1604-packer2' up with 'virtualbox' provider...
+==> scarlett-1604-packer2: Importing base box 'bossjones/scarlett-1604-packer'...
+==> scarlett-1604-packer2: Matching MAC address for NAT networking...
+==> scarlett-1604-packer2: Setting the name of the VM: scarlett-ansible-1604-packer2
+==> scarlett-1604-packer2: Clearing any previously set network interfaces...
+==> scarlett-1604-packer2: Preparing network interfaces based on configuration...
+    scarlett-1604-packer2: Adapter 1: nat
+    scarlett-1604-packer2: Adapter 2: bridged
+==> scarlett-1604-packer2: Forwarding ports...
+    scarlett-1604-packer2: 2376 (guest) => 2376 (host) (adapter 1)
+    scarlett-1604-packer2: 22 (guest) => 2222 (host) (adapter 1)
+==> scarlett-1604-packer2: Running 'pre-boot' VM customizations...
+==> scarlett-1604-packer2: Booting VM...
+==> scarlett-1604-packer2: Waiting for machine to boot. This may take a few minutes...
+    scarlett-1604-packer2: SSH address: 127.0.0.1:2222
+    scarlett-1604-packer2: SSH username: pi
+    scarlett-1604-packer2: SSH auth method: private key
+==> scarlett-1604-packer2: Machine booted and ready!
+==> scarlett-1604-packer2: Checking for guest additions in VM...
+==> scarlett-1604-packer2: Setting hostname...
+==> scarlett-1604-packer2: Configuring and enabling network interfaces...
+The following SSH command responded with a non-zero exit status.
+Vagrant assumes that this means the command failed!
+
+/sbin/ifdown eth1 2> /dev/null
+
+Stdout from the command:
+
+
+
+Stderr from the command:
+
+mesg: ttyname failed: Inappropriate ioctl for device
+
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:3 ?:1 ✗| → vagrant halt
+==> scarlett-1604-packer2: Attempting graceful shutdown of VM...
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:3 ?:1 ✗| → cd "$VM_PATH"
+
+ |2.1.7|   Malcolms-MBP-3 in ~/VirtualBox VMs/scarlett-ansible-1604-packer2
+○ → ls -lta
+total 11968688
+drwx------   6 malcolm  staff         204 Sep 10 14:17 .
+-rw-------   1 malcolm  staff  6127943680 Sep 10 14:17 packer-ubuntu-16.04-amd64-disk1.vmdk
+-rw-------   1 malcolm  staff        8560 Sep 10 14:17 scarlett-ansible-1604-packer2.vbox
+-rw-------   1 malcolm  staff        8560 Sep 10 14:17 scarlett-ansible-1604-packer2.vbox-prev
+drwx------   3 malcolm  staff         102 Sep 10 14:14 Logs
+drwx------  12 malcolm  staff         408 Sep 10 14:14 ..
+
+ |2.1.7|   Malcolms-MBP-3 in ~/VirtualBox VMs/scarlett-ansible-1604-packer2
+○ →
+
+
+
+
+UUID:           b5bb12c1-4e9d-4d4f-9dea-e5a88601e3ad
+Parent UUID:    base
+State:          inaccessible
+Type:           normal (base)
+Location:       /Users/malcolm/VirtualBox VMs/scarlett-ansible-1604-packer2/out.vdi
+Storage format: VDI
+Capacity:       56320 MBytes
+Encryption:     disabled
+
+UUID:           2a845830-55d1-4181-8b0f-ba274b524db1
+Parent UUID:    base
+State:          inaccessible
+Type:           normal (base)
+Location:       /Users/malcolm/VirtualBox VMs/scarlett-ansible-1604-packer2/box-disk1_50gb.vmdk
+Storage format: VMDK
+Capacity:       56320 MBytes
+Encryption:     disabled
+
+UUID:           c33810ce-a153-44d9-bd51-f66af6a2fc82
+Parent UUID:    base
+State:          inaccessible
+Type:           normal (base)
+Location:       /Users/malcolm/VirtualBox VMs/scarlett-ansible-1604-packer2/scarlett_50gb.vdi
+Storage format: VDI
+Capacity:       56320 MBytes
+Encryption:     disabled
+
+UUID:           1683a1b1-e82c-4f8a-bcd6-1b706565179e
+Parent UUID:    base
+State:          created
+Type:           normal (base)
+Location:       /Users/malcolm/VirtualBox VMs/scarlett-ansible-1604-packer2/packer-ubuntu-16.04-amd64-disk1.vmdk
+Storage format: VMDK
+Capacity:       20000 MBytes
+Encryption:     disabled
+```
+
+The trick to fixing this was here:
+
+https://coderwall.com/p/8m--dq/purge-deleted-hard-disks-from-virtual-box
+
+```
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:1 ✗| → vagrant halt
+==> scarlett-1604-packer2: Attempting graceful shutdown of VM...
+
+ |2.1.7|   Malcolms-MBP-3 in ~/dev/bossjones/scarlett-ansible
+± |featutre-1604 U:1 ✗| → cd "$VM_PATH"
+
+ |2.1.7|   Malcolms-MBP-3 in ~/VirtualBox VMs/scarlett-ansible-1604-packer2
+○ → ll
+total 11979568
+drwx------   6 malcolm  staff         204 Sep 10 14:41 .
+drwx------  12 malcolm  staff         408 Sep 10 14:40 ..
+drwx------   3 malcolm  staff         102 Sep 10 14:40 Logs
+-rw-------   1 malcolm  staff  6133514240 Sep 10 14:41 packer-ubuntu-16.04-amd64-disk1.vmdk
+-rw-------   1 malcolm  staff        8560 Sep 10 14:41 scarlett-ansible-1604-packer2.vbox
+-rw-------   1 malcolm  staff        8560 Sep 10 14:41 scarlett-ansible-1604-packer2.vbox-prev
+
+ |2.1.7|   Malcolms-MBP-3 in ~/VirtualBox VMs/scarlett-ansible-1604-packer2
+○ → VBoxManage clonehd $VDMK_FILE ${VDI_FILENAME} --format VDI
+0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100%
+Clone medium created in format 'VDI'. UUID: a392e58b-04fe-48ea-9ed4-e199654b503e
+
+ |2.1.7|   Malcolms-MBP-3 in ~/VirtualBox VMs/scarlett-ansible-1604-packer2
+○ → VBoxManage modifyhd ${VDI_FILENAME} --resizebyte 59055800320
+0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100%
+
+ |2.1.7|   Malcolms-MBP-3 in ~/VirtualBox VMs/scarlett-ansible-1604-packer2
+○ → VBoxManage clonehd ${VDI_FILENAME} box-disk1_50gb.vmdk --format VMDK
+0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100%
+Clone medium created in format 'VMDK'. UUID: 0158b89a-f0c9-4f1f-b097-c207e034a9bb
+
+ |2.1.7|   Malcolms-MBP-3 in ~/VirtualBox VMs/scarlett-ansible-1604-packer2
+○ →
+
+ VBoxManage showvminfo "scarlett-ansible-1604-packer2"
+
+
+ ○ → VBoxManage showvminfo "scarlett-ansible-1604-packer2"
+Name:            scarlett-ansible-1604-packer2
+Groups:          /
+Guest OS:        Ubuntu (64-bit)
+UUID:            5d9fbcf5-2022-4e82-88dc-a93c4688b52a
+Config file:     /Users/malcolm/VirtualBox VMs/scarlett-ansible-1604-packer2/scarlett-ansible-1604-packer2.vbox
+Snapshot folder: /Users/malcolm/VirtualBox VMs/scarlett-ansible-1604-packer2/Snapshots
+Log folder:      /Users/malcolm/VirtualBox VMs/scarlett-ansible-1604-packer2/Logs
+Hardware UUID:   5d9fbcf5-2022-4e82-88dc-a93c4688b52a
+Memory size:     2048MB
+Page Fusion:     off
+VRAM size:       8MB
+CPU exec cap:    100%
+HPET:            off
+Chipset:         piix3
+Firmware:        BIOS
+Number of CPUs:  2
+PAE:             on
+Long Mode:       on
+CPUID Portability Level: 0
+CPUID overrides: None
+Boot menu mode:  message and menu
+Boot Device (1): HardDisk
+Boot Device (2): DVD
+Boot Device (3): Not Assigned
+Boot Device (4): Not Assigned
+ACPI:            on
+IOAPIC:          on
+Time offset:     0ms
+RTC:             UTC
+Hardw. virt.ext: on
+Nested Paging:   on
+Large Pages:     on
+VT-x VPID:       on
+VT-x unr. exec.: on
+Paravirt. Provider: Default
+State:           powered off (since 2016-09-10T18:41:35.261000000)
+Monitor count:   1
+3D Acceleration: off
+2D Video Acceleration: off
+Teleporter Enabled: off
+Teleporter Port: 0
+Teleporter Address:
+Teleporter Password:
+Tracing Enabled: off
+Allow Tracing to Access VM: off
+Tracing Configuration:
+Autostart Enabled: off
+Autostart Delay: 0
+Default Frontend:
+Storage Controller Name (0):            IDE Controller
+Storage Controller Type (0):            PIIX4
+Storage Controller Instance Number (0): 0
+Storage Controller Max Port Count (0):  2
+Storage Controller Port Count (0):      2
+Storage Controller Bootable (0):        on
+IDE Controller (0, 0): /Users/malcolm/VirtualBox VMs/scarlett-ansible-1604-packer2/packer-ubuntu-16.04-amd64-disk1.vmdk (UUID: c36a7d63-db73-461c-b05d-093917e19e19)
+NIC 1:           MAC: 0800279C7307, Attachment: NAT, Cable connected: on, Trace: off (file: none), Type: 82540EM, Reported speed: 0 Mbps, Boot priority: 0, Promisc Policy: deny, Bandwidth group: none
+NIC 1 Settings:  MTU: 0, Socket (send: 64, receive: 64), TCP Window (send:64, receive: 64)
+NIC 1 Rule(0):   name = ssh, protocol = tcp, host ip = 127.0.0.1, host port = 2222, guest ip = , guest port = 22
+NIC 1 Rule(1):   name = tcp2376, protocol = tcp, host ip = 127.0.0.1, host port = 2376, guest ip = , guest port = 2376
+NIC 2:           MAC: 080027CF00AC, Attachment: Bridged Interface 'en0: Wi-Fi (AirPort)', Cable connected: on, Trace: off (file: none), Type: 82540EM, Reported speed: 0 Mbps, Boot priority: 0, Promisc Policy: deny, Bandwidth group: none
+NIC 3:           disabled
+NIC 4:           disabled
+NIC 5:           disabled
+NIC 6:           disabled
+NIC 7:           disabled
+NIC 8:           disabled
+Pointing Device: PS/2 Mouse
+Keyboard Device: PS/2 Keyboard
+UART 1:          disabled
+UART 2:          disabled
+LPT 1:           disabled
+LPT 2:           disabled
+Audio:           enabled (Driver: CoreAudio, Controller: AC97, Codec: STAC9700)
+Clipboard Mode:  disabled
+Drag and drop Mode: disabled
+VRDE:            enabled (Address 127.0.0.1, Ports 5993, MultiConn: off, ReuseSingleConn: off, Authentication type: null)
+Video redirection: disabled
+VRDE property: TCP/Ports  = "5993"
+VRDE property: TCP/Address = "127.0.0.1"
+VRDE property: VideoChannel/Enabled = <not set>
+VRDE property: VideoChannel/Quality = <not set>
+VRDE property: VideoChannel/DownscaleProtection = <not set>
+VRDE property: Client/DisableDisplay = <not set>
+VRDE property: Client/DisableInput = <not set>
+VRDE property: Client/DisableAudio = <not set>
+VRDE property: Client/DisableUSB = <not set>
+VRDE property: Client/DisableClipboard = <not set>
+VRDE property: Client/DisableUpstreamAudio = <not set>
+VRDE property: Client/DisableRDPDR = <not set>
+VRDE property: H3DRedirect/Enabled = <not set>
+VRDE property: Security/Method = <not set>
+VRDE property: Security/ServerCertificate = <not set>
+VRDE property: Security/ServerPrivateKey = <not set>
+VRDE property: Security/CACertificate = <not set>
+VRDE property: Audio/RateCorrectionMode = <not set>
+VRDE property: Audio/LogPath = <not set>
+USB:             enabled
+EHCI:            disabled
+XHCI:            disabled
+
+USB Device Filters:
+
+<none>
+
+Bandwidth groups:  <none>
+
+Shared folders:
+
+Name: 'vagrant', Host path: '/Users/malcolm/dev/bossjones/scarlett-ansible' (machine mapping), writable
+
+Video capturing:    not active
+Capture screens:    0
+Capture file:       /Users/malcolm/VirtualBox VMs/scarlett-ansible-1604-packer2/scarlett-ansible-1604-packer2.webm
+Capture dimensions: 1024x768
+Capture rate:       512 kbps
+Capture FPS:        25
+
+Guest:
+
+Configured memory balloon size:      0 MB
+```
+```
+○ → VBoxManage showvminfo "$VMNAME"
+Name:            scarlett-ansible-1604-packer2
+Groups:          /
+Guest OS:        Ubuntu (64-bit)
+UUID:            5d9fbcf5-2022-4e82-88dc-a93c4688b52a
+Config file:     /Users/malcolm/VirtualBox VMs/scarlett-ansible-1604-packer2/scarlett-ansible-1604-packer2.vbox
+Snapshot folder: /Users/malcolm/VirtualBox VMs/scarlett-ansible-1604-packer2/Snapshots
+Log folder:      /Users/malcolm/VirtualBox VMs/scarlett-ansible-1604-packer2/Logs
+Hardware UUID:   5d9fbcf5-2022-4e82-88dc-a93c4688b52a
+Memory size:     2048MB
+Page Fusion:     off
+VRAM size:       8MB
+CPU exec cap:    100%
+HPET:            off
+Chipset:         piix3
+Firmware:        BIOS
+Number of CPUs:  2
+PAE:             on
+Long Mode:       on
+CPUID Portability Level: 0
+CPUID overrides: None
+Boot menu mode:  message and menu
+Boot Device (1): HardDisk
+Boot Device (2): DVD
+Boot Device (3): Not Assigned
+Boot Device (4): Not Assigned
+ACPI:            on
+IOAPIC:          on
+Time offset:     0ms
+RTC:             UTC
+Hardw. virt.ext: on
+Nested Paging:   on
+Large Pages:     on
+VT-x VPID:       on
+VT-x unr. exec.: on
+Paravirt. Provider: Default
+State:           powered off (since 2016-09-10T18:41:35.261000000)
+Monitor count:   1
+3D Acceleration: off
+2D Video Acceleration: off
+Teleporter Enabled: off
+Teleporter Port: 0
+Teleporter Address:
+Teleporter Password:
+Tracing Enabled: off
+Allow Tracing to Access VM: off
+Tracing Configuration:
+Autostart Enabled: off
+Autostart Delay: 0
+Default Frontend:
+Storage Controller Name (0):            IDE Controller
+Storage Controller Type (0):            PIIX4
+Storage Controller Instance Number (0): 0
+Storage Controller Max Port Count (0):  2
+Storage Controller Port Count (0):      2
+Storage Controller Bootable (0):        on
+IDE Controller (0, 0): /Users/malcolm/VirtualBox VMs/scarlett-ansible-1604-packer2/packer-ubuntu-16.04-amd64-disk1.vmdk (UUID: c36a7d63-db73-461c-b05d-093917e19e19)
+NIC 1:           MAC: 0800279C7307, Attachment: NAT, Cable connected: on, Trace: off (file: none), Type: 82540EM, Reported speed: 0 Mbps, Boot priority: 0, Promisc Policy: deny, Bandwidth group: none
+NIC 1 Settings:  MTU: 0, Socket (send: 64, receive: 64), TCP Window (send:64, receive: 64)
+NIC 1 Rule(0):   name = ssh, protocol = tcp, host ip = 127.0.0.1, host port = 2222, guest ip = , guest port = 22
+NIC 1 Rule(1):   name = tcp2376, protocol = tcp, host ip = 127.0.0.1, host port = 2376, guest ip = , guest port = 2376
+NIC 2:           MAC: 080027CF00AC, Attachment: Bridged Interface 'en0: Wi-Fi (AirPort)', Cable connected: on, Trace: off (file: none), Type: 82540EM, Reported speed: 0 Mbps, Boot priority: 0, Promisc Policy: deny, Bandwidth group: none
+NIC 3:           disabled
+NIC 4:           disabled
+NIC 5:           disabled
+NIC 6:           disabled
+NIC 7:           disabled
+NIC 8:           disabled
+Pointing Device: PS/2 Mouse
+Keyboard Device: PS/2 Keyboard
+UART 1:          disabled
+UART 2:          disabled
+LPT 1:           disabled
+LPT 2:           disabled
+Audio:           enabled (Driver: CoreAudio, Controller: AC97, Codec: STAC9700)
+Clipboard Mode:  disabled
+Drag and drop Mode: disabled
+VRDE:            enabled (Address 127.0.0.1, Ports 5993, MultiConn: off, ReuseSingleConn: off, Authentication type: null)
+Video redirection: disabled
+VRDE property: TCP/Ports  = "5993"
+VRDE property: TCP/Address = "127.0.0.1"
+VRDE property: VideoChannel/Enabled = <not set>
+VRDE property: VideoChannel/Quality = <not set>
+VRDE property: VideoChannel/DownscaleProtection = <not set>
+VRDE property: Client/DisableDisplay = <not set>
+VRDE property: Client/DisableInput = <not set>
+VRDE property: Client/DisableAudio = <not set>
+VRDE property: Client/DisableUSB = <not set>
+VRDE property: Client/DisableClipboard = <not set>
+VRDE property: Client/DisableUpstreamAudio = <not set>
+VRDE property: Client/DisableRDPDR = <not set>
+VRDE property: H3DRedirect/Enabled = <not set>
+VRDE property: Security/Method = <not set>
+VRDE property: Security/ServerCertificate = <not set>
+VRDE property: Security/ServerPrivateKey = <not set>
+VRDE property: Security/CACertificate = <not set>
+VRDE property: Audio/RateCorrectionMode = <not set>
+VRDE property: Audio/LogPath = <not set>
+USB:             enabled
+EHCI:            disabled
+XHCI:            disabled
+
+USB Device Filters:
+
+<none>
+
+Bandwidth groups:  <none>
+
+Shared folders:
+
+Name: 'vagrant', Host path: '/Users/malcolm/dev/bossjones/scarlett-ansible' (machine mapping), writable
+
+Video capturing:    not active
+Capture screens:    0
+Capture file:       /Users/malcolm/VirtualBox VMs/scarlett-ansible-1604-packer2/scarlett-ansible-1604-packer2.webm
+Capture dimensions: 1024x768
+Capture rate:       512 kbps
+Capture FPS:        25
+
+Guest:
+
+Configured memory balloon size:      0 MB
 ```

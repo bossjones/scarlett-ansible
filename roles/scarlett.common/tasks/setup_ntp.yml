@@ -1,0 +1,31 @@
+# file: bossjones.common/tasks/setup_ntp.yml
+---
+- name: ensure ntpd is at the present version
+  apt: pkg={{ item }}
+       state=present
+  with_items:
+  - ntp
+
+- name: configure ntpd
+  template: src="{{ role_path }}/templates/etc/ntp.conf.j2"
+            dest=/etc/ntp.conf
+            owner=root
+            group=root
+            mode=0644
+            backup=yes
+  tags:
+  - ntp
+  - configuration
+  notify:
+  - restart ntp
+
+- name: enable ntpd
+  service: name=ntp
+           state=running
+           enabled=yes
+  tags:
+  - service
+
+- name: restart ntp
+  service: name=ntp
+           state=restarted

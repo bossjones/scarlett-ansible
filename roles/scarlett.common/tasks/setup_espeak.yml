@@ -1,0 +1,15 @@
+# file: bossjones.common/tasks/setup_espeak.yml
+---
+
+- name: Read the setup_espeak variables
+  include_vars: "setup_espeak.yml"
+
+- name: Make sure the setup_espeak packages are installed (Debian)
+  apt:
+    name: "{{item}}"
+    state: present
+  with_items: "{{setup_espeak}}"
+  become: true
+  tags:
+  - espeak
+  - packages

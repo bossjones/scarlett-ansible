@@ -1,0 +1,202 @@
+# file: bossjones.common/tasks/setup_python.yml
+---
+
+- name: Read the setup_python variables
+  include_vars: "setup_python.yml"
+
+- name: Make sure the setup_python packages are installed (Debian)
+  apt:
+    name: "{{item}}"
+    state: present
+  with_items: "{{setup_python}}"
+  become: true
+
+# easy_install pip==1.2.1
+
+# TODO: WE NEED TO ADD THIS
+# - name: install (via apt) required python libraries for attention word module (PocketSphinx)
+#   apt:
+#     name: "{{item}}"
+#     state: present
+#   with_items:
+#   - portaudio19-dev
+#   - python3-all-dev
+#   - swig
+
+- name: easy_install pip==1.2.1
+  command: "easy_install pip==1.2.1"
+  tags:
+  - pip
+  - easy_install
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'trusty'
+
+
+- name: download ez_setup.py
+  get_url: url=https://bootstrap.pypa.io/ez_setup.py dest=/usr/install/ez_setup.py  mode=0644
+
+- name: download get-pip.py
+  get_url: url=https://bootstrap.pypa.io/get-pip.py dest=/usr/install/get-pip.py  mode=0644
+
+- name: setuptools==26.0.0 and pip==8.1.2
+  command: "python3 /usr/install/ez_setup.py"
+  become: true
+  args:
+    chdir: /root
+  tags:
+  - pip
+  - easy_install
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'xenial'
+
+- name: pip==8.1.2
+  command: "python3 /usr/install/get-pip.py"
+  become: true
+  args:
+    chdir: /root
+  tags:
+  - pip
+  - easy_install
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'xenial'
+
+# root@ubuntu:~# ls -lta /usr/local/bin/ | grep pip
+# -rwxr-xr-x  1 root root  205 Aug 21 16:43 pip
+# -rwxr-xr-x  1 root root  205 Aug 21 16:43 pip3
+# -rwxr-xr-x  1 root root  205 Aug 21 16:43 pip3.5
+# -rwxr-xr-x  1 root root  283 Aug 21 12:37 pip2
+# -rwxr-xr-x  1 root root  287 Aug 21 12:37 pip2.7
+# root@ubuntu:~#
+
+- name: Install virtualenv and virtualenvwrapper
+  become: true
+  pip: name={{ item }}
+       executable=pip3
+  with_items:
+  - virtualenv
+  - virtualenvwrapper
+
+- name: install ipython
+  pip: name=ipython
+       state=present
+       executable=pip3
+
+- name: install numpy
+  pip: name=numpy
+       state=present
+       executable=pip3
+
+- name: configure pythonrc
+  copy: src=home/pi/pythonrc
+        dest=/home/pi/.pythonrc
+        owner=pi
+        group=pi
+        mode=0644
+        backup=yes
+  tags:
+  - pythonrc
+  - configuration
+
+- name: install python-osmgpsmap if Trusty
+  apt:
+    name: python-osmgpsmap
+    state: present
+  become: true
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'trusty'
+  tags:
+  - trusty_only
+
+- name: pip3 install -I path.py==7.7.1
+  command: "pip3 install -I path.py==7.7.1"
+  tags:
+  - pip
+  - downgrade
+
+# export WORKON_HOME={{ virtualenv_vars.WORKON_HOME }}
+# export PROJECT_HOME={{ virtualenv_vars.PROJECT_HOME }}
+# export VIRTUALENVWRAPPER_PYTHON={{ virtualenv_vars.VIRTUALENVWRAPPER_PYTHON }}
+# export VIRTUALENVWRAPPER_VIRTUALENV={{ virtualenv_vars.VIRTUALENVWRAPPER_VIRTUALENV }}
+# source {{ virtualenv_vars.VIRTUALENVWRAPPER_SCRIPT }}
+# export PYTHONSTARTUP={{ virtualenv_vars.PYTHONSTARTUP }}
+# export PIP_DOWNLOAD_CACHE={{ virtualenv_vars.PIP_DOWNLOAD_CACHE }}
+# cd {{virtualenv_vars.MAIN_DIR}}
+# {{ virtualenv_vars.VIRT_ROOT }}/bin/pip3 install -I path.py==7.7.1
+# {{ virtualenv_vars.VIRT_ROOT }}/bin/pip3 install -r {{ virtualenv_vars.MAIN_DIR }}/{{ item }}
+
+# - name: Update .bashrc with virtualenvwrapper
+#   lineinfile:
+#     backup=yes
+#     create=true
+#     dest=~/.bashrc
+#     insertafter=EOF
+#     line={{ item }}
+#     state=present
+#   become: pi
+#   become_user: pi
+#   with_items:
+#   - export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+#   - export WORKON_HOME={{ virtualenv_vars.WORKON_HOME }}
+#   - source /usr/local/bin/virtualenvwrapper.sh
+
+#
+# - name: Run 'mkvirtualenv base_vars.GITHUB_REPO_NAME'
+#   shell: >
+#     executable=/bin/bash
+#     source /usr/local/bin/virtualenvwrapper.sh && mkvirtualenv --system-site-packages {{ base_vars.GITHUB_REPO_NAME }}
+#   register: run_cmd
+#   become: pi
+#   become_user: pi
+
+- name: Create a new Python virtual environment
+  shell: |
+    export WORKON_HOME={{ virtualenv_vars.WORKON_HOME }}
+    export PROJECT_HOME={{ virtualenv_vars.PROJECT_HOME }}
+    export VIRTUALENVWRAPPER_PYTHON={{ virtualenv_vars.VIRTUALENVWRAPPER_PYTHON }}
+    export VIRTUALENVWRAPPER_VIRTUALENV={{ virtualenv_vars.VIRTUALENVWRAPPER_VIRTUALENV }}
+    source {{ virtualenv_vars.VIRTUALENVWRAPPER_SCRIPT }}
+    export PYTHONSTARTUP={{ virtualenv_vars.PYTHONSTARTUP }}
+    export PIP_DOWNLOAD_CACHE={{ virtualenv_vars.PIP_DOWNLOAD_CACHE }}
+    mkvirtualenv --system-site-packages {{ base_vars.GITHUB_REPO_NAME }}
+  register: run_cmd
+  become: pi
+  become_user: pi
+  args:
+    executable: /bin/bash
+
+- debug: var=run_cmd.stdout_lines
+
+- name: configure virtualenv_vars.VIRT_ROOT/bin/postactivate
+  template: src="{{ role_path }}/templates/home/pi/{{ item }}.j2"
+            dest="{{ virtualenv_vars.VIRT_ROOT }}/bin/{{ item }}"
+            owner=pi
+            group=pi
+            mode=0755
+            backup=no
+  with_items:
+  - postactivate
+  tags:
+  - virtualenv
+  - configuration
+  - python
+
+# /home/pi/.virtualenvs/scarlett_os/scarlett_os/bin/python
+# /home/pi/.virtualenvs/scarlett_os/bin
+
+# TASK [scarlett.common : Update .bashrc with virtualenvwrapper] *****************
+# ok: [scarlett-ansible-manual1604-2] => (item=export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3) => {"backup": "", "changed": false, "item": "export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3", "msg": ""}
+# ok: [scarlett-ansible-manual1604-2] => (item=export WORKON_HOME=/home/pi/.virtualenvs/scarlett_os) => {"backup": "", "changed": false, "item": "export WORKON_HOME=/home/pi/.virtualenvs/scarlett_os", "msg": ""}
+# ok: [scarlett-ansible-manual1604-2] => (item=source /usr/local/bin/virtualenvwrapper.sh) => {"backup": "", "changed": false, "item": "source /usr/local/bin/virtualenvwrapper.sh", "msg": ""}
+#
+# TASK [scarlett.common : Create a new Python virtual environment] ***************
+# changed: [scarlett-ansible-manual1604-2] => {"changed": true, "cmd": "export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3\n export WORKON_HOME=/home/pi/.virtualenvs/scarlett_os\n source /usr/local/bin/virtualenvwrapper.sh\n mkvirtualenv --system-site-packages scarlett_os", "delta": "0:00:08.458621", "end": "2016-09-11 19:13:22.243851", "rc": 0, "start": "2016-09-11 19:13:13.785230", "stderr": "", "stdout": "Using base prefix '/usr'\nNew python executable in /home/pi/.virtualenvs/scarlett_os/scarlett_os/bin/python3\nNot overwriting existing python script /home/pi/.virtualenvs/scarlett_os/scarlett_os/bin/python (you must use /home/pi/.virtualenvs/scarlett_os/scarlett_os/bin/python3)\nInstalling setuptools, pip, wheel...done.", "stdout_lines": ["Using base prefix '/usr'", "New python executable in /home/pi/.virtualenvs/scarlett_os/scarlett_os/bin/python3", "Not overwriting existing python script /home/pi/.virtualenvs/scarlett_os/scarlett_os/bin/python (you must use /home/pi/.virtualenvs/scarlett_os/scarlett_os/bin/python3)", "Installing setuptools, pip, wheel...done."], "warnings": []}
+
+- name: configure virtualenv_vars.VIRT_ROOT/bin/postdeactivate
+  template: src="{{ role_path }}/templates/home/pi/{{ item }}.j2"
+            dest="{{ virtualenv_vars.VIRT_ROOT }}/bin/{{ item }}"
+            owner=pi
+            group=pi
+            mode=0755
+            backup=no
+  with_items:
+  - postdeactivate
+  tags:
+  - virtualenv
+  - configuration
+  - python

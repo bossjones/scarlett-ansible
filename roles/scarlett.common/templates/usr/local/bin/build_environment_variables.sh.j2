@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+#
+# set -o nounset
+# set -o errexit
+
+export PYTHON_VERSION={{ base_vars.PYTHON_VERSION }}
+export GSTREAMER={{ base_vars.GSTREAMER }}
+export PI_HOME={{ base_vars.USER_HOME }}
+export MAIN_DIR={{ virtualenv_vars.MAIN_DIR }}
+export VIRT_ROOT={{ virtualenv_vars.VIRT_ROOT }}
+export PKG_CONFIG_PATH={{ build_vars.PKG_CONFIG_PATH }}
+export SCARLETT_CONFIG={{ scarlett_vars.SCARLETT_CONFIG }}
+export SCARLETT_HMM={{ scarlett_vars.SCARLETT_HMM }}
+export SCARLETT_LM={{ scarlett_vars.SCARLETT_LM }}
+export SCARLETT_DICT={{ scarlett_vars.SCARLETT_DICT }}
+
+# for GST PLUGINS
+export LD_LIBRARY_PATH={{ build_vars.LD_LIBRARY_PATH }}
+export GST_PLUGIN_PATH={{ build_vars.GST_PLUGIN_PATH }}
+
+# export PYTHONPATH=/usr/lib/$PYTHON_VERSION
+# export PATH=$PATH:$PYTHONPATH
+
+export PYTHON=/usr/bin/python3
+export PYTHON_VERSION='3.5'

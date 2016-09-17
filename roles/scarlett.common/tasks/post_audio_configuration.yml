@@ -1,0 +1,63 @@
+# file: scarlett.common/tasks/post_audio_configuration.yml
+---
+
+- name: gconftool-2 -t string --set /system/gstreamer/1.0/default/audiosink pulsesink
+  shell: |
+    export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+    export WORKON_HOME={{ virtualenv_vars.WORKON_HOME }}
+    source /usr/local/bin/virtualenvwrapper.sh
+    workon {{ base_vars.GITHUB_REPO_NAME }}
+    gconftool-2 -t string --set /system/gstreamer/1.0/default/audiosink pulsesink
+  register: gconftool_pulsesink_result
+  become: pi
+  become_user: pi
+  args:
+    executable: /bin/bash
+
+- name: gconftool-2 -t string --set /system/gstreamer/1.0/default/audiosrc pulsesrc
+  shell: |
+    export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+    export WORKON_HOME={{ virtualenv_vars.WORKON_HOME }}
+    source /usr/local/bin/virtualenvwrapper.sh
+    workon {{ base_vars.GITHUB_REPO_NAME }}
+    gconftool-2 -t string --set /system/gstreamer/1.0/default/audiosrc pulsesrc
+  register: gconftool_pulsesrc_result
+  become: pi
+  become_user: pi
+  args:
+    executable: /bin/bash
+
+- name: gconftool-2 -t string --set /system/gstreamer/1.0/default/musicaudiosink pulsesink
+  shell: |
+    export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+    export WORKON_HOME={{ virtualenv_vars.WORKON_HOME }}
+    source /usr/local/bin/virtualenvwrapper.sh
+    workon {{ base_vars.GITHUB_REPO_NAME }}
+    gconftool-2 -t string --set /system/gstreamer/1.0/default/musicaudiosink pulsesink
+  register: gconftool_musicaudiosink_result
+  become: pi
+  become_user: pi
+  args:
+    executable: /bin/bash
+
+# source: http://askubuntu.com/questions/97936/terminal-command-to-set-audio-volume
+- name: amixer -D pulse sset Master 100%
+  shell: |
+    export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+    export WORKON_HOME={{ virtualenv_vars.WORKON_HOME }}
+    source /usr/local/bin/virtualenvwrapper.sh
+    workon {{ base_vars.GITHUB_REPO_NAME }}
+    amixer -D pulse sset Master 100%
+  register: set_sound_level
+  become: pi
+  become_user: pi
+  args:
+    executable: /bin/bash
+
+- name: ufw allow 2376
+  shell: |
+    ufw allow 2376
+  register: allow_docker_port
+  become: true
+  args:
+    executable: /bin/bash

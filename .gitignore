@@ -62,3 +62,5 @@ real_scarlett_configuration_files/
 Gemfile.lock
 .DS_Store
 scarlett_ansible.box
+*.retry
+*.box

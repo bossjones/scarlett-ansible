@@ -1,0 +1,69 @@
+# file: bossjones.common/vars/pulseaudio.yml
+---
+libpulse_mainloop_glib:
+  trusty: libpulse-mainloop-glib0-dbg
+  wily: libpulse-mainloop-glib0-dbg
+  xenial: libpulse-mainloop-glib0
+
+libpulse_debug:
+  trusty: libpulse0-dbg
+  wily: libpulse0-dbg
+  xenial: libpulse0
+
+pulseaudio_debug:
+  trusty: pulseaudio-dbg
+  wily: pulseaudio-dbg
+  xenial: pulseaudio
+
+pulseaudio_esound_compat_debug:
+  trusty: pulseaudio-esound-compat-dbg
+  wily: pulseaudio-esound-compat-dbg
+  xenial: pulseaudio-esound-compat
+
+pulseaudio_module_lirc_debug:
+  trusty: pulseaudio-module-lirc-dbg
+  wily: pulseaudio-module-lirc-dbg
+  xenial: pulseaudio-module-lirc
+
+pulseaudio_module_zeroconf_debug:
+  trusty: pulseaudio-module-zeroconf-dbg
+  wily: pulseaudio-module-zeroconf-dbg
+  xenial: pulseaudio-module-zeroconf
+
+sound_libs:
+- faac
+- faad
+- flex
+
+setup_pulseaudio:
+  - libpulse-dev
+  - libpulse-mainloop-glib0
+  - "{{ libpulse_mainloop_glib[ansible_distribution_release] }}"
+  - libpulse0
+  - "{{ libpulse_debug[ansible_distribution_release] }}"
+  - libsox-fmt-pulse
+  - paman
+  - paprefs
+  - pavucontrol
+  - pavumeter
+  - pulseaudio
+  - "{{ pulseaudio_debug[ansible_distribution_release] }}"
+  - pulseaudio-esound-compat
+  - "{{ pulseaudio_esound_compat_debug[ansible_distribution_release] }}"
+  - pulseaudio-module-bluetooth
+  - pulseaudio-module-gconf
+  - pulseaudio-module-jack
+  - pulseaudio-module-lirc
+  - "{{ pulseaudio_module_lirc_debug[ansible_distribution_release] }}"
+  - pulseaudio-module-x11
+  - pulseaudio-module-zeroconf
+  - "{{ pulseaudio_module_zeroconf_debug[ansible_distribution_release] }}"
+  - pulseaudio-utils
+  - pavucontrol
+  - avahi-daemon
+  - libtheora-dev
+  - libogg-dev
+  - libvorbis-dev
+  - libasound2-dev
+  - libjack-dev
+  - alsamixergui

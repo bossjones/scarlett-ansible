@@ -1,0 +1,63 @@
+# file: bossjones.common/tasks/gnome_gtk_prereqs.yml
+---
+
+- name: Read the gnome_gtk_prereqs variables
+  include_vars: "gnome_gtk_prereqs.yml"
+
+# SOURCE: https://launchpad.net/~ricotz/+archive/ubuntu/testing
+- name: Add ppa:ricotz/testing repo PPA on wily
+  apt_repository: repo='ppa:ricotz/testing'
+                  state=present
+                  update_cache=yes
+  become: true
+  tags:
+  - gnome
+  - bleeding_edge
+  - packages
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'wily' or ansible_distribution_release == 'xenial'
+
+# SOURCE: https://launchpad.net/~gnome3-team/+archive/ubuntu/gnome3
+- name: Add ppa:gnome3-team/gnome3 repo PPA on wily
+  apt_repository: repo='ppa:gnome3-team/gnome3'
+                  state=present
+                  update_cache=yes
+  become: true
+  tags:
+  - gnome
+  - bleeding_edge
+  - packages
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'wily' or ansible_distribution_release == 'xenial'
+
+# SOURCE: https://launchpad.net/~gnome3-team/+archive/ubuntu/gnome3-staging
+- name: Add ppa:gnome3-team/gnome3-staging repo PPA on wily
+  apt_repository: repo='ppa:gnome3-team/gnome3-staging'
+                  state=present
+                  update_cache=yes
+  become: true
+  tags:
+  - gnome
+  - bleeding_edge
+  - packages
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'wily' or ansible_distribution_release == 'xenial'
+
+- name: Make sure the gnome_gtk_prereqs_shortlist packages are installed (Debian)
+  apt:
+    name: "{{item}}"
+    state: present
+  with_items: "{{gnome_gtk_prereqs_shortlist}}"
+  become: true
+  tags:
+  - gnome
+  - packages
+  - install_packages
+
+- name: If trusty, install gnome-core-devel
+  apt:
+    name: gnome-core-devel
+    state: present
+  become: true
+  tags:
+  - gnome
+  - packages
+  - install_packages
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'trusty'
