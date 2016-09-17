@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # This hook is sourced after this virtualenv is activated.
 # NOTE THIS HAS BEEN MODIFIED BY SCARLETT
-# EXPECTING PATH: /home/pi/.virtualenvs/scarlett-dbus-poc/bin
+# EXPECTING PATH: {{ virtualenv_vars.VIRT_ROOT }}/bin/postactivate
 
 export PYTHON_VERSION={{ base_vars.PYTHON_VERSION}}
 export GSTREAMER={{ base_vars.GSTREAMER }}

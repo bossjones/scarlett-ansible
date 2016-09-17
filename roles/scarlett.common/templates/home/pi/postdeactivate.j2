@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # This hook is sourced after this virtualenv is deactivated.
 # NOTE THIS HAS BEEN MODIFIED BY SCARLETT
-# EXPECTING PATH: /home/pi/.virtualenvs/scarlett-dbus-poc/bin/postdeactivate
+# EXPECTING PATH: {{ virtualenv_vars.VIRT_ROOT }}/bin/postdeactivate
 
 unset GSTREAMER
 unset PI_HOME

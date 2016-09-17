@@ -109,20 +109,31 @@
   - pip
   - downgrade
 
-- name: Update .bashrc with virtualenvwrapper
-  lineinfile:
-    backup=yes
-    create=true
-    dest=~/.bashrc
-    insertafter=EOF
-    line={{ item }}
-    state=present
-  become: pi
-  become_user: pi
-  with_items:
-  - export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-  - export WORKON_HOME={{ virtualenv_vars.WORKON_HOME }}
-  - source /usr/local/bin/virtualenvwrapper.sh
+# export WORKON_HOME={{ virtualenv_vars.WORKON_HOME }}
+# export PROJECT_HOME={{ virtualenv_vars.PROJECT_HOME }}
+# export VIRTUALENVWRAPPER_PYTHON={{ virtualenv_vars.VIRTUALENVWRAPPER_PYTHON }}
+# export VIRTUALENVWRAPPER_VIRTUALENV={{ virtualenv_vars.VIRTUALENVWRAPPER_VIRTUALENV }}
+# source {{ virtualenv_vars.VIRTUALENVWRAPPER_SCRIPT }}
+# export PYTHONSTARTUP={{ virtualenv_vars.PYTHONSTARTUP }}
+# export PIP_DOWNLOAD_CACHE={{ virtualenv_vars.PIP_DOWNLOAD_CACHE }}
+# cd {{virtualenv_vars.MAIN_DIR}}
+# {{ virtualenv_vars.VIRT_ROOT }}/bin/pip3 install -I path.py==7.7.1
+# {{ virtualenv_vars.VIRT_ROOT }}/bin/pip3 install -r {{ virtualenv_vars.MAIN_DIR }}/{{ item }}
+
+# - name: Update .bashrc with virtualenvwrapper
+#   lineinfile:
+#     backup=yes
+#     create=true
+#     dest=~/.bashrc
+#     insertafter=EOF
+#     line={{ item }}
+#     state=present
+#   become: pi
+#   become_user: pi
+#   with_items:
+#   - export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+#   - export WORKON_HOME={{ virtualenv_vars.WORKON_HOME }}
+#   - source /usr/local/bin/virtualenvwrapper.sh
 
 #
 # - name: Run 'mkvirtualenv base_vars.GITHUB_REPO_NAME'
@@ -135,9 +146,13 @@
 
 - name: Create a new Python virtual environment
   shell: |
-    export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
     export WORKON_HOME={{ virtualenv_vars.WORKON_HOME }}
-    source /usr/local/bin/virtualenvwrapper.sh
+    export PROJECT_HOME={{ virtualenv_vars.PROJECT_HOME }}
+    export VIRTUALENVWRAPPER_PYTHON={{ virtualenv_vars.VIRTUALENVWRAPPER_PYTHON }}
+    export VIRTUALENVWRAPPER_VIRTUALENV={{ virtualenv_vars.VIRTUALENVWRAPPER_VIRTUALENV }}
+    source {{ virtualenv_vars.VIRTUALENVWRAPPER_SCRIPT }}
+    export PYTHONSTARTUP={{ virtualenv_vars.PYTHONSTARTUP }}
+    export PIP_DOWNLOAD_CACHE={{ virtualenv_vars.PIP_DOWNLOAD_CACHE }}
     mkvirtualenv --system-site-packages {{ base_vars.GITHUB_REPO_NAME }}
   register: run_cmd
   become: pi

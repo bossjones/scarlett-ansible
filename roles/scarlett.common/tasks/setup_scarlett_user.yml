@@ -78,12 +78,49 @@
   become: pi
   become_user: pi
 
+#  53 export WORKON_HOME=$HOME/.virtualenvs
+#  54 export PROJECT_HOME=$HOME/dev
+#  55 export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
+#  56 export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+#  57 export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
+#  58 source /usr/local/bin/virtualenvwrapper.sh
+#  59 export PYTHONSTARTUP=~/.pythonrc
+#  60 export PIP_DOWNLOAD_CACHE=$HOME/.pip/cache
+
+# virtualenv_vars:
+#   MAIN_DIR: "{{ base_vars.USER_HOME }}/dev/bossjones-github/{{ base_vars.GITHUB_REPO_NAME }}"
+#   VIRT_ROOT: "{{ base_vars.USER_HOME }}/.virtualenvs/{{ base_vars.GITHUB_REPO_NAME }}"
+#   WORKON_HOME: "{{ base_vars.USER_HOME }}/.virtualenvs"
+#   PROJECT_HOME: "{{ base_vars.USER_HOME }}/dev"
+#   VIRTUALENVWRAPPER_PYTHON: "/usr/bin/python3"
+#   VIRTUALENVWRAPPER_VIRTUALENV: "/usr/local/bin/virtualenv"
+#   VIRTUALENVWRAPPER_SCRIPT: "/usr/local/bin/virtualenvwrapper.sh"
+#   PYTHONSTARTUP: "$HOME/.pythonrc"
+#   PIP_DOWNLOAD_CACHE: "$HOME/.pip/cache"
+
+# base_vars:
+#   PYTHON_VERSION_MAJOR: '3'
+#   PYTHON_VERSION: '3.5'
+#   GSTREAMER: '1.0'
+#   USER: 'pi'
+#   USER_HOME: '/home/pi'
+#   LANGUAGE_ID: 1473
+#   GITHUB_BRANCH: "master"
+#   GITHUB_REPO_NAME: "scarlett_os"
+#   GITHUB_REPO_ORG: "bossjones"
+
 - name: Install scarlett requirements.txt into the virtualenv scarlett_os
   shell: |
-    export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-    export WORKON_HOME={{ virtualenv_vars.VIRT_ROOT }}
-    source /usr/local/bin/virtualenvwrapper.sh
+    export WORKON_HOME={{ virtualenv_vars.WORKON_HOME }}
+    export PROJECT_HOME={{ virtualenv_vars.PROJECT_HOME }}
+    export VIRTUALENVWRAPPER_PYTHON={{ virtualenv_vars.VIRTUALENVWRAPPER_PYTHON }}
+    export VIRTUALENVWRAPPER_VIRTUALENV={{ virtualenv_vars.VIRTUALENVWRAPPER_VIRTUALENV }}
+    source {{ virtualenv_vars.VIRTUALENVWRAPPER_SCRIPT }}
+    export PYTHONSTARTUP={{ virtualenv_vars.PYTHONSTARTUP }}
+    export PIP_DOWNLOAD_CACHE={{ virtualenv_vars.PIP_DOWNLOAD_CACHE }}
     cd {{virtualenv_vars.MAIN_DIR}}
+    workon {{ base_vars.GITHUB_REPO_NAME }}
+    {{ virtualenv_vars.VIRT_ROOT }}/bin/pip3 install -I path.py==7.7.1
     {{ virtualenv_vars.VIRT_ROOT }}/bin/pip3 install -r {{ virtualenv_vars.MAIN_DIR }}/{{ item }}
   args:
     executable: /bin/bash
@@ -99,24 +136,24 @@
 
 # TODO: Make sure we downgrade path.py to v7.7.1, this is untested
 # SOURCE: http://stackoverflow.com/questions/32252122/installing-ipython-importerror-cannot-import-name-path
-- name: downgrade path.py to v7.7.1 in virtualenv scarlett_os
-  command: "{{ virtualenv_vars.VIRT_ROOT }}/bin/pip3 install -I path.py==7.7.1"
-  become: pi
-  become_user: pi
-  tags:
-  - python
-  - pip
-  - requirements
+# - name: downgrade path.py to v7.7.1 in virtualenv scarlett_os
+#   command: "{{ virtualenv_vars.VIRT_ROOT }}/bin/pip3 install -I path.py==7.7.1"
+#   become: pi
+#   become_user: pi
+#   tags:
+#   - python
+#   - pip
+#   - requirements
 
-# TODO: Get this installed into requirements.txt instead of here !!!!!!!!!!!!
-- name: Install colorlog into the virtualenv
-  command: "{{ virtualenv_vars.VIRT_ROOT }}/bin/pip3 install colorlog"
-  become: pi
-  become_user: pi
-  tags:
-  - python
-  - pip
-  - requirements
+# # TODO: Get this installed into requirements.txt instead of here !!!!!!!!!!!!
+# - name: Install colorlog into the virtualenv
+#   command: "{{ virtualenv_vars.VIRT_ROOT }}/bin/pip3 install colorlog"
+#   become: pi
+#   become_user: pi
+#   tags:
+#   - python
+#   - pip
+#   - requirements
 
 - name: clone scarlett-gstreamer-pocketsphinx-demo into /home/pi/dev/bossjones-github/scarlett-gstreamer-pocketsphinx-demo
   git: repo=https://github.com/bossjones/scarlett-gstreamer-pocketsphinx-demo.git
