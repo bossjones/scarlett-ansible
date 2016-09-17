@@ -89,7 +89,7 @@ describe "content of #{venv_site_pkgs_folder} directory" do
 
   %w(gi).each do |pkg|
     it "expect directory #{venv_site_pkgs_folder}/#{pkg}" do
-      expect(file("#{venv_site_pkgs_folder}/#{pkg}")).to be_linked_to("/usr/lib/python#{python_version}/dist-packages/#{pkg}")
+      expect(file("#{venv_site_pkgs_folder}/#{pkg}")).to be_linked_to("/usr/lib/python#{python_version_major}/dist-packages/#{pkg}")
     end
   end
 end
