@@ -39,6 +39,6 @@ build_vars:
 
 scarlett_vars:
   SCARLETT_CONFIG: "{{ virtualenv_vars.MAIN_DIR }}/tests/fixtures/.scarlett"
-  SCARLETT_HMM: "{{ virtualenv_vars.MAIN_DIR }}/.virtualenvs/{{ base_vars.GITHUB_REPO_NAME }}/share/pocketsphinx/model/en-us/en-us"
+  SCARLETT_HMM: "{{ base_vars.USER_HOME }}/.virtualenvs/{{ base_vars.GITHUB_REPO_NAME }}/share/pocketsphinx/model/en-us/en-us"
   SCARLETT_LM: "{{ virtualenv_vars.MAIN_DIR }}/tests/fixtures/lm/{{ base_vars.LANGUAGE_ID }}.lm"
   SCARLETT_DICT: "{{ virtualenv_vars.MAIN_DIR }}/tests/fixtures/dict/{{ base_vars.LANGUAGE_ID }}.dic"
